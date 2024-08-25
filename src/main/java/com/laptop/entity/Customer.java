@@ -19,10 +19,11 @@ public class Customer {
     private String password;
     private String address;
     private String phone;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch =
+            FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
-    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     @JoinColumn(name = "wishlist_id")
     private Wishlist wishlist;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")

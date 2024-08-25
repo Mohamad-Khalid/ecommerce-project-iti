@@ -13,7 +13,7 @@ public class Product {
     private Integer id;
     private String name;
     private int price;
-    @OneToOne(cascade = CascadeType.REMOVE , fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST} , fetch = FetchType.LAZY)
     private ProductDescription description;
     private int stock;
     private String image;
