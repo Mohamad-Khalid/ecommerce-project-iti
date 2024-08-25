@@ -20,7 +20,7 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.REMOVE})
     private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne

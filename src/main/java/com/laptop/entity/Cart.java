@@ -11,11 +11,12 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.REMOVE})
     private Set<CartHasProduct> cartHasProducts = new HashSet<>();
 
     public Integer getId() {
         return id;
+
     }
 
     public Set<CartHasProduct> getCartHasProducts() {
