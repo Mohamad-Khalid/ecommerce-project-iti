@@ -13,19 +13,20 @@ public class Coupon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "coupon")
+    @Column(name = "coupon", nullable = false, unique = true)
     private String coupon;
 
-    @Column(name = "limit_payment")
+    @Column(name = "limit_payment", nullable = false)
     private int limitPayment;
 
+    @Column(name = "percentage", nullable = false)
     private int percentage;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
