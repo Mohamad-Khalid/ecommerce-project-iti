@@ -17,6 +17,7 @@ public class CartHasProduct {
     @JoinColumn(name = "cart_id", insertable = false, updatable = false)
     private Cart cart;
 
+    @Column(nullable = false)
     private int quantity;
 
     public CartHasProduct() {

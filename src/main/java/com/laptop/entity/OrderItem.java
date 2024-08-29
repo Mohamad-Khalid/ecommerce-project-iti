@@ -17,10 +17,10 @@ public class OrderItem {
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order;
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "current_price")
+    @Column(name = "current_price", nullable = false)
     private int currentPrice;
 
     public OrderItem() {

@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Embeddable
 public class OrderItemID implements Serializable {
 
-    @Column(name = "order_id")
+    @Column(name = "order_id",nullable = false)
     private Integer orderId;
 
-    @Column(name = "product_id")
+    @Column(name = "product_id",nullable = false)
     private Integer productId;
 
     public OrderItemID() {

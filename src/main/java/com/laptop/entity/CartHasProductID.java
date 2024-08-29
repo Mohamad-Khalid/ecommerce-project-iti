@@ -8,10 +8,10 @@ import java.io.Serializable;
 @Embeddable
 public class CartHasProductID implements Serializable {
 
-    @Column(name = "product_id")
+    @Column(name = "product_id",nullable = false)
     private Integer productId;
 
-    @Column(name = "cart_id")
+    @Column(name = "cart_id",nullable = false)
     private Integer cartId;
 
     public CartHasProductID() {

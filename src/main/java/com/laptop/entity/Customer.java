@@ -11,21 +11,23 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
     private String address;
     private String phone;
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch =
             FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "cart_id", nullable = false)
+    private Cart cart = new Cart();
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishlist_id")
-    private Wishlist wishlist;
+    @JoinColumn(name = "wishlist_id", nullable = false)
+    private Wishlist wishlist = new Wishlist();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<Order> orders = new HashSet<>();
     boolean active;

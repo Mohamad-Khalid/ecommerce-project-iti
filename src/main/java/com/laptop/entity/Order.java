@@ -28,7 +28,7 @@ public class Order {
     private Coupon coupon;
 
 
-    @Column(name = "total_price")
+    @Column(name = "total_price", nullable = false)
     private int totalPrice;
 
     public Order() {}

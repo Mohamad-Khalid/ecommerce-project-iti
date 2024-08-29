@@ -11,27 +11,46 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private int price;
-    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST} , fetch = FetchType.LAZY)
-    private ProductDescription description;
+
+    @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch =
+            FetchType.LAZY)
+    private ProductSpecs specs;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
     private int stock;
+
     private String image;
-    @Column(name = "barnd_name")
+
+    @Column(name = "brand_name", nullable = false)
     private String brandName;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Category category;
+
     @OneToMany(mappedBy = "product")
     private Set<OrderItem> orderItems = new HashSet<>();
+
     @OneToMany(mappedBy = "product")
     private Set<CartHasProduct> cartHasProducts = new HashSet<>();
+
     @ManyToMany
     @JoinTable(name = "wishlist_has_product", joinColumns = @JoinColumn(name
-            = "wishlist_id"),inverseJoinColumns = @JoinColumn(name =
+            = "wishlist_id"), inverseJoinColumns = @JoinColumn(name =
             "product_id"))
     private Set<Wishlist> wishlists = new HashSet<>();
 
-    public Product() {}
+    public Product() {
+    }
 
     public Integer getId() {
         return id;
@@ -53,12 +72,20 @@ public class Product {
         this.price = price;
     }
 
-    public ProductDescription getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(ProductDescription description) {
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ProductSpecs getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(ProductSpecs specs) {
+        this.specs = specs;
     }
 
     public int getStock() {
@@ -93,28 +120,28 @@ public class Product {
         this.category = category;
     }
 
-    public Set<OrderItem> getOrderItem() {
+    public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItem(Set<OrderItem> orderItem) {
-        this.orderItems = orderItem;
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
-    public Set<CartHasProduct> getCartHasProduct() {
+    public Set<CartHasProduct> getCartHasProducts() {
         return cartHasProducts;
     }
 
-    public void setCartHasProduct(Set<CartHasProduct> cartHasProduct) {
-        this.cartHasProducts = cartHasProduct;
+    public void setCartHasProducts(Set<CartHasProduct> cartHasProducts) {
+        this.cartHasProducts = cartHasProducts;
     }
 
-    public Set<Wishlist> getWishlist() {
+    public Set<Wishlist> getWishlists() {
         return wishlists;
     }
 
-    public void setWishlist(Set<Wishlist> wishlist) {
-        this.wishlists = wishlist;
+    public void setWishlists(Set<Wishlist> wishlists) {
+        this.wishlists = wishlists;
     }
 
     @Override
