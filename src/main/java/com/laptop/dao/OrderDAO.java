@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class OrderDAO extends GenericDAO<Order,Integer> {
     public OrderDAO(EntityManager em) {
-        super(Order.class, em);
+        super(em);
     }
 
     public List<Order> find(Map<String,Object> map, int page, int size) {

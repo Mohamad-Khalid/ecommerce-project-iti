@@ -6,6 +6,6 @@ import jakarta.persistence.EntityManager;
 
 public class OrderItemDAO extends GenericDAO<OrderItem, OrderItemID> {
     public OrderItemDAO(EntityManager em) {
-        super(OrderItem.class, em);
+        super(em);
     }
 }

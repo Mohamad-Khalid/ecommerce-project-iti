@@ -3,14 +3,19 @@ package com.laptop.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class GenericDAO <T, K> implements DAO <T, K>{
     protected EntityManager em;
     private final Class<T> entityClass;
-    public GenericDAO(Class<T> entityClass, EntityManager em) {
+    public GenericDAO(EntityManager em) {
         this.em = em;
-        this.entityClass = entityClass;
+        Type genericSuperClass = getClass().getGenericSuperclass();
+        ParameterizedType parameterizedType = (ParameterizedType) genericSuperClass;
+        this.entityClass =
+                (Class < T >)parameterizedType.getActualTypeArguments()[0];
     }
     @Override
     public T findById(K id) {

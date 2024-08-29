@@ -5,6 +5,6 @@ import jakarta.persistence.EntityManager;
 
 public class CouponDAO extends GenericDAO<Coupon, Integer> {
     public CouponDAO(EntityManager em) {
-        super(Coupon.class, em);
+        super(em);
     }
 }

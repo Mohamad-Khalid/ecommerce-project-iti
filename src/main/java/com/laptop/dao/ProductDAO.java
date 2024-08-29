@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ProductDAO extends GenericDAO<Product,Integer>{
     public ProductDAO(EntityManager em) {
-        super(Product.class, em);
+        super(em);
     }
 
     public List<Product> findByCategory(String name) {

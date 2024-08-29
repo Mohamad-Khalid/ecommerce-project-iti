@@ -7,7 +7,7 @@ import jakarta.persistence.TypedQuery;
 public class CustomerDAO extends GenericDAO<Customer, Integer> {
 
     public CustomerDAO(EntityManager em) {
-        super(Customer.class, em);
+        super(em);
     }
 
     public Customer findCustomerByEmail(String email) {
