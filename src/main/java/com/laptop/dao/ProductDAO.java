@@ -2,6 +2,8 @@ package com.laptop.dao;
 
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -10,9 +12,9 @@ import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Map;
 
-public class ProductDAOImpl extends GenericDAO<Product,Integer>{
-    public ProductDAOImpl(Class entityClass) {
-        super(entityClass);
+public class ProductDAO extends GenericDAO<Product,Integer>{
+    public ProductDAO(EntityManager em) {
+        super(Product.class, em);
     }
 
     public List<Product> findByCategory(String name) {
@@ -20,13 +22,16 @@ public class ProductDAOImpl extends GenericDAO<Product,Integer>{
         return query.getResultList();
     }
 
-    public List<Product> findByFilter(Map<String, Object> filter) {
+    public List<Product> findByFilter(Map<String, Object> filter, int page,
+                                      int size) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
         Root<Product> product = cq.from(Product.class);
 
         if(filter.containsKey("processor")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get("processor"), (String)filter.get("processor")));
+            cq.where(cb.equal(product.<ProductSpecs>get("description").get(
+                    "processor"),
+                    (String)filter.get("processor")));
         }
         if(filter.containsKey("memory")){
             cq.where(cb.equal(product.<ProductSpecs>get("description").<Integer>get("memory"), (Integer)filter.get("memory")));
@@ -49,7 +54,10 @@ public class ProductDAOImpl extends GenericDAO<Product,Integer>{
         if(filter.containsKey("weight")){
             cq.where(cb.equal(product.<ProductSpecs>get("description").<Double>get("weight"), (Double)filter.get("weight")));
         }
-        return em.createQuery(cq).getResultList();
+        Query query =  em.createQuery(cq);
+        query.setFirstResult((page - 1) * size);
+        query.setMaxResults(size);
+        return query.getResultList();
     }
 
 }

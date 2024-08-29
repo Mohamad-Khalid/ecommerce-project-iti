@@ -1,12 +1,13 @@
 package com.laptop.dao;
 import com.laptop.entity.Customer;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 public class CustomerDAO extends GenericDAO<Customer, Integer> {
 
-    public CustomerDAO(Class<Customer> entityClass) {
-        super(entityClass);
+    public CustomerDAO(EntityManager em) {
+        super(Customer.class, em);
     }
 
     public Customer findCustomerByEmail(String email) {

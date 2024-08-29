@@ -1,11 +1,13 @@
 package com.laptop.dao;
 
 import com.laptop.entity.Admin;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 public class AdminDAO extends GenericDAO<Admin, Integer> {
-    public AdminDAO(Class<Admin> entityClass) {
-        super(entityClass);
+    public AdminDAO(EntityManager em)
+    {
+        super(Admin.class, em);
     }
 
     public Admin findAdminByEmail(String email) {
