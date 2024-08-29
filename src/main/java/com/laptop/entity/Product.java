@@ -45,8 +45,8 @@ public class Product {
 
     @ManyToMany
     @JoinTable(name = "wishlist_has_product", joinColumns = @JoinColumn(name
-            = "wishlist_id"), inverseJoinColumns = @JoinColumn(name =
-            "product_id"))
+            = "product_id"), inverseJoinColumns = @JoinColumn(name =
+            "wishlist_id"))
     private Set<Wishlist> wishlists = new HashSet<>();
 
     public Product() {

@@ -1,17 +1,15 @@
 package com.laptop.dao;
 
-import com.laptop.config.EntityManagerFactoryProvider;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 
 import java.util.List;
 
 public class GenericDAO <T, K> implements DAO <T, K>{
     protected EntityManager em;
     private final Class<T> entityClass;
-    public GenericDAO(Class<T> entityClass) {
-        EntityManagerFactory emf = EntityManagerFactoryProvider.create();
-        em = emf.createEntityManager();
+    public GenericDAO(Class<T> entityClass, EntityManager em) {
+        this.em = em;
         this.entityClass = entityClass;
     }
     @Override
@@ -21,8 +19,12 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     }
 
     @Override
-    public List<T> findAll() {
-        return em.createQuery("select e from " + entityClass.getSimpleName() + " e", entityClass).getResultList();
+    public List<T> findAll(int page, int size) {
+        Query query =
+                em.createQuery("select e from " + entityClass.getSimpleName() + " e", entityClass);
+        query.setFirstResult((page - 1)* size);
+        query.setMaxResults(size);
+        return query.getResultList();
     }
 
     @Override
