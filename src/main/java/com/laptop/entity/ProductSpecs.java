@@ -25,24 +25,13 @@ public class ProductSpecs {
     @Column(name = "os")
     private String os;
     private double weight;
-    public ProductSpecs() {}
 
-    public ProductSpecs(String processor, int memory, String storage,
-                        String graphicsCard, String displaySize,
-                        int batteryLife, String os, double weight) {
-        this.processor = processor;
-        this.memory = memory;
-        this.storage = storage;
-        this.graphicsCard = graphicsCard;
-        this.displaySize = displaySize;
-        this.batteryLife = batteryLife;
-        this.os = os;
-        this.weight = weight;
-    }
+    public ProductSpecs() {}
 
     public Integer getId() {
         return id;
     }
+
     public String getProcessor() {
         return processor;
     }
