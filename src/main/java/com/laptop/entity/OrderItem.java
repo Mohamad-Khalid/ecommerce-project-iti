@@ -1,9 +1,15 @@
 package com.laptop.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderItem {
 
     @EmbeddedId
@@ -23,45 +29,4 @@ public class OrderItem {
     @Column(name = "current_price", nullable = false)
     private int currentPrice;
 
-    public OrderItem() {
-    }
-
-    public OrderItem(Product product, Order order, int quantity, int currentPrice) {
-        this.product = product;
-        this.order = order;
-        this.quantity = quantity;
-        this.currentPrice = currentPrice;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public int getCurrentPrice() {
-        return currentPrice;
-    }
-
-    public void setCurrentPrice(int currentPrice) {
-        this.currentPrice = currentPrice;
-    }
 }
