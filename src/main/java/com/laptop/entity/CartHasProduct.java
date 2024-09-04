@@ -1,9 +1,15 @@
 package com.laptop.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "cart_has_product")
+@Getter
+@Setter
+@NoArgsConstructor
 public class CartHasProduct {
 
     @EmbeddedId
@@ -19,46 +25,4 @@ public class CartHasProduct {
 
     @Column(nullable = false)
     private int quantity;
-
-    public CartHasProduct() {
-    }
-
-    public CartHasProduct(CartHasProductID cartHasProductID, Product product, Cart cart, int quantity) {
-        this.cartHasProductID = cartHasProductID;
-        this.product = product;
-        this.cart = cart;
-        this.quantity = quantity;
-    }
-
-    public CartHasProductID getCartHasProductID() {
-        return cartHasProductID;
-    }
-
-    public void setCartHasProductID(CartHasProductID cartHasProductID) {
-        this.cartHasProductID = cartHasProductID;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

@@ -1,12 +1,18 @@
 package com.laptop.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "wishlist")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +22,4 @@ public class Wishlist {
             = "wishlist_id"),inverseJoinColumns = @JoinColumn(name =
             "product_id"))
     private Set<Product> products = new HashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
-        this.products = products;
-    }
 }

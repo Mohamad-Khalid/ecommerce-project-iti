@@ -29,30 +29,30 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         Root<Product> product = cq.from(Product.class);
 
         if(filter.containsKey("processor")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get(
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").get(
                     "processor"),
                     (String)filter.get("processor")));
         }
         if(filter.containsKey("memory")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").<Integer>get("memory"), (Integer)filter.get("memory")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("memory"), (Integer)filter.get("memory")));
         }
         if(filter.containsKey("storage")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get("storage"), (String)filter.get("storage")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("storage"), (String)filter.get("storage")));
         }
         if(filter.containsKey("graphicsCard")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get("graphicsCard"), (String)filter.get("graphicsCard")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("graphicsCard"), (String)filter.get("graphicsCard")));
         }
         if(filter.containsKey("displaySize")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get("displaySize"), (String)filter.get("displaySize")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("displaySize"), (String)filter.get("displaySize")));
         }
         if(filter.containsKey("batteryLife")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").<Integer>get("batteryLife"), (Integer)filter.get("batteryLife")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("batteryLife"), (Integer)filter.get("batteryLife")));
         }
         if(filter.containsKey("os")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").get("os"), (String)filter.get("os")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("os"), (String)filter.get("os")));
         }
         if(filter.containsKey("weight")){
-            cq.where(cb.equal(product.<ProductSpecs>get("description").<Double>get("weight"), (Double)filter.get("weight")));
+            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Double>get("weight"), (Double)filter.get("weight")));
         }
         Query query =  em.createQuery(cq);
         query.setFirstResult((page - 1) * size);
