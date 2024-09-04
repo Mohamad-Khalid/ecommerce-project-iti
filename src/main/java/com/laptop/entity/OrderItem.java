@@ -7,20 +7,20 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "order_item")
+@IdClass(OrderItemID.class)
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderItem {
 
-    @EmbeddedId
-    OrderItemID id;
-
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    @Id
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    @Id
     private Order order;
 
     @Column(name = "quantity", nullable = false)
