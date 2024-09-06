@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductDAO extends GenericDAO<Product,Integer>{
-    public ProductDAO(EntityManager em) {
-        super(em);
+    public ProductDAO() {
+        super();
     }
 
     public List<Product> findByCategory(String name) {

@@ -3,6 +3,7 @@ package com.laptop.dao;
 import com.laptop.entity.Category;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -42,7 +43,8 @@ public class ProductDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
-        productDAO = new ProductDAO(entityManager);
+        EntityManagerProvider.setEntityManager(entityManager);
+        productDAO = new ProductDAO();
     }
 
     @BeforeEach

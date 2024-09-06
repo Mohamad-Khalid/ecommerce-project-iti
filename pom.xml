@@ -5,7 +5,7 @@
   <groupId>com.laptop</groupId>
   <artifactId>EcommerceApplication</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
 
   <name>EcommerceApplication</name>
   <url>http://maven.apache.org</url>
@@ -17,6 +17,38 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>11.0.0-M4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!--    Bcrypt    -->
+    <dependency>
+      <groupId>de.svenkubiak</groupId>
+      <artifactId>jBCrypt</artifactId>
+      <version>0.4.3</version>
+    </dependency>
+
+    <!--    JWT   -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>0.11.5</version>
+    </dependency>
+    <!--    JWT   -->
 
     <dependency>
       <groupId>com.mysql</groupId>
@@ -69,6 +101,28 @@
 
   <build>
     <plugins>
+
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <username>admin</username>
+          <password>admin</password>
+          <url>http://localhost:8081/manager/text</url>
+          <path>/ecommerce</path>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

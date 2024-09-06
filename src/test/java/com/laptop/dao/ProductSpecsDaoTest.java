@@ -2,6 +2,7 @@ package com.laptop.dao;
 
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -30,7 +31,8 @@ public class ProductSpecsDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
-        productSpecsDao = new ProductSpecsDAO(entityManager);
+        EntityManagerProvider.setEntityManager(entityManager);
+        productSpecsDao = new ProductSpecsDAO();
 
         specs1.setProcessor("Intel Core i7-12700H");
         specs1.setMemory(16);
