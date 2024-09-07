@@ -1,6 +1,7 @@
 package com.laptop.dao;
 
 import com.laptop.entity.Category;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -28,6 +29,7 @@ public class CategoryDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
+        EntityManagerProvider.setEntityManager(entityManager);
         categoryDAO = new CategoryDAO();
 
         c1 = new Category();
