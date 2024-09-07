@@ -5,7 +5,7 @@ import com.laptop.entity.CartHasProductID;
 import jakarta.persistence.EntityManager;
 
 public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProductID> {
-    public CartHasProductDAO(EntityManager em) {
-        super(em);
+    public CartHasProductDAO() {
+        super();
     }
 }

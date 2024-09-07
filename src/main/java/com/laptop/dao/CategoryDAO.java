@@ -5,8 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 public class CategoryDAO extends GenericDAO<Category, Integer> {
-    public CategoryDAO(EntityManager em) {
-        super(em);
+    public CategoryDAO() {
+        super();
     }
 
     public Category findByName(String name) {

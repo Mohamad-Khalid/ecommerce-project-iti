@@ -6,8 +6,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
 public class CouponDAO extends GenericDAO<Coupon, Integer> {
-    public CouponDAO(EntityManager em) {
-        super(em);
+    public CouponDAO() {
+        super();
     }
 
     public Coupon findByName(String name) {

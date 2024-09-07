@@ -3,6 +3,7 @@ package com.laptop.dao;
 import com.laptop.entity.Category;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -15,8 +16,6 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ProductDaoTest {
     EntityManager entityManager;
@@ -30,7 +29,8 @@ public class ProductDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
-        productDAO = new ProductDAO(entityManager);
+        EntityManagerProvider.setEntityManager(entityManager);
+        productDAO = new ProductDAO();
 
         p1 = new Product();
         p2 = new Product();
@@ -69,6 +69,7 @@ public class ProductDaoTest {
         p3.setImage("lenovo_ideapad_gaming_3.jpg");
         p3.setBrandName("Lenovo");
 
+
         p4.setName("Apple MacBook Air M2");
         p4.setPrice(1299);
         p4.setDescription("A lightweight and efficient laptop for everyday tasks.");
@@ -82,6 +83,7 @@ public class ProductDaoTest {
         p5.setStock(10);
         p5.setImage("macbook_pro_16.jpg");
         p5.setBrandName("Apple");
+
 
         specs1.setProcessor("Intel Core i7-12700H");
         specs1.setMemory(16);

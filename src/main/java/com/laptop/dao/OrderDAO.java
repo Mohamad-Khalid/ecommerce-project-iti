@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderDAO extends GenericDAO<Order,Integer> {
-    public OrderDAO(EntityManager em) {
-        super(em);
+    public OrderDAO() {
+        super();
     }
 
     public List<Order> find(Map<String,Object> map, int page, int size) {
