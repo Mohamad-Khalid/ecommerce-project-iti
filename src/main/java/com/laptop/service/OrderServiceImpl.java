@@ -15,9 +15,9 @@ import java.util.Set;
 
 public class OrderServiceImpl implements OrderService {
     private EntityManager entityManager;
-    private final OrderDAO orderDAO = new OrderDAO(entityManager);
-    private final ProductDAO productDAO = new ProductDAO(entityManager);
-    private final CouponDAO couponDAO = new CouponDAO(entityManager);
+    private final OrderDAO orderDAO = new OrderDAO();
+    private final ProductDAO productDAO = new ProductDAO();
+    private final CouponDAO couponDAO = new CouponDAO();
 
 
 

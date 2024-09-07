@@ -28,7 +28,7 @@ public class CustomerDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
-        customerDAO = new CustomerDAO(entityManager);
+        customerDAO = new CustomerDAO();
 
         c1 = new Customer();
         c2 = new Customer();
