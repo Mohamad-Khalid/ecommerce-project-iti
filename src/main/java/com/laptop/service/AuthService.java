@@ -75,8 +75,8 @@ public class AuthService {
                 // EntityManager em2 = emf.createEntityManager();
                 // TokenDAO tokenDAO = new TokenDAO(em2);
                 // tokenDAO.save(token);
-
-                String token = JwtService.generate(customer.getEmail());
+                String token = JwtService.generate(customer.getId(),
+                        "CUSTOMER");
                 System.out.println(token);
 
                 return token;
