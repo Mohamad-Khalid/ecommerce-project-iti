@@ -15,4 +15,18 @@
     <listener>
         <listener-class>com.laptop.listener.RequestListener</listener-class>
     </listener>
+
+<!--    filters     -->
+    <filter-mapping>
+        <filter-name>uriFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>adminAuthFilter</filter-name>
+        <url-pattern>/dashboard/*</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -13,15 +13,15 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
     private static final String SECRET_KEY = "396e5674627033673968724355774777703864586b4a466e69636a3146574944";
 
-    public static String generate(String email) {
-        System.out.println(email);
+    public static String generate(Integer id, String role) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date expire = calendar.getTime();
         return Jwts.builder().setIssuedAt(new Date())
                 .setExpiration(expire)
-                .setSubject(email)
+                .setSubject(role)
+                .setId(String.valueOf(id))
                 .signWith(getKey(),
                         SignatureAlgorithm.HS256)
                 .compact();
@@ -31,8 +31,17 @@ public class JwtService {
         return extractExpiryDate(token).after(new Date());
     }
 
-    public static String extractEmail(String token) {
+    public static String extractRole(String token) {
         return extractAllClaims(token).getSubject();
+    }
+
+    public static Integer extractId(String token) {
+        try{
+            return Integer.parseInt(extractAllClaims(token).getId());
+        }
+        catch (NumberFormatException ex){
+            return null;
+        }
     }
 
     private static Date extractExpiryDate(String token) {

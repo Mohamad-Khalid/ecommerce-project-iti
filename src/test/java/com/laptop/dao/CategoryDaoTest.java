@@ -28,7 +28,7 @@ public class CategoryDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
-        categoryDAO = new CategoryDAO(entityManager);
+        categoryDAO = new CategoryDAO();
 
         c1 = new Category();
         c2 = new Category();
