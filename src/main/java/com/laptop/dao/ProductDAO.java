@@ -60,4 +60,10 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         return query.getResultList();
     }
 
+    public boolean deleteById(int id) {
+        int num =
+                em.createQuery("delete from Product p where p.id = :id").setParameter("id",id).executeUpdate();
+        return num == 1;
+    }
+
 }
