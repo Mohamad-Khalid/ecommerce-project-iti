@@ -1,6 +1,7 @@
 package com.laptop.dao;
 
 import com.laptop.entity.*;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -20,7 +21,8 @@ public class OrderItemDaoTest {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(
                 "test");
         EntityManager em = emf.createEntityManager();
-        orderItemDAO = new OrderItemDAO(em);
+        EntityManagerProvider.setEntityManager(em);
+        orderItemDAO = new OrderItemDAO();
 
         category = new Category();
         category.setName("Gaming");

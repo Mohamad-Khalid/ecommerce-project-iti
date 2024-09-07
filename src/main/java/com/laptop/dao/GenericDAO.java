@@ -1,5 +1,6 @@
 package com.laptop.dao;
 
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -10,8 +11,8 @@ import java.util.List;
 public class GenericDAO <T, K> implements DAO <T, K>{
     protected EntityManager em;
     private final Class<T> entityClass;
-    public GenericDAO(EntityManager em) {
-        this.em = em;
+    public GenericDAO() {
+        this.em = EntityManagerProvider.getEntityManager();
         Type genericSuperClass = getClass().getGenericSuperclass();
         ParameterizedType parameterizedType = (ParameterizedType) genericSuperClass;
         this.entityClass =
@@ -35,9 +36,9 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     @Override
     public T save(T t) {
         em.getTransaction().begin();
-        T entity = em.merge(t);
+        em.persist(t);
         em.getTransaction().commit();
-        return entity;
+        return t;
     }
 
     @Override

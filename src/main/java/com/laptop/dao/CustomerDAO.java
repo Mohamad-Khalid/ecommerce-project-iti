@@ -8,8 +8,8 @@ import java.util.List;
 
 public class CustomerDAO extends GenericDAO<Customer, Integer> {
 
-    public CustomerDAO(EntityManager em) {
-        super(em);
+    public CustomerDAO() {
+        super();
     }
 
     public Customer findCustomerByEmail(String email) {

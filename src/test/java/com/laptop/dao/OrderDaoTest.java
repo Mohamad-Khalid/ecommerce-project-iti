@@ -1,6 +1,7 @@
 package com.laptop.dao;
 
 import com.laptop.entity.Order;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,8 @@ public class OrderDaoTest {
     void setUp() {
         EntityManager entityManager = Persistence.createEntityManagerFactory(
                 "test").createEntityManager();
-        orderDAO = new OrderDAO(entityManager);
+        EntityManagerProvider.setEntityManager(entityManager);
+        orderDAO = new OrderDAO();
     }
 
     @Test
