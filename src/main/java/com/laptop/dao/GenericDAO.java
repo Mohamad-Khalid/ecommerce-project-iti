@@ -19,7 +19,6 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     }
     @Override
     public T findById(K id) {
-
         return em.find(entityClass, id);
     }
 
@@ -35,9 +34,9 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     @Override
     public T save(T t) {
         em.getTransaction().begin();
-        T entity = em.merge(t);
+        em.persist(t);
         em.getTransaction().commit();
-        return entity;
+        return t;
     }
 
     @Override

@@ -40,6 +40,9 @@ public class OrderDAO extends GenericDAO<Order,Integer> {
             cq.where(cb.lessThanOrEqualTo(root.<Integer>get("totalPrice"),
                     (Integer) map.get("max_price")));
         }
+        if (map.containsKey("state")) {
+            cq.where(cb.equal(root.<String>get("state"), (String)map.get("state")));
+        }
         Query query = em.createQuery(cq);
         query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);

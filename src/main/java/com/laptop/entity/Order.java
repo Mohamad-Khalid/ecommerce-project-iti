@@ -1,5 +1,6 @@
 package com.laptop.entity;
 
+import com.laptop.enums.OrderState;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +34,11 @@ public class Order {
     @JoinColumn(name = "coupon_id")
     private Coupon coupon;
 
-
     @Column(name = "total_price", nullable = false)
     private int totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    private OrderState state;
 
     @Override
     public String toString() {

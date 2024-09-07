@@ -13,7 +13,7 @@ public class AdminDAO extends GenericDAO<Admin, Integer> {
         try {
             TypedQuery<Admin> query = em.createQuery("SELECT a FROM Admin a WHERE a.email = :email", Admin.class);
             query.setParameter("email", email);
-            return query.getResultList().get(0);
+            return query.getSingleResult();
         } catch (Exception e) {
             return null;
         }

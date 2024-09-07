@@ -3,6 +3,7 @@ package com.laptop.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Customer {
     private String lastName;
     @Column(name = "email", nullable = false, unique = true)
     @Email
+    @NotBlank
     private String email;
     @Column(name = "password", nullable = false)
     private String password;

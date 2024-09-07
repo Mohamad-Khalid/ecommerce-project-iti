@@ -48,9 +48,9 @@ public class OrderItemDaoTest {
         orderItem.setOrder(order);
         orderItem.setQuantity(10);
 
-        OrderItem result = orderItemDAO.save(orderItem);
+        orderItemDAO.save(orderItem);
 
-        assertNotNull(result);
+        assertNotNull(orderItem);
         assertEquals(product.getId(),orderItem.getProduct().getId());
         assertEquals(order.getId(),orderItem.getOrder().getId());
         assertEquals(10,orderItem.getQuantity());

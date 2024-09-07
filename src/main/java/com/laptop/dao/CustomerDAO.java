@@ -16,7 +16,7 @@ public class CustomerDAO extends GenericDAO<Customer, Integer> {
         try {
             TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.email = :email", Customer.class);
             query.setParameter("email", email);
-            return  query.getResultList().get(0);
+            return  query.getSingleResult();
         }
         catch (NoResultException e) {
             return null;
@@ -27,7 +27,7 @@ public class CustomerDAO extends GenericDAO<Customer, Integer> {
         try {
             TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c WHERE c.phone = :phone", Customer.class);
             query.setParameter("phone", phone);
-            return  query.getResultList().get(0);
+            return  query.getSingleResult();
         }
         catch (NoResultException e) {
             return null;
@@ -42,7 +42,7 @@ public class CustomerDAO extends GenericDAO<Customer, Integer> {
            return  query.getResultList();
        }
        catch (NoResultException e) {
-           return null;
+           return List.of();
        }
     }
 

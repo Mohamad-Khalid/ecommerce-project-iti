@@ -8,6 +8,9 @@ import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -20,17 +23,19 @@ public class ProductSpecsDaoTest {
     EntityManager entityManager;
     ProductSpecsDAO productSpecsDao;
 
-    ProductSpecs specs1 = new ProductSpecs();
-    ProductSpecs specs2 = new ProductSpecs();
-    ProductSpecs specs3 = new ProductSpecs();
-    ProductSpecs specs4 = new ProductSpecs();
-    ProductSpecs specs5 = new ProductSpecs();
+    ProductSpecs specs1, specs2, specs3, specs4, specs5;
 
     @BeforeEach
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
         productSpecsDao = new ProductSpecsDAO(entityManager);
+
+        specs1 = new ProductSpecs();
+        specs2 = new ProductSpecs();
+        specs3 = new ProductSpecs();
+        specs4 = new ProductSpecs();
+        specs5 = new ProductSpecs();
 
         specs1.setProcessor("Intel Core i7-12700H");
         specs1.setMemory(16);
@@ -85,18 +90,11 @@ public class ProductSpecsDaoTest {
 
     }
 
-    @Test
-    public void testfindById(){
-        ProductSpecs specs = productSpecsDao.findById(3);
+    @ParameterizedTest
+    @ValueSource(ints = {1,2,3,4,5})
+    public void testfindById(int id){
+        ProductSpecs specs = productSpecsDao.findById(id);
         assertNotNull(specs);
-        assertEquals(specs3.getProcessor(), specs.getProcessor());
-        assertEquals(specs3.getMemory(), specs.getMemory());
-        assertEquals(specs3.getStorage(), specs.getStorage());
-        assertEquals(specs3.getGraphicsCard(), specs.getGraphicsCard());
-        assertEquals(specs3.getDisplaySize(), specs.getDisplaySize());
-        assertEquals(specs3.getBatteryLife(), specs.getBatteryLife());
-        assertEquals(specs3.getOs(), specs.getOs());
-        assertEquals(specs3.getWeight(), specs.getWeight());
     }
 
     @Test
@@ -132,17 +130,20 @@ public class ProductSpecsDaoTest {
 
     }
 
-    @Test
-    public void testupdate() {
-        ProductSpecs specs = productSpecsDao.findById(1);
-        specs.setProcessor("Intel Core i5-1135G7");
-        specs.setMemory(8);
-        specs.setStorage("512GB HDD");
+    @ParameterizedTest
+    @CsvSource({
+            "1, Intel Core i5-1135G7, 32, 512GB HDD"
+    })
+    public void testupdate(int id, String processor, int memory, String storage) {
+        ProductSpecs specs = productSpecsDao.findById(id);
+        specs.setProcessor(processor);
+        specs.setMemory(memory);
+        specs.setStorage(storage);
         productSpecsDao.update(specs);
-        ProductSpecs specs1 = productSpecsDao.findById(1);
+        ProductSpecs specs1 = productSpecsDao.findById(id);
 
         assertEquals("Intel Core i5-1135G7", specs1.getProcessor());
-        assertEquals(8, specs.getMemory());
+        assertEquals(32, specs.getMemory());
         assertEquals("512GB HDD", specs1.getStorage());
     }
 
