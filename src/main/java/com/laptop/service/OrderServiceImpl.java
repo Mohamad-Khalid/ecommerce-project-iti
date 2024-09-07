@@ -1,12 +1,9 @@
 package com.laptop.service;
 
-import com.laptop.dao.CartDAO;
 import com.laptop.dao.CouponDAO;
 import com.laptop.dao.OrderDAO;
-import com.laptop.dao.ProductDAO;
 import com.laptop.entity.*;
 import com.laptop.enums.OrderState;
-import jakarta.persistence.EntityManager;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,15 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 public class OrderServiceImpl implements OrderService {
-    private EntityManager entityManager;
     private final OrderDAO orderDAO = new OrderDAO();
-    private final ProductDAO productDAO = new ProductDAO();
     private final CouponDAO couponDAO = new CouponDAO();
 
-
-
     @Override
-    public void addOrder(Cart cart, String coupon) {
+    public Order addOrder(Cart cart, String coupon) {
         Set<CartHasProduct> cartHasProducts = cart.getCartHasProducts();
         Product product = null;
         boolean flag = false;
@@ -57,9 +50,10 @@ public class OrderServiceImpl implements OrderService {
                 order.setTotalPrice(order.getTotalPrice() - discount);
             }
             order.setState(OrderState.PENDING);
-            orderDAO.save(order);
+            return orderDAO.save(order);
         } else {
             System.out.println("No Enough Stock for " + product.getName());
+            return null;
         }
     }
 
@@ -76,10 +70,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrderState(int id, OrderState state) {
+    public Order updateOrderState(int id, OrderState state) {
         Order order = orderDAO.findById(id);
         order.setState(state);
-        orderDAO.update(order);
+        return orderDAO.update(order);
     }
 
     @Override
