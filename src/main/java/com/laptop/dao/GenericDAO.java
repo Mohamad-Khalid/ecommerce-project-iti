@@ -34,10 +34,15 @@ public class GenericDAO <T, K> implements DAO <T, K>{
 
     @Override
     public T save(T t) {
-        em.getTransaction().begin();
-        em.persist(t);
-        em.getTransaction().commit();
-        return t;
+        try {
+            em.getTransaction().begin();
+            em.persist(t);
+            em.getTransaction().commit();
+            return t;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @Override
@@ -49,9 +54,14 @@ public class GenericDAO <T, K> implements DAO <T, K>{
 
     @Override
     public T update(T t) {
-        em.getTransaction().begin();
-        T entity = em.merge(t);
-        em.getTransaction().commit();
-        return entity;
+        try {
+            em.getTransaction().begin();
+            T entity = em.merge(t);
+            em.getTransaction().commit();
+            return entity;
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }
