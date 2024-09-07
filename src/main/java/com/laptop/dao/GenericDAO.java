@@ -20,7 +20,6 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     }
     @Override
     public T findById(K id) {
-
         return em.find(entityClass, id);
     }
 

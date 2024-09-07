@@ -7,9 +7,7 @@ import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,21 +21,9 @@ public class ProductDaoTest {
     EntityManager entityManager;
     private ProductDAO productDAO;
 
-    Product p1 = new Product();
-    Product p2 = new Product();
-    Product p3 = new Product();
-    Product p4 = new Product();
-    Product p5 = new Product();
-
-    ProductSpecs specs1 = new ProductSpecs();
-    ProductSpecs specs2 = new ProductSpecs();
-    ProductSpecs specs3 = new ProductSpecs();
-    ProductSpecs specs4 = new ProductSpecs();
-    ProductSpecs specs5 = new ProductSpecs();
-
-    Category c1 = new Category();
-    Category c2 = new Category();
-    Category c3 = new Category();
+    Product p1, p2, p3, p4, p5;
+    ProductSpecs specs1, specs2, specs3, specs4, specs5;
+    Category c1, c2, c3;
 
     @BeforeEach
     public void setUp() {
@@ -45,10 +31,23 @@ public class ProductDaoTest {
         entityManager = entityManagerFactory.createEntityManager();
         EntityManagerProvider.setEntityManager(entityManager);
         productDAO = new ProductDAO();
-    }
 
-    @BeforeEach
-    public void setUpTestData() {
+        p1 = new Product();
+        p2 = new Product();
+        p3 = new Product();
+        p4 = new Product();
+        p5 = new Product();
+
+        specs1 = new ProductSpecs();
+        specs2 = new ProductSpecs();
+        specs3 = new ProductSpecs();
+        specs4 = new ProductSpecs();
+        specs5 = new ProductSpecs();
+
+        c1 = new Category();
+        c2 = new Category();
+        c3 = new Category();
+
         p1.setName("Dell XPS 13");
         p1.setPrice(1299);
         p1.setDescription("A sleek and powerful ultrabook for professionals.");
@@ -252,6 +251,8 @@ public class ProductDaoTest {
         List<Product> products = productDAO.findByFilter(filter,1,1);
         assertNotNull(products);
         assertEquals(1, products.size());
+        assertEquals("512GB SSD", products.get(0).getSpecs().getStorage());
+        System.out.println(products.get(0).getSpecs().getStorage());
     }
 
     // Test Find By Filter Given 1 filter should return 2 products
