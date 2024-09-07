@@ -3,6 +3,7 @@ package com.laptop.controller.product;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
 import com.laptop.service.CategoryService;
+import com.laptop.service.CategoryServiceImpl;
 import com.laptop.service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -43,8 +44,8 @@ public class AddProductController extends HttpServlet {
 
         // Now save the product using your service (ProductService assumed here)
         ProductService productService = new ProductService();
-        CategoryService categoryService = new CategoryService();
-        product.setCategory(categoryService.findById(Integer.parseInt(req.getParameter(
+        CategoryService categoryService = new CategoryServiceImpl();
+        product.setCategory(categoryService.getCategoryById(Integer.parseInt(req.getParameter(
                 "category_id"))));
 
         Product saved = productService.save(product);
