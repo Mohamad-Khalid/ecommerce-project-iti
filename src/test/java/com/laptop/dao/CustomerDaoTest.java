@@ -3,6 +3,7 @@ package com.laptop.dao;
 import com.laptop.entity.Cart;
 import com.laptop.entity.Customer;
 import com.laptop.entity.Wishlist;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -28,6 +29,7 @@ public class CustomerDaoTest {
     public void setUp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
+        EntityManagerProvider.setEntityManager(entityManager);
         customerDAO = new CustomerDAO();
 
         c1 = new Customer();
@@ -74,7 +76,6 @@ public class CustomerDaoTest {
         c3.setActive(false);
         c3.setCart(cart3);
         c3.setWishlist(wishlist3);
-        c3.setId(3);
 
         c4.setFirstName("Laila");
         c4.setLastName("Hassan");
@@ -105,7 +106,7 @@ public class CustomerDaoTest {
 
     @Test
     public void testFindById() {
-        Customer customer = customerDAO.findById(c3.getId());
+        Customer customer = customerDAO.findById(3);
         assertNotNull(customer);
         assertEquals(c3.getFirstName(), customer.getFirstName());
         assertEquals(c3.getLastName(), customer.getLastName());
