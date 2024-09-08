@@ -28,6 +28,11 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
         Root<Product> product = cq.from(Product.class);
 
+        if(filter.containsKey("brand")){
+            cq.where(cb.equal(product.<ProductSpecs>get("brandName"),
+                    filter.get("brand")));
+        }
+
         if(filter.containsKey("processor")){
             cq.where(cb.equal(product.<ProductSpecs>get("specs").get(
                     "processor"),
@@ -51,9 +56,16 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         if(filter.containsKey("os")){
             cq.where(cb.equal(product.<ProductSpecs>get("specs").get("os"), (String)filter.get("os")));
         }
-        if(filter.containsKey("weight")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Double>get("weight"), (Double)filter.get("weight")));
+
+        if(filter.containsKey("min-price")){
+            cq.where(cb.greaterThanOrEqualTo(product.<Integer>get("price"),
+                    (Integer)filter.get("min-price")));
         }
+        if(filter.containsKey("max-price")){
+            cq.where(cb.lessThanOrEqualTo(product.<Integer>get("price"),
+                    (Integer)filter.get("max-price")));
+        }
+
         Query query =  em.createQuery(cq);
         query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
