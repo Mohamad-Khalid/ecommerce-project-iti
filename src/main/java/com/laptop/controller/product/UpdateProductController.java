@@ -4,6 +4,7 @@ import com.laptop.entity.Category;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
 import com.laptop.service.CategoryService;
+import com.laptop.service.CategoryServiceImpl;
 import com.laptop.service.ProductService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -42,7 +43,7 @@ public class UpdateProductController extends HttpServlet {
 
             // Create and populate the Product and ProductSpecs objects
             ProductService productService = new ProductService();
-            CategoryService categoryService = new CategoryService();
+            CategoryService categoryService = new CategoryServiceImpl();
             Optional<Product> product =
                     productService.getProductById(productId);
             if(product.isEmpty()){
@@ -58,7 +59,7 @@ public class UpdateProductController extends HttpServlet {
             if (brandName != null) updatedProduct.setBrandName(brandName);
             if (categoryIdStr != null) {
                 Integer categoryId = Integer.parseInt(categoryIdStr);
-                Category category = categoryService.findById(categoryId);
+                Category category = categoryService.getCategoryById(categoryId);
                 updatedProduct.setCategory(category);
             }
 

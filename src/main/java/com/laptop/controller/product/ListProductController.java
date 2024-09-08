@@ -18,6 +18,11 @@ public class ListProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Object> filter = new HashMap<>();
 
+        String brand = req.getParameter("brand");
+        if (brand != null) {
+            filter.put("brand", brand);
+        }
+
         // Processor (String)
         String processor = req.getParameter("processor");
         if (processor != null) {
@@ -69,13 +74,22 @@ public class ListProductController extends HttpServlet {
             filter.put("os", os);
         }
 
-        // Weight (Double)
-        String weightStr = req.getParameter("weight");
-        if (weightStr != null) {
+
+        String minPrice = req.getParameter("min-price");
+        if (minPrice != null) {
             try {
-                filter.put("weight", Double.valueOf(weightStr));
+                filter.put("min-price", Integer.valueOf(minPrice));
             } catch (NumberFormatException e) {
-                // Handle invalid double value for weight
+                // Handle invalid
+            }
+        }
+
+        String maxPrice = req.getParameter("max-price");
+        if (maxPrice != null) {
+            try {
+                filter.put("max-price", Integer.valueOf(maxPrice));
+            } catch (NumberFormatException e) {
+                // Handle invalid
             }
         }
 
