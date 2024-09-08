@@ -2,6 +2,7 @@ package com.laptop.service;
 
 import com.laptop.dao.CouponDAO;
 import com.laptop.entity.Coupon;
+import com.laptop.entity.Order;
 
 import java.util.List;
 
@@ -38,5 +39,12 @@ public class CouponServiceImpl implements CouponService {
     public Coupon findCouponByName(String name) {
         Coupon c = couponDAO.findByName(name);
         return c;
+    }
+
+    @Override
+    public List<Order> getAllOrdersByCouponName(String couponName) {
+        Coupon c = couponDAO.findByName(couponName);
+        List<Order> orders = c.getOrders().stream().toList();
+        return orders;
     }
 }
