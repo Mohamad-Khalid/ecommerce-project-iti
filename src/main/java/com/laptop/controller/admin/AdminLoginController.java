@@ -29,7 +29,7 @@ public class AdminLoginController extends HttpServlet {
                 session.setAttribute("admin-id", admin.getId());
                 Cookie cookie = new Cookie("token", token);
                 resp.addCookie(cookie);
-                resp.sendRedirect("/ecommerce/dashboard/index.html");
+                resp.sendRedirect("/ecommerce/dashboard/index.jsp");
                 return;
             }
 
@@ -39,7 +39,7 @@ public class AdminLoginController extends HttpServlet {
 
             HttpSession session = req.getSession(true);
             session.setAttribute("admin-id", admin.getId());
-            resp.sendRedirect("/ecommerce/dashboard/index.html");
+            resp.sendRedirect("/ecommerce/dashboard/index.jsp");
             return;
 
         }

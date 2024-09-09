@@ -18,7 +18,7 @@ public class CustomerLoginController extends HttpServlet {
         authRequest.setPassword(req.getParameter("password"));
 
         AuthService authService = new AuthService();
-        if(req.getAttribute("rememberMe") != null && req.getAttribute(
+        if(req.getParameter("rememberMe") != null && req.getParameter(
                 "rememberMe").equals("on")) {
             String token = authService.loginWithToken(authRequest);
             if(token != null) {
@@ -29,7 +29,7 @@ public class CustomerLoginController extends HttpServlet {
                 session.setAttribute("customer-id", customer.getId());
                 Cookie cookie = new Cookie("token", token);
                 resp.addCookie(cookie);
-                resp.sendRedirect("/ecommerce/web/index.html");
+                resp.sendRedirect("/ecommerce/web/index.jsp");
                 return ;
             }
 
@@ -40,12 +40,14 @@ public class CustomerLoginController extends HttpServlet {
 
             HttpSession session = req.getSession(true);
             session.setAttribute("customer-id", customer.getId());
-            resp.sendRedirect("/ecommerce/web/index.html");
+            resp.sendRedirect("/ecommerce/web/index.jsp");
             return ;
 
         }
-        System.out.println("#####################");
-        System.out.println("failed");
+        else{
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+
         //return false credentials error
 
     }

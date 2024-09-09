@@ -30,7 +30,6 @@ public class CustomerRegistrationController extends HttpServlet {
         }
 
         CustomerService customerService = new CustomerService();
-        System.out.println("^^^^^^^^&&&&&");
         out.write(customerService.checkEmailAvailability(email).toString());
 
     }
