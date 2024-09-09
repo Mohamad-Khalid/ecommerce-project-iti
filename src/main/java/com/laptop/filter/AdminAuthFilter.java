@@ -45,7 +45,7 @@ public class AdminAuthFilter implements Filter {
             if(pattern.matcher(httpRequest.getRequestURI()).matches()) {
                 String redirect = request.getParameter("redirect");
                 httpResponse.sendRedirect(redirect == null ? "/ecommerce/dashboard" +
-                        "/index.html" : redirect);
+                        "/index.jsp" : redirect);
                 return;
             }
             else {

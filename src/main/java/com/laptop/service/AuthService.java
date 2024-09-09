@@ -4,6 +4,7 @@ import com.laptop.dao.CustomerDAO;
 import com.laptop.dto.AuthRequest;
 import com.laptop.dto.CustomerDTO;
 import com.laptop.dto.RegistrationRequest;
+import com.laptop.dto.UpdatePasswordRequest;
 import com.laptop.entity.Cart;
 import com.laptop.entity.Customer;
 
@@ -60,6 +61,29 @@ public class AuthService {
         customerDTO.setAddress(customer.getAddress());
         return customerDTO;
     }
+
+    public CustomerDTO updatePassword(Customer customer,
+                                      UpdatePasswordRequest request) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<UpdatePasswordRequest>> violations =
+                validator.validate(request);
+
+        if(!violations.isEmpty()){
+            violations.forEach(violation -> System.out.println(violation.getMessage()));
+            return null;
+        }
+        customer.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        Customer saved = customerDAO.save(customer);
+
+        if(saved == null){
+            return null;
+        }
+
+        return new CustomerDTO(saved);
+    }
+
     public String loginWithToken(AuthRequest request) {
         try {
             Customer customer = customerDAO.findCustomerByEmail(request.getEmail());
@@ -108,4 +132,5 @@ public class AuthService {
         }
 
     }
+
 }
