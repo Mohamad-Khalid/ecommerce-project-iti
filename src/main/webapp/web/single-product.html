@@ -39,7 +39,7 @@
 			<nav class="navbar navbar-expand-lg navbar-light main_box">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="../assets/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="index.jsp"><img src="../assets/img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -49,7 +49,7 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
 							<li class="nav-item submenu dropdown active">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
@@ -109,7 +109,7 @@
 				<div class="col-first">
 					<h1>Product Details Page</h1>
 					<nav class="d-flex align-items-center">
-						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
 						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
 						<a href="single-product.html">product-details</a>
 					</nav>
@@ -126,7 +126,7 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
+							<img id = "product-image" class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
 						</div>
 						<div class="single-prd-item">
 							<img class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
@@ -138,15 +138,13 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>Faded SkyBlu Denim Jeans</h3>
-						<h2>$149.99</h2>
+						<h3 id="product-name">Faded SkyBlu Denim Jeans</h3>
+						<h2 id="product-price">$149.99</h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
-							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							<li><a class="active" href="#"><span>Category</span> : <span id="product-category"></span></a></li>
+							<li><a href="#"><span>Availibility</span> : <span id="product-stock"></span></a></li>
 						</ul>
-						<p>Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-							something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-							during the winter.</p>
+						<p id="product-description"></p>
 						<div class="product_count">
 							<label for="qty">Quantity:</label>
 							<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
@@ -199,79 +197,50 @@
 						child’s painting set for her birthday and it was with this that she produced her first significant work, a
 						half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
 						named ‘Hangover’ by Beryl’s husband and</p>
-					<p>It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-						more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-						the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-						more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-						streamlined plan of cooking that is more efficient for one person creating less</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					<div class="table-responsive">
 						<table class="table">
 							<tbody>
 								<tr>
-									<td>
-										<h5>Width</h5>
-									</td>
-									<td>
-										<h5>128mm</h5>
-									</td>
+									<td><h5>Brand</h5></td>
+									<td><h5 id="brand-name"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Height</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
-									</td>
+									<td><h5>Model</h5></td>
+									<td><h5 id="model-name"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
-									</td>
+									<td><h5>Processor</h5></td>
+									<td><h5 id="processor"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Weight</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
-									</td>
+									<td><h5>Memory</h5></td>
+									<td><h5 id="memory"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Quality checking</h5>
-									</td>
-									<td>
-										<h5>yes</h5>
-									</td>
+									<td><h5>Storage</h5></td>
+									<td><h5 id="storage"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Freshness Duration</h5>
-									</td>
-									<td>
-										<h5>03days</h5>
-									</td>
+									<td><h5>Graphics Card</h5></td>
+									<td><h5 id="graphics-card"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>When packeting</h5>
-									</td>
-									<td>
-										<h5>Without touch of hand</h5>
-									</td>
+									<td><h5>Display Size</h5></td>
+									<td><h5 id="display-size"></h5></td>
 								</tr>
 								<tr>
-									<td>
-										<h5>Each Box contains</h5>
-									</td>
-									<td>
-										<h5>60pcs</h5>
-									</td>
+									<td><h5>Battery Life</h5></td>
+									<td><h5 id="battery-life"></h5></td>
+								</tr>
+								<tr>
+									<td><h5>Operating System</h5></td>
+									<td><h5 id="os"></h5></td>
+								</tr>
+								<tr>
+									<td><h5>Weight</h5></td>
+									<td><h5 id="weight"></h5></td>
 								</tr>
 							</tbody>
 						</table>
@@ -723,6 +692,48 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="../assets/js/gmaps.min.js"></script>
 	<script src="../assets/js/main.js"></script>
+	<script>
+		$(document).ready(function(){
+			const url = new URL(window.location.href);
+			const params = new URLSearchParams(url.search);
+			const id = params.get('id');
+			$.getJSON("product"+"?id="+id, populate);
+
+			function populate(data, status, xhr){
+				if(status == "success"){
+
+					$('#product-name').text(data.name);
+					$('#product-price').text("£" + (parseFloat(data.price)/2).toFixed(2));
+					$('#product-description').text(data.description);
+					$('#product-image').attr('src', data.image);
+
+					// Populate specs
+					$('#brand-name').text(data.brandName);
+					$('#model-name').text(data.name);
+					$('#processor').text(data.specs.processor);
+					$('#memory').text(data.specs.memory + ' GB');
+					$('#storage').text(data.specs.storage);
+					$('#graphics-card').text(data.specs.graphicsCard);
+					$('#display-size').text(data.specs.displaySize);
+					$('#battery-life').text(data.specs.batteryLife + ' hours');
+					$('#os').text(data.specs.os);
+					$('#weight').text(data.specs.weight + ' kg');
+
+					// Populate category and stock
+					$('#product-category').text(data.category.categoryName);
+					var num = data.stock;
+					if(data.stock>0){
+						$('product-stock').text("In Stock");
+					}
+					else{
+						$('product-stock').text("Out Of Stock");
+					}
+				}
+			}
+
+		})
+
+	</script>
 
 </body>
 

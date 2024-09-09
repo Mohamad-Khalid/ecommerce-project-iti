@@ -1,22 +1,51 @@
 package com.laptop.listener;
 
+import com.laptop.entity.Product;
+import com.laptop.service.ProductService;
+import com.laptop.util.EntityManagerProvider;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 
-public class ContextListener implements ServletContextListener {
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+public class ContextListener implements ServletContextListener {
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
+        // initialize EntityManagerFactory
+        EntityManagerFactory emf = null;
         try {
-            EntityManagerFactory emf =
+            emf =
                     Persistence.createEntityManagerFactory("web");
             sce.getServletContext().setAttribute("emf", emf);
 
         } catch (Exception ex) {
-            System.out.println(ex);
+            logger.log(Level.SEVERE, ex.getMessage(), ex );
+            throw new RuntimeException(ex);
         }
+
+        //Load products for home page
+        try {
+            EntityManager entityManager = emf.createEntityManager();
+            EntityManagerProvider.setEntityManager(entityManager);
+
+            ProductService productService = new ProductService();
+            List<Product> products = productService.getAllProducts(new HashMap<>(),1,8);
+            sce.getServletContext().setAttribute("homeProducts", products);
+
+            EntityManagerProvider.clearEntityManager();
+        }
+        catch (Exception ex) {
+            logger.log(Level.SEVERE, ex.getMessage(), ex );
+        }
+
     }
 
     @Override
