@@ -2,7 +2,6 @@ package com.laptop.controller.customer;
 
 import com.google.gson.Gson;
 import com.laptop.dto.CustomerDTO;
-import com.laptop.dto.ProductWithSpecsDTO;
 import com.laptop.entity.Customer;
 import com.laptop.service.CustomerService;
 import jakarta.servlet.ServletException;

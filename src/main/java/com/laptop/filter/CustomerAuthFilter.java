@@ -46,7 +46,7 @@ public class CustomerAuthFilter implements Filter {
             if(pattern.matcher(httpRequest.getRequestURI()).matches()) {
                 String redirect = request.getParameter("redirect");
                 httpResponse.sendRedirect(redirect == null ? "/ecommerce/web" +
-                        "/index.html" : redirect);
+                        "/index.jsp" : redirect);
                 return;
             }
             else {
