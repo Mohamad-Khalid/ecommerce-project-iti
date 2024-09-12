@@ -50,12 +50,17 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
 
     public void removeItem(int customerId, int productId){
         CustomerDAO customerDAO = new CustomerDAO();
-        ProductDAO productDAO = new ProductDAO();
         Customer customer = customerDAO.findById(customerId);
-        Product product = productDAO.findById(productId);
-        CartHasProduct cartHasProduct = createCartProduct(customer.getCart(),product);
-
         try {
+            TypedQuery<CartHasProduct> query = em.createQuery(
+                    "SELECT c FROM CartHasProduct c " +
+                            "JOIN c.product p " +
+                            "JOIN c.cart cart " +
+                            "WHERE p.id = :productId AND cart.id = :cartId",
+                    CartHasProduct.class);
+            query.setParameter("productId", productId);
+            query.setParameter("cartId", customer.getCart().getId());
+            CartHasProduct cartHasProduct = query.getSingleResult();
             em.getTransaction().begin();
             em.remove(cartHasProduct);
             em.getTransaction().commit();
@@ -73,7 +78,13 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
             return;
         }
         try {
-            TypedQuery<CartHasProduct> query = em.createQuery("SELECT c FROM CartHasProduct c WHERE c.productId = :productId and c.cartId = :cartId", CartHasProduct.class);
+            //TypedQuery<CartHasProduct> query = em.createQuery("SELECT c FROM CartHasProduct c WHERE c.product.getProductId() = :productId and c.cart.getCartId() = :cartId", CartHasProduct.class);
+            TypedQuery<CartHasProduct> query = em.createQuery(
+                    "SELECT c FROM CartHasProduct c " +
+                            "JOIN c.product p " +
+                            "JOIN c.cart cart " +
+                            "WHERE p.id = :productId AND cart.id = :cartId",
+                    CartHasProduct.class);
             query.setParameter("productId", productId);
             query.setParameter("cartId", customer.getCart().getId());
             CartHasProduct cartHasProduct = query.getSingleResult();

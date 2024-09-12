@@ -9,6 +9,7 @@ import jakarta.persistence.TypedQuery;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collector;
 
 public class CartDAO extends GenericDAO<Cart, Integer> {
     public CartDAO() {
@@ -24,6 +25,9 @@ public class CartDAO extends GenericDAO<Cart, Integer> {
         catch (NoResultException e) {
             return null;
         }
+    }
+    public Set<CartHasProduct> getCartItems(int costumerId){
+        return getCustomerCart(costumerId).getCartHasProducts();
     }
 
     public void emptyCart(int costumerId){
