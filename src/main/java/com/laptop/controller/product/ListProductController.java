@@ -1,22 +1,40 @@
 package com.laptop.controller.product;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.laptop.dto.ProductDTO;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
 import com.laptop.service.ProductService;
+import jakarta.json.Json;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@WebServlet("/web/products")
 public class ListProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Object> filter = new HashMap<>();
+
+        String category = req.getParameter("category");
+        if (category != null) {
+            try{
+                filter.put("category", Integer.parseInt(category));
+            }
+            catch (NumberFormatException e){
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+        }
 
         String brand = req.getParameter("brand");
         if (brand != null) {
@@ -112,6 +130,19 @@ public class ListProductController extends HttpServlet {
         ProductService productService = new ProductService();
         List<Product> products = productService.getAllProducts(filter, page,
                 size);
+        Long count = productService.countAllProducts(filter, page,
+                size);
 
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for(Product product:products){
+            productDTOList.add(new ProductDTO(product));
+        }
+
+        Gson gson = new Gson();
+        resp.setContentType("application/json");
+        JsonObject json = new JsonObject();
+        json.add("data", gson.toJsonTree(productDTOList));
+        json.addProperty("page", (count + size - 1)/size);
+        resp.getWriter().write(json.toString());
     }
 }
