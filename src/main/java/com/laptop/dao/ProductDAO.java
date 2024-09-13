@@ -1,6 +1,7 @@
 package com.laptop.dao;
 
 import com.laptop.entity.Category;
+import com.laptop.entity.Image;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
 import jakarta.persistence.EntityManager;
@@ -32,6 +33,7 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         Root<Product> product = cq.from(Product.class);
 
         List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.equal(product.<Boolean>get("deleted"),false));
 
         if(filter.containsKey("category")){
             predicates.add(cb.equal(product.<Category>get("category").<Integer>get(
@@ -90,6 +92,7 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         Root<Product> product = cq.from(Product.class);
 
         List<Predicate> predicates = new ArrayList<>();
+        predicates.add(cb.equal(product.<Boolean>get("deleted"),false));
 
         if(filter.containsKey("category")){
             predicates.add(cb.equal(product.<Category>get("category").<Integer>get(
@@ -142,9 +145,62 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
 
 
     public boolean deleteById(int id) {
-        int num =
-                em.createQuery("delete from Product p where p.id = :id").setParameter("id",id).executeUpdate();
-        return num == 1;
+        try{
+            Product product = findById(id);
+            em.getTransaction().begin();
+            product.setDeleted(true);
+            em.getTransaction().commit();;
+            return true;
+        }
+        catch (Exception e){
+            em.getTransaction().rollback();
+            return false;
+        }
+    }
+
+    public Product addWithImages(Product product, List<String> imageUrls) {
+        try {
+            em.getTransaction().begin();
+            em.persist(product);
+            for(int i = 1; i < imageUrls.size(); i++){
+                String imageUrl = imageUrls.get(i);
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(product);
+                em.persist(image);
+            }
+            em.getTransaction().commit();
+            return product;
+        }
+        catch (Exception e){
+            em.getTransaction().rollback();
+            return null;
+        }
+
+    }
+
+    public Product updateWithImages(Product product, List<String> imageUrls) {
+        try {
+            em.getTransaction().begin();
+            for(Image image : product.getImages()){
+                em.remove(image);
+            }
+            product = em.merge(product);
+            for(int i = 1; i < imageUrls.size(); i++){
+                String imageUrl = imageUrls.get(i);
+                Image image = new Image();
+                image.setUrl(imageUrl);
+                image.setProduct(product);
+                em.persist(image);
+            }
+            em.getTransaction().commit();
+            return product;
+        }
+        catch (Exception e){
+            em.getTransaction().rollback();
+            return null;
+        }
+
     }
 
 }
