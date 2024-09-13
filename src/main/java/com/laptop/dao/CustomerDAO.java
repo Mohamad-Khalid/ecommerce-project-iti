@@ -46,4 +46,8 @@ public class CustomerDAO extends GenericDAO<Customer, Integer> {
        }
     }
 
+    public Long countAll(){
+        return (Long)em.createQuery("select count(c) from Customer c").getSingleResult();
+    }
+
 }

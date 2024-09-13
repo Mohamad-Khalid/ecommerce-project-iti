@@ -1,9 +1,13 @@
 package com.laptop.dto;
 
+import com.laptop.entity.Image;
 import com.laptop.entity.Product;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,6 +22,7 @@ public class ProductWithSpecsDTO {
     private String brandName;
     private ProductSpecsDTO specs;
     private CategoryDTO category;
+    private List<String> images = new ArrayList<>();
 
     public ProductWithSpecsDTO(Product product) {
         this.id = product.getId();
@@ -29,6 +34,9 @@ public class ProductWithSpecsDTO {
         this.brandName = product.getBrandName();
         this.specs = new ProductSpecsDTO(product.getSpecs());
         this.category = new CategoryDTO(product.getCategory());
+        for(Image image:product.getImages()){
+            images.add(image.getUrl());
+        }
     }
 }
 

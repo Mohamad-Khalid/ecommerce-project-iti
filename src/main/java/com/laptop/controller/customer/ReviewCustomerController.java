@@ -26,8 +26,8 @@ public class ReviewCustomerController extends HttpServlet {
             if(customer != null) {
                 PrintWriter out = resp.getWriter();
                 CustomerDTO customerDTO = new CustomerDTO(customer);
-                Gson gson = new Gson();
-                out.write(gson.toJson(customerDTO, CustomerDTO.class));
+                req.setAttribute("customer",customerDTO);
+                req.getRequestDispatcher("review-customer.jsp").forward(req, resp);
             }
             else{
                 resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
