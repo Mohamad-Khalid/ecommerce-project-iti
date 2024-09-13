@@ -44,6 +44,9 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "product")
+    private Set<Image> images = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
     private Set<OrderItem> orderItems = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
