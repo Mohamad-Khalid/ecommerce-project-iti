@@ -1,5 +1,6 @@
 package com.laptop.dao;
 
+import com.laptop.entity.Category;
 import com.laptop.entity.Product;
 import com.laptop.entity.ProductSpecs;
 import jakarta.persistence.EntityManager;
@@ -7,8 +8,10 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,49 +31,115 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
         Root<Product> product = cq.from(Product.class);
 
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(filter.containsKey("category")){
+            predicates.add(cb.equal(product.<Category>get("category").<Integer>get(
+                            "id"),
+                    (Integer)filter.get("category")));
+        }
+
         if(filter.containsKey("brand")){
-            cq.where(cb.equal(product.<ProductSpecs>get("brandName"),
+            predicates.add(cb.equal(product.<String>get("brandName"),
                     filter.get("brand")));
         }
 
         if(filter.containsKey("processor")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").get(
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get(
                     "processor"),
                     (String)filter.get("processor")));
         }
         if(filter.containsKey("memory")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("memory"), (Integer)filter.get("memory")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("memory"), (Integer)filter.get("memory")));
         }
         if(filter.containsKey("storage")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("storage"), (String)filter.get("storage")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("storage"), (String)filter.get("storage")));
         }
         if(filter.containsKey("graphicsCard")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("graphicsCard"), (String)filter.get("graphicsCard")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("graphicsCard"), (String)filter.get("graphicsCard")));
         }
         if(filter.containsKey("displaySize")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("displaySize"), (String)filter.get("displaySize")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("displaySize"), (String)filter.get("displaySize")));
         }
         if(filter.containsKey("batteryLife")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("batteryLife"), (Integer)filter.get("batteryLife")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("batteryLife"), (Integer)filter.get("batteryLife")));
         }
         if(filter.containsKey("os")){
-            cq.where(cb.equal(product.<ProductSpecs>get("specs").get("os"), (String)filter.get("os")));
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("os"), (String)filter.get("os")));
         }
 
         if(filter.containsKey("min-price")){
-            cq.where(cb.greaterThanOrEqualTo(product.<Integer>get("price"),
+            predicates.add(cb.greaterThanOrEqualTo(product.<Integer>get("price"),
                     (Integer)filter.get("min-price")));
         }
         if(filter.containsKey("max-price")){
-            cq.where(cb.lessThanOrEqualTo(product.<Integer>get("price"),
+            predicates.add(cb.lessThanOrEqualTo(product.<Integer>get("price"),
                     (Integer)filter.get("max-price")));
         }
-
+        cq.where(predicates.toArray(new Predicate[0]));
         Query query =  em.createQuery(cq);
         query.setFirstResult((page - 1) * size);
         query.setMaxResults(size);
         return query.getResultList();
     }
+
+    public Long countByFilter(Map<String, Object> filter, int page,
+                                      int size) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Product> product = cq.from(Product.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(filter.containsKey("category")){
+            predicates.add(cb.equal(product.<Category>get("category").<Integer>get(
+                            "id"),
+                    (Integer)filter.get("category")));
+        }
+
+        if(filter.containsKey("brand")){
+            predicates.add(cb.equal(product.<String>get("brandName"),
+                    filter.get("brand")));
+        }
+
+        if(filter.containsKey("processor")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get(
+                            "processor"),
+                    (String)filter.get("processor")));
+        }
+        if(filter.containsKey("memory")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("memory"), (Integer)filter.get("memory")));
+        }
+        if(filter.containsKey("storage")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("storage"), (String)filter.get("storage")));
+        }
+        if(filter.containsKey("graphicsCard")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("graphicsCard"), (String)filter.get("graphicsCard")));
+        }
+        if(filter.containsKey("displaySize")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("displaySize"), (String)filter.get("displaySize")));
+        }
+        if(filter.containsKey("batteryLife")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").<Integer>get("batteryLife"), (Integer)filter.get("batteryLife")));
+        }
+        if(filter.containsKey("os")){
+            predicates.add(cb.equal(product.<ProductSpecs>get("specs").get("os"), (String)filter.get("os")));
+        }
+
+        if(filter.containsKey("min-price")){
+            predicates.add(cb.greaterThanOrEqualTo(product.<Integer>get("price"),
+                    (Integer)filter.get("min-price")));
+        }
+        if(filter.containsKey("max-price")){
+            predicates.add(cb.lessThanOrEqualTo(product.<Integer>get("price"),
+                    (Integer)filter.get("max-price")));
+        }
+
+        Query query =
+                em.createQuery(cq.select(cb.count(product)).where(cb.and(predicates.toArray(new Predicate[0]))));
+        return (Long) query.getSingleResult();
+    }
+
 
     public boolean deleteById(int id) {
         int num =

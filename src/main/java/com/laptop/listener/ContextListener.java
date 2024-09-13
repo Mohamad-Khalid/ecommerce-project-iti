@@ -3,6 +3,7 @@ package com.laptop.listener;
 import com.laptop.entity.Product;
 import com.laptop.service.ProductService;
 import com.laptop.util.EntityManagerProvider;
+import com.laptop.util.Initializer;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -36,9 +37,8 @@ public class ContextListener implements ServletContextListener {
             EntityManager entityManager = emf.createEntityManager();
             EntityManagerProvider.setEntityManager(entityManager);
 
-            ProductService productService = new ProductService();
-            List<Product> products = productService.getAllProducts(new HashMap<>(),1,8);
-            sce.getServletContext().setAttribute("homeProducts", products);
+            Initializer.setServletContext(sce.getServletContext());
+            Initializer.load();
 
             EntityManagerProvider.clearEntityManager();
         }
