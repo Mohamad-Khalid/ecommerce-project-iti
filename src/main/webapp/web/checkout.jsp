@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -55,7 +57,7 @@
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item active"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
+									<li class="nav-item active"><a class="nav-link" href="checkout.jsp">Product Checkout</a></li>
 									<li class="nav-item"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
@@ -118,18 +120,6 @@
     <!-- End Banner Area -->
 
     <!--================Checkout Area =================-->
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Order Summary</title>
-        <link rel="stylesheet" href="path_to_your_css">
-    </head>
-    <body>
     <section class="checkout_area section_gap">
         <div class="container">
             <div class="billing_details">
@@ -150,28 +140,11 @@
                             </ul>
                             <ul class="list list_2">
                                 <li><a href="#">Subtotal <span>$${order.totalPrice}</span></a></li>
-                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>
+<%--                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>--%>
                                 <li><a href="#">Total <span>$${order.totalPrice + 50}</span></a></li>
                             </ul>
                             <!-- Payment options -->
                             <form action="order" method="post">
-                                <div class="payment_item">
-                                    <div class="radion_btn">
-                                        <input type="radio" id="f-option5" name="paymentMethod" value="check">
-                                        <label for="f-option5">Check payments</label>
-                                        <div class="check"></div>
-                                    </div>
-                                    <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                </div>
-                                <div class="payment_item active">
-                                    <div class="radion_btn">
-                                        <input type="radio" id="f-option6" name="paymentMethod" value="paypal" checked>
-                                        <label for="f-option6">Paypal</label>
-                                        <img src="path_to_your_image/card.jpg" alt="Card">
-                                        <div class="check"></div>
-                                    </div>
-                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                </div>
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option4" name="terms">
                                     <label for="f-option4">I’ve read and accept the </label>
@@ -185,8 +158,6 @@
             </div>
         </div>
     </section>
-    </body>
-    </html>
 
     <!--================End Checkout Area =================-->
 
@@ -210,7 +181,7 @@
                         <p>Stay update with our latest</p>
                         <div class="" id="mc_embed_signup">
 
-                            <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
+                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
                                 method="get" class="form-inline">
 
                                 <div class="d-flex flex-row">
