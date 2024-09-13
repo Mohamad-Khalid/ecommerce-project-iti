@@ -79,7 +79,7 @@ public class UpdateProductController extends HttpServlet {
         productSpecs.setWeight(Double.parseDouble(jsonObject.get("weight").getAsString()));
 
         // Set Product properties from the request
-        product.setId(Integer.parseInt(req.getParameter("id")));
+        product.setId(jsonObject.get("id").getAsInt());
         product.setName(jsonObject.get("name").getAsString());
         product.setPrice(Integer.parseInt(jsonObject.get("price").getAsString()));
         product.setDescription(jsonObject.get("description").getAsString());

@@ -36,6 +36,8 @@ public class Product {
 
     private String image;
 
+    Boolean deleted = false;
+
     @Column(name = "brand_name", nullable = false)
     private String brandName;
 
