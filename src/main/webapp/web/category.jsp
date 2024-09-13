@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -29,7 +30,19 @@
 	<link rel="stylesheet" href="../assets/css/bootstrap.css">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
-
+<style>
+	.img-container{
+		width: 100%;
+		aspect-ratio: 1/1;
+	}
+	@media screen and (min-width: 1200px){
+		.img-container{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+</style>
 <body id="category">
 
 	<!-- Start Header Area -->
@@ -123,47 +136,87 @@
 				<div class="sidebar-categories">
 					<div class="head">Browse Categories</div>
 					<ul class="main-categories">
-						<li class="main-nav-list"><a  href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span>Fruits and Vegetables<span class="number">(53)</span></a>
+<%--						<c:if test="${categoryList != null}">--%>
+<%--							<c:forEach items="${categoryList}" var="category">--%>
+<%--								<li class="main-nav-list">category.getName()<span class="number">(53)</span></a>--%>
+<%--								</li>--%>
+<%--							</c:forEach>--%>
+<%--						</c:if>--%>
+						<li class="main-nav-list">Fruits and Vegetables<span class="number">(53)</span></a>
 						</li>
 					</ul>
 				</div>
 				<div class="sidebar-filter mt-50">
 					<div class="top-filter-head">Product Filters</div>
 					<div class="common-filter">
+						<div class="head">Categories</div>
+						<ul class="main-categories">
+							<c:if test="${categoryList != null}">
+								<c:forEach items="${categoryList}" var="category">
+									<li class="filter-list"><input
+											class="pixel-radio" type="radio" id="category-${category.getId()}"
+											name="category" value="${category.getId()}">
+										<label for="category-${category.getId()}">${category.getName()}</label></li>
+								</c:forEach>
+							</c:if>
+						</ul>
 						<div class="head">Brands</div>
-							<ul>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
-							</ul>
-
-						<div class="head">Color</div>
-							<ul>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">Black
-										Leather<span>(29)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">Black
-										with red<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-								<li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
-							</ul>
-
+						<ul class="main-categories">
+							<c:if test="${brandList != null}">
+								<c:forEach items="${brandList}" var="brand">
+									<li class="filter-list"><input
+											class="pixel-radio" type="radio" id="brand-${brand}"
+											name="brand" value="${brand}">
+										<label for="brand-${brand}">${brand}</label></li>
+								</c:forEach>
+							</c:if>
+						</ul>
+						<div class="head">Processors</div>
+						<ul class="main-categories">
+							<c:if test="${processorList != null}">
+								<c:forEach items="${processorList}" var="processor">
+									<li class="filter-list"><input
+											class="pixel-radio" type="radio" id="processor-${processor}"
+											name="processor" value="${processor}">
+										<label for="processor-${processor}">${processor}</label></li>
+								</c:forEach>
+							</c:if>
+						</ul>
+						<div class="head">Memory</div>
+						<ul class="main-categories">
+							<c:if test="${memoryList != null}">
+								<c:forEach items="${memoryList}" var="memory">
+									<li class="filter-list"><input
+											class="pixel-radio" type="radio" id="memory-${memory}"
+											name="memory" value="${memory}">
+										<label for="memory-${memory}">${memory}</label></li>
+								</c:forEach>
+							</c:if>
+						</ul>
+						<div class="head">Operating System</div>
+						<ul class="main-categories">
+							<c:if test="${osList != null}">
+								<c:forEach items="${osList}" var="os">
+									<li class="filter-list"><input
+											class="pixel-radio" type="radio" id="os-${os}"
+											name="os" value="${os}">
+										<label for="os-${os}">${os}</label></li>
+								</c:forEach>
+							</c:if>
+						</ul>
 							<div class="head">Price</div>
 							<div class="price-range-area">
-								<div id="price-range"></div>
+								<div id="price-range" data-min-price="${minPrice}" data-max-price="${maxPrice}"></div>
 								<div class="value-wrapper d-flex">
 									<div class="price">Price:</div>
-									<span>$</span>
+									<span>&pound;</span>
 									<div id="lower-value"></div>
 									<div class="to">to</div>
-									<span>$</span>
+									<span>&pound;</span>
 									<div id="upper-value"></div>
 								</div>
 							</div>
-						<button onclick="search()" class="click-btn btn btn-default" style="width: 100%">Search</button>
+						<button onclick="filter()" class="click-btn btn btn-default" style="width: 100%">Search</button>
 
 					</div>
 				</div>
@@ -172,254 +225,31 @@
 				<!-- Start Filter Bar -->
 				<div class="filter-bar d-flex flex-wrap align-items-center">
 					<div class="sorting">
-						<select>
+						<select id="">
 							<option value="1">Default sorting</option>
 							<option value="1">Default sorting</option>
 							<option value="1">Default sorting</option>
 						</select>
 					</div>
 					<div class="sorting mr-auto">
-						<select>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
+						<select id="selectPageSize">
+							<option value="12">Show 12</option>
+							<option value="16">Show 16</option>
+							<option value="20">Show 20</option>
 						</select>
 					</div>
-					<div class="pagination">
+					<div class="pagination" id="pagination">
 						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
 						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<!-- End Filter Bar -->
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
-					<div class="row">
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p1.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p2.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p3.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p4.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p5.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- single product -->
-						<div class="col-lg-4 col-md-6">
-							<div class="single-product">
-								<img class="img-fluid" src="../assets/img/product/p6.jpg" alt="">
-								<div class="product-details">
-									<h6>addidas New Hammer sole
-										for Sports person</h6>
-									<div class="price">
-										<h6>$150.00</h6>
-										<h6 class="l-through">$210.00</h6>
-									</div>
-									<div class="prd-bottom">
-
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">add to bag</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">compare</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">view more</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="row" id="productBox">
 					</div>
 				</section>
 				<!-- End Best Seller -->
-				<!-- Start Filter Bar -->
-				<div class="filter-bar d-flex flex-wrap align-items-center">
-					<div class="sorting mr-auto">
-						<select>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
-							<option value="1">Show 12</option>
-						</select>
-					</div>
-					<div class="pagination">
-						<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-						<a href="#" class="active">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-						<a href="#">6</a>
-						<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-					</div>
-				</div>
-				<!-- End Filter Bar -->
 			</div>
 		</div>
 	</div>
@@ -724,6 +554,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="../assets/js/gmaps.min.js"></script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/product-filter.js">
+
+	</script>
 </body>
 
 </html>
