@@ -47,7 +47,7 @@
         </style>
 </head>
 
-<body>
+<body onload="calculateTotalPrice();">
 
     <!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -164,9 +164,6 @@
                                     if( !isNaN( sst ) && sst > 1 ) currentQuantity--;
                                     else return false;
                                 }
-
-
-
                                 // Make the asynchronous request to the server
                                 $.ajax({
                                     url: 'updateQuantity', // Servlet URL
@@ -194,6 +191,23 @@
                                     }
                                 });
                             }
+
+                            function removeItem(itemId, action) {
+                                            // Make the asynchronous request to the server
+                                            $.ajax({
+                                                url: 'deleteCartItem', // Servlet URL
+                                                type: 'POST',
+                                                data: {
+                                                    id: itemId
+                                                },
+                                                success: function(response) {
+                                                    location.reload(true);
+                                                },
+                                                error: function() {
+                                                    alert("Error removing item!");
+                                                }
+                                            });
+                                        }
 
                             function calculateTotalPrice() {
                                     // Select all elements with the class 'item-price'
@@ -238,6 +252,7 @@
                                         <input type="hidden" value="${item.id}">
                                     </div>
                                 </td>
+
                                 <td>
                                     <h5>$${item.price}</h5>
                                 </td>
@@ -257,6 +272,9 @@
                                 </td>-->
                                 <td>
                                     <h5 id = "total-${item.id}" class = "item-price">$${item.price * item.quantity}</h5>
+                                </td>
+                                <td>
+                                    <a class="gray_btn" href="" onclick="event.preventDefault(); removeItem(${item.id});">Remove</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -289,7 +307,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5 id = "total-price" onload="calculateTotalPrice();">$0.00</h5>
+                                    <h5 id = "total-price">$0.00</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
