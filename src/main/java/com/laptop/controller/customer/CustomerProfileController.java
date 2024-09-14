@@ -2,6 +2,7 @@ package com.laptop.controller.customer;
 
 import com.google.gson.Gson;
 import com.laptop.dto.CustomerDTO;
+import com.laptop.dto.ErrorResponse;
 import com.laptop.entity.Customer;
 import com.laptop.service.CustomerService;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @WebServlet("/web/profile")
 public class CustomerProfileController extends HttpServlet {
@@ -55,6 +58,18 @@ public class CustomerProfileController extends HttpServlet {
             }
             if(req.getParameter("phone") != null) {
                 customer.setPhone(req.getParameter("phone"));
+            }
+            if(req.getParameter("job") != null)customer.setJob(req.getParameter("job"));
+            if(req.getParameter("interests") != null)customer.setInterests(req.getParameter("interests"));
+            try {
+                customer.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date")));
+            }
+            catch (ParseException e) {
+                ErrorResponse errorResponse = new ErrorResponse();
+                errorResponse.setMessage("Failed to register");
+                req.setAttribute("errorResponse", errorResponse);
+                return;
+
             }
             try {
                 customerService.update(customer);
