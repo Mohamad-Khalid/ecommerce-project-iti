@@ -19,13 +19,12 @@ public class GetProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
-
+        PrintWriter out = resp.getWriter();
         ProductService productService = new ProductService();
         Optional<Product> product =
                 productService.getProductById(Integer.parseInt(req.getParameter("id")));
 
         if(product.isPresent()) {
-            PrintWriter out = resp.getWriter();
             ProductWithSpecsDTO productDto=
                     new ProductWithSpecsDTO(product.get());
             Gson gson = new Gson();

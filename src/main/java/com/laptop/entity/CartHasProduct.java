@@ -1,6 +1,8 @@
 package com.laptop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,5 +26,6 @@ public class CartHasProduct {
     private Cart cart;
 
     @Column(nullable = false)
+    @Min(1)
     private int quantity;
 }

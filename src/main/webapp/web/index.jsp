@@ -92,7 +92,7 @@
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="checkout.html"
+                      <a class="nav-link" href="checkout.jsp"
                         >Product Checkout</a
                       >
                     </li>

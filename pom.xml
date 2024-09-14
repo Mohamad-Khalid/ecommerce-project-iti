@@ -152,7 +152,7 @@
         <configuration>
           <username>admin</username>
           <password>admin</password>
-          <url>http://localhost:8081/manager/text</url>
+          <url>http://localhost:8080/manager/text</url>
           <path>/ecommerce</path>
         </configuration>
       </plugin>
