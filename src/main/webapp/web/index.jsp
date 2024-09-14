@@ -34,6 +34,19 @@
     <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+      .img-container{
+        width: 100%;
+        aspect-ratio: 1/1;
+      }
+      @media screen and (min-width: 1200px){
+        .img-container{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -430,7 +443,9 @@
               <c:forEach items="${homeProducts}" var="current">
                 <div class="col-lg-3 col-md-6">
                   <div class="single-product">
-                    <img class="img-fluid" src="${current.getImage()}" alt="" />
+                    <div class="img-container">
+                      <img class="img-fluid" src="${current.getImage()}" alt="" />
+                    </div>
                     <div class="product-details">
                       <h6>${current.getName()}</h6>
                       <div class="price">
@@ -482,7 +497,9 @@
               <c:forEach items="${homeProducts2}" var="current">
                 <div class="col-lg-3 col-md-6">
                   <div class="single-product">
-                    <img class="img-fluid" src="${current.getImage()}" alt="" />
+                    <div class="img-container">
+                      <img class="img-fluid" src="${current.getImage()}" alt="" />
+                    </div>
                     <div class="product-details">
                       <h6>${current.getName()}</h6>
                       <div class="price">
