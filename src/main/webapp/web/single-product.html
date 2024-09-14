@@ -119,20 +119,22 @@
 </section>
 <!-- End Banner Area -->
 
-<!--================Single Product Area =================-->
-<div class="product_image_area">
-	<div class="container">
-		<div class="row s_product_inner">
-			<div class="col-lg-6">
-				<div class="s_Product_carousel">
-					<div class="single-prd-item">
-						<img class="img-fluid product-image0" src="" alt="">
-					</div>
-					<div class="single-prd-item">
-						<img class="img-fluid product-image1" src="" alt="">
-					</div>
-					<div class="single-prd-item">
-						<img class="img-fluid product-image2" src="" alt="">
+	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+						<div class="single-prd-item">
+							<img class="img-fluid product-image1" src="../assets/img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid product-image2" src="../assets/img/category/s-p1.jpg" alt="">
+						</div>
+						<div class="single-prd-item">
+							<img class="img-fluid product-image3" src="../assets/img/category/s-p1.jpg" alt="">
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -702,23 +704,23 @@
 		function populate(data, status, xhr){
 			if(status == "success"){
 
-				$('#product-name').text(data.name);
-				$('#product-price').text("£" + (parseFloat(data.price)/2).toFixed(2));
-				$('#product-description').text(data.description);
-				console.log(data.images);
-				$('.product-image0').attr('src', data.images[0]);
-				if(data.images.length>1){
-					$('.product-image1').attr('src', data.images[1]);
-				}
-				else{
-					$('.product-image1').attr('src', data.images[0]);
-				}
-				if(data.images.length>2){
-					$('.product-image2').attr('src', data.images[2]);
-				}
-				else{
-					$('.product-image2').attr('src', data.images[0]);
-				}
+					$('#product-name').text(data.name);
+					$('#product-price').text("£" + (parseFloat(data.price)/2).toFixed(2));
+					$('#product-description').text(data.description);
+					if(data.images.length>0){
+						$('.product-image1').attr('src', data.images[0]);
+						if(data.images.length>1){
+							$('.product-image2').attr('src', data.images[1]);
+						}else {
+							$('.product-image2').attr('src', data.images[0]);
+						}
+						if(data.images.length>2){
+							$('.product-image3').attr('src', data.images[2]);
+						}else {
+							$('.product-image3').attr('src', data.images[0]);
+						}
+					}
+
 
 				// Populate specs
 				$('#brand-name').text(data.brandName);
