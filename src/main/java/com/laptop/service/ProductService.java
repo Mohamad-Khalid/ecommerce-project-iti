@@ -48,4 +48,12 @@ public class ProductService {
     public boolean deleteProduct(Integer id) {
         return productDAO.deleteById(id);
     }
+
+    public Product addWithImages(Product product, List<String> images) {
+        return productDAO.addWithImages(product, images);
+    }
+
+    public Product updateWithImages(Product product, List<String> images) {
+        return productDAO.updateWithImages(product, images);
+    }
 }
