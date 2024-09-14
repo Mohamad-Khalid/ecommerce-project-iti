@@ -25,7 +25,9 @@ public class AdminLoginController extends HttpServlet {
             if (token != null) {
                 AdminService adminService = new AdminService();
                 Admin admin = adminService.findByEmail(authRequest.getEmail());
-
+                if(req.getSession(false)!=null){
+                    req.getSession(false).invalidate();
+                }
                 HttpSession session = req.getSession(true);
                 session.setAttribute("admin-id", admin.getId());
                 Cookie cookie = new Cookie("token", token);
@@ -37,7 +39,9 @@ public class AdminLoginController extends HttpServlet {
         } else if (authService.login(authRequest)) {
             AdminService adminService = new AdminService();
             Admin admin = adminService.findByEmail(authRequest.getEmail());
-
+            if(req.getSession(false)!=null){
+                req.getSession(false).invalidate();
+            }
             HttpSession session = req.getSession(true);
             session.setAttribute("admin-id", admin.getId());
             resp.sendRedirect("/ecommerce/dashboard/customers");

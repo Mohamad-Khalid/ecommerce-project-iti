@@ -47,7 +47,7 @@ public class RefreshFilter implements Filter {
 
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        if (httpSession != null) {
+        if (httpSession != null && httpSession.getAttribute("customer-id") != null) {
                 String redirect = request.getParameter("redirect");
                 httpResponse.sendRedirect(redirect == null ? "/ecommerce/web" +
                         "/index.jsp" : redirect);

@@ -24,7 +24,9 @@ public class CustomerLoginController extends HttpServlet {
             if(token != null) {
                 CustomerService customerService = new CustomerService();
                 Customer customer = customerService.findByEmail(authRequest.getEmail());
-
+                if(req.getSession(false)!=null){
+                    req.getSession(false).invalidate();
+                }
                 HttpSession session = req.getSession(true);
                 session.setAttribute("customer-id", customer.getId());
                 Cookie cookie = new Cookie("token", token);
@@ -37,7 +39,9 @@ public class CustomerLoginController extends HttpServlet {
         else if(authService.login(authRequest)) {
             CustomerService customerService = new CustomerService();
             Customer customer = customerService.findByEmail(authRequest.getEmail());
-
+            if(req.getSession(false)!=null){
+                req.getSession(false).invalidate();
+            }
             HttpSession session = req.getSession(true);
             session.setAttribute("customer-id", customer.getId());
             resp.sendRedirect("/ecommerce/web/index.jsp");
