@@ -185,6 +185,7 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
             for(Image image : product.getImages()){
                 em.remove(image);
             }
+            product.setSpecs(em.merge(product.getSpecs()));
             product = em.merge(product);
             for(int i = 1; i < imageUrls.size(); i++){
                 String imageUrl = imageUrls.get(i);

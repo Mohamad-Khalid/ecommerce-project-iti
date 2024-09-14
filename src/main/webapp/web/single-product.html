@@ -126,13 +126,13 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img id = "product-image" class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image1" src="../assets/img/category/s-p1.jpg" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image2" src="../assets/img/category/s-p1.jpg" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image3" src="../assets/img/category/s-p1.jpg" alt="">
 						</div>
 					</div>
 				</div>
@@ -705,7 +705,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					$('#product-name').text(data.name);
 					$('#product-price').text("£" + (parseFloat(data.price)/2).toFixed(2));
 					$('#product-description').text(data.description);
-					$('#product-image').attr('src', data.image);
+					if(data.images.length>0){
+						$('.product-image1').attr('src', data.images[0]);
+						if(data.images.length>1){
+							$('.product-image2').attr('src', data.images[1]);
+						}else {
+							$('.product-image2').attr('src', data.images[0]);
+						}
+						if(data.images.length>2){
+							$('.product-image3').attr('src', data.images[2]);
+						}else {
+							$('.product-image3').attr('src', data.images[0]);
+						}
+					}
 
 					// Populate specs
 					$('#brand-name').text(data.brandName);
