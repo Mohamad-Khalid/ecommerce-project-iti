@@ -1,10 +1,12 @@
 package com.laptop.controller.order;
 
 
+import com.laptop.dto.payment.PaymentDTO;
 import com.laptop.entity.Customer;
 import com.laptop.entity.Order;
 import com.laptop.service.CustomerService;
 import com.laptop.service.OrderServiceImpl;
+import com.laptop.service.PaymentService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -48,6 +50,9 @@ public class CustomerOrderController extends HttpServlet {
                     Order order = orderService.addOrder(customer, coupon);
                     if (order != null) {
                         req.setAttribute("order", order);
+                        PaymentDTO paymentDTO = new PaymentDTO(customer, order);
+                        String paymentLink = PaymentService.generatePaymentLink(paymentDTO);
+                        req.setAttribute("paymentLink", paymentLink);
                         req.getRequestDispatcher("checkout.jsp").forward(req, resp);
                     } else {
                         resp.getWriter().write("Failed To Place Order");

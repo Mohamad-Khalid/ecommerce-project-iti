@@ -29,8 +29,10 @@ public class Initializer {
 
     public static void loadProducts(){
         ProductService productService = new ProductService();
-        List<Product> products = productService.getAllProducts(new HashMap<>(),1,8);
-        servletContext.setAttribute("homeProducts", products);
+        List<Product> productsPageOne = productService.getAllProducts(new HashMap<>(),1,8);
+        List<Product> productsPageTwo = productService.getAllProducts(new HashMap<>(),2,8);
+        servletContext.setAttribute("homeProducts", productsPageOne);
+        servletContext.setAttribute("homeProducts2", productsPageTwo);
     }
 
     public static void loadCategories(){
