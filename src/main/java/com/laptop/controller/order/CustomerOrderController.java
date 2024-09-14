@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/order")
+@WebServlet("/web/order")
 public class CustomerOrderController extends HttpServlet {
     CustomerService customerService = new CustomerService();
     OrderServiceImpl orderService = new OrderServiceImpl();
