@@ -41,7 +41,7 @@ public class AdminAuthFilter implements Filter {
         }
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        if (httpSession != null) {
+        if (httpSession != null && httpSession.getAttribute("admin-id") != null) {
             if(pattern.matcher(httpRequest.getRequestURI()).matches()) {
                 String redirect = request.getParameter("redirect");
                 httpResponse.sendRedirect(redirect == null ? "/ecommerce/dashboard" +
