@@ -34,6 +34,22 @@
     <link rel="stylesheet" href="../assets/css/magnific-popup.css" />
     <link rel="stylesheet" href="../assets/css/main.css" />
     <link rel="stylesheet" href="../assets/css/style.css" />
+
+    <style>
+                /* Popup styles */
+                .popup {
+                    display: none; /* Hidden by default */
+                    position: fixed;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #f1c40f;
+                    padding: 20px;
+                    border: 1px solid #e67e22;
+                    border-radius: 5px;
+                    z-index: 1000; /* Make sure it's on top */
+                }
+            </style>
   </head>
 
   <body>
@@ -381,6 +397,41 @@
           </div>
           <div class="row" id="product-container">
             <!-- single product -->
+            <script>
+            function addToCart(itemId, buyQuantity, action) {
+                                                // Make the asynchronous request to the server
+                                                $.ajax({
+                                                    url: 'addCartItem', // Servlet URL
+                                                    type: 'POST',
+                                                    data: {
+                                                        id: itemId,
+                                                        quantity: buyQuantity
+                                                    },
+                                                    success: function(response) {
+                                                        if(response.succeeded === "1"){
+                                                             //$('#err-' + itemId).text("quantity out of stock!");
+                                                             showStockError("Added Successfully!");
+                                                         }
+                                                        else{
+                                                            showStockError("quantity out of stock!");
+                                                        }
+                                                    },
+                                                    error: function() {
+                                                        alert("Error adding item!");
+                                                    }
+                                                });
+                                            }
+                                            function showStockError(msg) {
+                                                var popup = document.getElementById("stock-error");
+                                                //popup.innerHTML = msg;
+                                                popup.style.display = "block"; // Show the popup
+
+                                                // Hide the popup after 3 seconds (3000 milliseconds)
+                                                setTimeout(function() {
+                                                    popup.style.display = "none"; // Hide the popup
+                                                }, 3000);
+                                                }
+            </script>
             <c:if test="${homeProducts != null}">
               <c:forEach items="${homeProducts}" var="current">
                 <div class="col-lg-3 col-md-6">
@@ -392,7 +443,7 @@
                         <h6>&pound;${current.getPrice()/100}</h6>
                       </div>
                       <div class="prd-bottom">
-                        <a href="" class="social-info">
+                        <a href="" onclick="event.preventDefault(); addToCart(${current.getId()},1);" class="social-info">
                           <span class="ti-bag"></span>
                           <p class="hover-text">add to Bag</p>
                         </a>
@@ -412,6 +463,9 @@
             </c:if>
           </div>
         </div>
+      </div>
+      <div id="stock-error" class="popup">
+      quantity out of stock!
       </div>
       <!-- single product slide -->
       <div class="single-product-slider">
