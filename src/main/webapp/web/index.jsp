@@ -130,27 +130,6 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    >Blog</a
-                  >
-                  <ul class="dropdown-menu">
-                    <li class="nav-item">
-                      <a class="nav-link" href="blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="single-blog.html"
-                        >Blog Details</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-                <li class="nav-item submenu dropdown">
-                  <a
-                    href="#"
-                    class="nav-link dropdown-toggle"
-                    data-toggle="dropdown"
-                    role="button"
-                    aria-haspopup="true"
-                    aria-expanded="false"
                     >Pages</a
                   >
                   <ul class="dropdown-menu">
@@ -212,30 +191,16 @@
             <div class="active-banner-slider owl-carousel">
               <!-- single-slide -->
               <div class="row single-slide align-items-center d-flex">
-                <div class="col-lg-5 col-md-6">
+                <div class="col-lg-5 col-md-6 ">
                   <div class="banner-content">
-                    <h1>Nike New <br />Collection!</h1>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud
-                      exercitation.
-                    </p>
-                    <div class="add-bag d-flex align-items-center">
-                      <a class="add-btn" href=""
-                        ><span class="lnr lnr-cross"></span
-                      ></a>
-                      <span class="add-text text-uppercase">Add to Bag</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-7">
-                  <div class="banner-img">
-                    <img
-                      class="img-fluid"
-                      src=""
-                      alt=""
-                    />
+                      <h1>Best In Class<br />And Out.</h1>
+                      <h4>
+                        Play, learn and create
+                        <br>
+                        accelerated with AI and
+                        <br>NIVIDA GetForce RTX
+                        <br>Laptops.
+                      </h4>
                   </div>
                 </div>
               </div>
@@ -335,7 +300,7 @@
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/c1.jpg"
+                    src="../assets/img/category/game.jpg"
                     alt=""
                   />
                   <a
@@ -354,7 +319,7 @@
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/c2.jpg"
+                    src="../assets/img/category/work2.jpg"
                     alt=""
                   />
                   <a
@@ -373,7 +338,7 @@
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/c3.jpg"
+                    src="../assets/img/category/buss.jpg"
                     alt=""
                   />
                   <a
@@ -392,7 +357,7 @@
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/c4.jpg"
+                    src="../assets/img/category/smart.jpg"
                     alt=""
                   />
                   <a
@@ -408,17 +373,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="single-deal">
-              <div class="overlay"></div>
-              <img class="img-fluid w-100" src="../assets/img/category/c5.jpg" alt="" />
-              <a href="../assets/img/category/c5.jpg" class="img-pop-up" target="_blank">
-                <div class="deal-details">
-                  <h6 class="deal-title">Sneaker for Sports</h6>
-                </div>
-              </a>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>
@@ -490,15 +445,11 @@
                       <div class="prd-bottom">
                         <a href="" onclick="event.preventDefault(); addToCart(${current.getId()},1);" class="social-info">
                           <span class="ti-bag"></span>
-                          <p class="hover-text">add to bag</p>
+                          <p class="hover-text">add to Bag</p>
                         </a>
                         <a href="" class="social-info">
                           <span class="lnr lnr-heart"></span>
                           <p class="hover-text">Wishlist</p>
-                        </a>
-                        <a href="" class="social-info">
-                          <span class="lnr lnr-sync"></span>
-                          <p class="hover-text">compare</p>
                         </a>
                         <a href="/ecommerce/web/single-product.html?id=${current.getId()}" class="social-info">
                           <span class="lnr lnr-move"></span>
@@ -545,15 +496,11 @@
                       <div class="prd-bottom">
                         <a href="" class="social-info">
                           <span class="ti-bag"></span>
-                          <p class="hover-text">add to bag</p>
+                          <p class="hover-text">add to Bag</p>
                         </a>
                         <a href="" class="social-info">
                           <span class="lnr lnr-heart"></span>
                           <p class="hover-text">Wishlist</p>
-                        </a>
-                        <a href="" class="social-info">
-                          <span class="lnr lnr-sync"></span>
-                          <p class="hover-text">compare</p>
                         </a>
                         <a href="/ecommerce/web/single-product.html?id=${current.getId()}" class="social-info">
                           <span class="lnr lnr-move"></span>
@@ -581,35 +528,35 @@
           <a class="col single-img" href="#">
             <img
               class="img-fluid d-block mx-auto"
-              src="../assets/img/brand/1.png"
+              src="../assets/img/brand/acer.jpg"
               alt=""
             />
           </a>
           <a class="col single-img" href="#">
             <img
               class="img-fluid d-block mx-auto"
-              src="../assets/img/brand/2.png"
+              src="../assets/img/brand/apple.jpg"
               alt=""
             />
           </a>
           <a class="col single-img" href="#">
             <img
               class="img-fluid d-block mx-auto"
-              src="../assets/img/brand/3.png"
+              src="../assets/img/brand/asus.jpg"
               alt=""
             />
           </a>
           <a class="col single-img" href="#">
             <img
               class="img-fluid d-block mx-auto"
-              src="../assets/img/brand/4.png"
+              src="../assets/img/brand/dell.jpg"
               alt=""
             />
           </a>
           <a class="col single-img" href="#">
             <img
               class="img-fluid d-block mx-auto"
-              src="../assets/img/brand/5.png"
+              src="../assets/img/brand/lenovo.jpg"
               alt=""
             />
           </a>
@@ -629,8 +576,7 @@
             <div class="single-footer-widget">
               <h6>About Us</h6>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore dolore magna aliqua.
+                Welcome to Electro Laptops, your number one source for the latest and greatest in laptop technology. Founded in 2015, we have dedicated ourselves to providing the best laptops and accessories to tech enthusiasts and professionals alike.
               </p>
             </div>
           </div>
