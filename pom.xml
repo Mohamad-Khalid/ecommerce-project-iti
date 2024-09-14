@@ -11,8 +11,8 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <maven.compiler.source>18</maven.compiler.source>
-    <maven.compiler.target>18</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -129,7 +129,7 @@
         <configuration>
           <username>admin</username>
           <password>admin</password>
-          <url>http://localhost:8081/manager/text</url>
+          <url>http://localhost:8080/manager/text</url>
           <path>/ecommerce</path>
         </configuration>
       </plugin>
