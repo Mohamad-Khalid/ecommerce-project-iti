@@ -24,6 +24,7 @@ public class ContextListener implements ServletContextListener {
         try {
             emf =
                     Persistence.createEntityManagerFactory("web");
+            EntityManagerProvider.setEmf(emf);
             sce.getServletContext().setAttribute("emf", emf);
 
         } catch (Exception ex) {
