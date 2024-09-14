@@ -15,4 +15,5 @@ public interface OrderService {
     Order updateOrderState(int id, OrderState state);
     List<Order> getOrdersByFilter(int page, int size, Map<String, Object> filter);
     public List<Order> getOrdersbyCustomerId(int customerId);
+    public void deleteOrder(int id);
 }

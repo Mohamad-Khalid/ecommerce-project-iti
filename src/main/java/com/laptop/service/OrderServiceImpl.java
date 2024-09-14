@@ -98,5 +98,10 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    public void deleteOrder(int id) {
+        Order order = orderDAO.findById(id);
+        orderDAO.delete(order);
+    }
+
 
 }
