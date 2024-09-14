@@ -64,14 +64,6 @@
 							</li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
@@ -144,7 +136,7 @@
                                 <li><a href="#">Total <span>$${order.totalPrice + 50}</span></a></li>
                             </ul>
                             <!-- Payment options -->
-                            <form action="order" method="post">
+                            <form action=${paymentLink} method="get">
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option4" name="terms">
                                     <label for="f-option4">I’ve read and accept the </label>

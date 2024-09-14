@@ -1,8 +1,10 @@
 package com.laptop.dao;
 
 import com.laptop.entity.*;
+import com.laptop.util.EntityManagerProvider;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProductID> {
@@ -40,9 +42,9 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
         Product product = productDAO.findById(productId);
         CartHasProduct cartHasProduct = createCartProduct(customer.getCart(),product);
         try {
-            em.getTransaction().begin();
-            em.persist(cartHasProduct);
-            em.getTransaction().commit();
+            EntityManagerProvider.getEntityManager().getTransaction().begin();
+            EntityManagerProvider.getEntityManager().persist(cartHasProduct);
+            EntityManagerProvider.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +54,7 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
         CustomerDAO customerDAO = new CustomerDAO();
         Customer customer = customerDAO.findById(customerId);
         try {
-            TypedQuery<CartHasProduct> query = em.createQuery(
+            TypedQuery<CartHasProduct> query = EntityManagerProvider.getEntityManager().createQuery(
                     "SELECT c FROM CartHasProduct c " +
                             "JOIN c.product p " +
                             "JOIN c.cart cart " +
@@ -61,37 +63,91 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
             query.setParameter("productId", productId);
             query.setParameter("cartId", customer.getCart().getId());
             CartHasProduct cartHasProduct = query.getSingleResult();
-            em.getTransaction().begin();
-            em.remove(cartHasProduct);
-            em.getTransaction().commit();
+            EntityManagerProvider.getEntityManager().getTransaction().begin();
+            EntityManagerProvider.getEntityManager().remove(cartHasProduct);
+            EntityManagerProvider.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void setItemQuantity(int customerId, int productId, int quantity){
+    public boolean setItemQuantity(int customerId, int productId, int quantity){
+        System.out.println("arrived st dso");
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.findById(customerId);
+        System.out.println("first dao operation");
+        ProductDAO productDAO = new ProductDAO();
+        Product product = productDAO.findById(productId);
+        System.out.println("second dao operation");
+        if(quantity < 1 || product.getStock() < quantity){
+            return false;
+        }
+        try {
+            System.out.println("in try");
+            //TypedQuery<CartHasProduct> query = em.createQuery("SELECT c FROM CartHasProduct c WHERE c.product.getProductId() = :productId and c.cart.getCartId() = :cartId", CartHasProduct.class);
+//            TypedQuery<CartHasProduct> query = em.createQuery(
+//                    "SELECT c FROM CartHasProduct c " +
+//                            "JOIN c.product p " +
+//                            "JOIN c.cart cart " +
+//                            "WHERE p.id = :productId AND cart.id = :cartId",
+//                    CartHasProduct.class);
+//            System.out.println("query created");
+//            query.setParameter("productId", productId);
+//            query.setParameter("cartId", customer.getCart().getId());
+//            CartHasProduct cartHasProduct = query.getSingleResult();
+            String jpql = "SELECT c FROM CartHasProduct c " +
+                    "WHERE c.product.id = :productId AND c.cart.id = :cartId";
+            Query query = EntityManagerProvider.getEntityManager().createQuery(jpql);
+            query.setParameter("productId", productId);
+            query.setParameter("cartId", customer.getCart().getId());
+            CartHasProduct cartHasProduct = (CartHasProduct) query.getSingleResult();
+            System.out.println("query finished");
+            cartHasProduct.setQuantity(quantity);
+            EntityManagerProvider.getEntityManager().getTransaction().begin();
+            EntityManagerProvider.getEntityManager().merge(cartHasProduct);
+            EntityManagerProvider.getEntityManager().getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean addItemWithQuantity(int customerId, int productId, int quantity){
         CustomerDAO customerDAO = new CustomerDAO();
         Customer customer = customerDAO.findById(customerId);
         ProductDAO productDAO = new ProductDAO();
         Product product = productDAO.findById(productId);
         if(quantity < 1 || product.getStock() < quantity){
-            return;
+            return false;
         }
+        CartHasProduct cartHasProduct = createCartProduct(customer.getCart(),product);
+        cartHasProduct.setQuantity(quantity);
+        EntityManagerProvider.getEntityManager().getTransaction().begin();
+        EntityManagerProvider.getEntityManager().persist(cartHasProduct);
+        EntityManagerProvider.getEntityManager().getTransaction().commit();
+        return true;
+    }
+
+    public CartHasProduct getItem(int customerId, int productId){
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.findById(customerId);
         try {
-            //TypedQuery<CartHasProduct> query = em.createQuery("SELECT c FROM CartHasProduct c WHERE c.product.getProductId() = :productId and c.cart.getCartId() = :cartId", CartHasProduct.class);
-            TypedQuery<CartHasProduct> query = em.createQuery(
-                    "SELECT c FROM CartHasProduct c " +
-                            "JOIN c.product p " +
-                            "JOIN c.cart cart " +
-                            "WHERE p.id = :productId AND cart.id = :cartId",
-                    CartHasProduct.class);
+            String jpql = "SELECT c FROM CartHasProduct c " +
+                    "WHERE c.product.id = :productId AND c.cart.id = :cartId";
+            Query query = EntityManagerProvider.getEntityManager().createQuery(jpql);
             query.setParameter("productId", productId);
             query.setParameter("cartId", customer.getCart().getId());
-            CartHasProduct cartHasProduct = query.getSingleResult();
-            cartHasProduct.setQuantity(quantity);
-            em.getTransaction().begin();
-            em.persist(cartHasProduct);
-            em.getTransaction().commit();
+            CartHasProduct cartHasProduct = (CartHasProduct) query.getSingleResult();
+            return cartHasProduct;
+//            TypedQuery<CartHasProduct> query = em.createQuery(
+//                    "SELECT c FROM CartHasProduct c " +
+//                            "JOIN c.product p " +
+//                            "JOIN c.cart cart " +
+//                            "WHERE p.id = :productId AND cart.id = :cartId",
+//                    CartHasProduct.class);
+//            query.setParameter("productId", productId);
+//            query.setParameter("cartId", customer.getCart().getId());
+//            return query.getSingleResult();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

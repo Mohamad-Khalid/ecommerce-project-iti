@@ -184,7 +184,7 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
             em.getTransaction().begin();
 
             if(!imageUrls.isEmpty()){
-                product.setImage(imageUrls.getFirst());
+                product.setImage(imageUrls.get(0));
             }
 
             System.out.println(product.getImages());
