@@ -22,7 +22,7 @@ public class CustomerAuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
+                         FilterChain chain)
             throws IOException, ServletException {
         System.out.println("CustomerAuthFilter");
         HttpServletRequest httpRequest = ((HttpServletRequest) request);

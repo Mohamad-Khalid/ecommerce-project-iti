@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -25,6 +26,12 @@ public class CustomerDTO implements Serializable {
 
     private String phone;
 
+    private Date dateOfBirth;
+
+    private String job;
+
+    private String interests;
+
     public CustomerDTO(Customer customer) {
         this.id = customer.getId();
         this.firstName = customer.getFirstName();
@@ -32,5 +39,8 @@ public class CustomerDTO implements Serializable {
         this.email = customer.getEmail();
         this.address = customer.getAddress();
         this.phone = customer.getPhone();
+        this.interests = customer.getInterests();
+        this.job = customer.getJob();
+        this.dateOfBirth = customer.getDateOfBirth();
     }
 }

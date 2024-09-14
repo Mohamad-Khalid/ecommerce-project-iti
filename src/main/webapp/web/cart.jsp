@@ -70,9 +70,9 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Shop</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.html">Shop Category</a></li>
+									<li class="nav-item"><a class="nav-link" href="category.jsp">Shop Category</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.html">Product Checkout</a></li>
+									<li class="nav-item"><a class="nav-link" href="checkout.jsp">Product Checkout</a></li>
 									<li class="nav-item active"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
@@ -126,7 +126,7 @@
                     <h1>Shopping Cart</h1>
                     <nav class="d-flex align-items-center">
                         <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">Cart</a>
+                        <a href="category.jsp">Cart</a>
                     </nav>
                 </div>
             </div>
@@ -339,7 +339,10 @@
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="#">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+<!--                                        <a class="primary-btn" href="#">Proceed to checkout</a>-->
+                                        <form action="/order" method="post">
+                                            <input type="button" class="primary-btn" value="Proceed to checkout"></input>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

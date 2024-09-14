@@ -36,12 +36,17 @@ public class Product {
 
     private String image;
 
+    Boolean deleted = false;
+
     @Column(name = "brand_name", nullable = false)
     private String brandName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    private Set<Image> images = new HashSet<>();
 
     @OneToMany(mappedBy = "product")
     private Set<OrderItem> orderItems = new HashSet<>();

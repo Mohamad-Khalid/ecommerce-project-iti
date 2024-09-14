@@ -49,7 +49,7 @@
                             <a href="../#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" href="../category.html">Shop Category</a></li>
+                                <li class="nav-item"><a class="nav-link" href="../category.jsp">Shop Category</a></li>
                                 <li class="nav-item"><a class="nav-link" href="../single-product.html">Product Details</a></li>
                                 <li class="nav-item"><a class="nav-link" href="../checkout.html">Product Checkout</a></li>
                                 <li class="nav-item"><a class="nav-link" href="../cart.jsp">Shopping Cart</a></li>
@@ -155,6 +155,25 @@
                         <div class="col-md-12 form-group">
                             <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone" pattern="[0-9]{11}" title="Phone number must be 10 digits long." required>
                         </div>
+                        <div class="col-md-12 form-group">
+                            <label for="date">Date Of Birth</label>
+                            <input class="form-control" type="date" id="date" name="date" placeholder="Date Of Birth"
+                                   max="2013-01-01" min="1900-01-01" required />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="job">Job</label>
+                            <input class="form-control" type="text" id="job" name="job" placeholder="Job" />
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="interests">Interests</label>
+                            <input class="form-control" type="text" id="interests" name="interests" placeholder="Interests" />
+                        </div>
+
+
+
+
+
+
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
                                 <input type="checkbox" id="terms" name="terms" required>

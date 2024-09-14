@@ -59,7 +59,7 @@ public class AdminAuthFilter implements Filter {
                 return;
             }
             else {
-                httpResponse.sendRedirect("/ecommerce/dashboard/web/login" +
+                httpResponse.sendRedirect("/ecommerce/dashboard/auth/login" +
                         ".html" +
                         "?redirect=" + httpRequest.getRequestURI());
                 return;

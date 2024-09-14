@@ -46,7 +46,9 @@ public class AuthService {
         customer.setPhone(request.getPhone());
         customer.setAddress(request.getAddress());
         customer.setActive(true);
-
+        customer.setDateOfBirth(request.getDateOfBirth());
+        customer.setJob(request.getJob());
+        customer.setInterests(request.getInterests());
         Customer saved = customerDAO.save(customer);
         if(saved == null){
             return null;
@@ -89,32 +91,11 @@ public class AuthService {
             Customer customer = customerDAO.findCustomerByEmail(request.getEmail());
 
             if (BCrypt.checkpw(request.getPassword(), customer.getPassword())) {
-                // HttpSession httpSession = req.getSession(true);
-                // if (req.getParameter("remember") != null &&
-                // req.getParameter("remember").equals("on")) {
-
-                // String tokenString = JwtService.generate(user);
-                // Token token = new Token(user, RandomStringUtils.randomAlphanumeric(35),
-                // java.sql.Date.valueOf(LocalDate.now().plusDays(1)));
-                // EntityManager em2 = emf.createEntityManager();
-                // TokenDAO tokenDAO = new TokenDAO(em2);
-                // tokenDAO.save(token);
                 String token = JwtService.generate(customer.getId(),
                         "CUSTOMER");
                 System.out.println(token);
 
                 return token;
-                // Cookie c = new Cookie("token", token);
-                // c.setPath("/myApp/auth");
-                // System.out.println("cookie" + c.getPath());
-
-                // c.setMaxAge(60 * 60 * 24);
-                // resp.addCookie(c);
-                // // }
-
-                // httpSession.setAttribute("name", req.getParameter("username"));
-                // String redirect = req.getParameter("redirect");
-                // resp.sendRedirect(redirect == null ? "/myApp/app/welcome" : redirect);
             } else
                 return null;
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.laptop.controller.admin;
 
 import com.laptop.dto.AuthRequest;
 import com.laptop.entity.Admin;
+import com.laptop.service.AdminAuthService;
 import com.laptop.service.AuthService;
 import com.laptop.service.AdminService;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,7 @@ public class AdminLoginController extends HttpServlet {
         authRequest.setEmail(req.getParameter("email").toLowerCase());
         authRequest.setPassword(req.getParameter("password"));
 
-        AuthService authService = new AuthService();
+        AdminAuthService authService = new AdminAuthService();
         if (req.getAttribute("rememberMe") != null && req.getAttribute(
                 "rememberMe").equals("on")) {
             String token = authService.loginWithToken(authRequest);
@@ -29,7 +30,7 @@ public class AdminLoginController extends HttpServlet {
                 session.setAttribute("admin-id", admin.getId());
                 Cookie cookie = new Cookie("token", token);
                 resp.addCookie(cookie);
-                resp.sendRedirect("/ecommerce/dashboard/index.jsp");
+                resp.sendRedirect("/ecommerce/dashboard/customers");
                 return;
             }
 
@@ -39,12 +40,13 @@ public class AdminLoginController extends HttpServlet {
 
             HttpSession session = req.getSession(true);
             session.setAttribute("admin-id", admin.getId());
-            resp.sendRedirect("/ecommerce/dashboard/index.jsp");
+            resp.sendRedirect("/ecommerce/dashboard/customers");
             return;
 
         }
         System.out.println("#####################");
         System.out.println("failed");
+        resp.sendRedirect("/ecommerce/dashboard/login.html");
         //return false credentials error
     }
 }

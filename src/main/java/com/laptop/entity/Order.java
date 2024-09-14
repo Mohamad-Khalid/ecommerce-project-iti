@@ -21,7 +21,7 @@ public class Order {
     private Integer id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date date = new Date();
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

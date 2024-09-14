@@ -38,8 +38,22 @@ public class ProductService {
         return products;
     }
 
+    // Count Products
+    public Long countAllProducts(Map<String, Object> filter, int page,
+                                        int size) {
+        return productDAO.countByFilter(filter,page, size);
+    }
+
     // Delete Product by ID
     public boolean deleteProduct(Integer id) {
         return productDAO.deleteById(id);
+    }
+
+    public Product addWithImages(Product product, List<String> images) {
+        return productDAO.addWithImages(product, images);
+    }
+
+    public Product updateWithImages(Product product, List<String> images) {
+        return productDAO.updateWithImages(product, images);
     }
 }

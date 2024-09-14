@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Pattern;
 
 @WebServlet(urlPatterns = "/web/auth/register")
@@ -24,6 +26,7 @@ public class CustomerRegistrationController extends HttpServlet {
         String email = req.getParameter("email");
         Pattern p = Pattern.compile("^[a-z0-9]+(.[a-z0-9]+)*@[a-z0-9]+.[a-z0-9]+$");
         System.out.println(p.matcher(email).matches());
+        System.out.println(email);
         if (!p.matcher(email).matches()) {
             out.println("false");
             return;
@@ -42,6 +45,18 @@ public class CustomerRegistrationController extends HttpServlet {
         body.setPassword(req.getParameter("password"));
         body.setAddress(req.getParameter("address"));
         body.setPhone(req.getParameter("phone"));
+        if(req.getParameter("job") != null)body.setJob(req.getParameter("job"));
+        if(req.getParameter("interests") != null)body.setInterests(req.getParameter("interests"));
+        try {
+            body.setDateOfBirth(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date")));
+        }
+        catch (ParseException e) {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("Failed to register");
+            req.setAttribute("errorResponse", errorResponse);
+            return;
+
+        }
 
         AuthService authService = new AuthService();
         CustomerDTO customerDTO = authService.register(body);
@@ -52,8 +67,7 @@ public class CustomerRegistrationController extends HttpServlet {
         else {
             ErrorResponse errorResponse = new ErrorResponse();
             errorResponse.setMessage("Failed to register");
-            req.getSession().setAttribute("errorResponse", errorResponse);
-            resp.sendRedirect("/ecommerce/web/auth/registration.html");
+            req.setAttribute("errorResponse", errorResponse);
         }
     }
 }

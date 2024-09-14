@@ -26,6 +26,15 @@
         <url-pattern>/web/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>refreshFilter</filter-name>
+        <url-pattern>/web/auth/login.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>refreshFilter</filter-name>
+        <url-pattern>/web/auth/registration.html</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
         <filter-name>adminAuthFilter</filter-name>
         <url-pattern>/dashboard/*</url-pattern>
     </filter-mapping>
