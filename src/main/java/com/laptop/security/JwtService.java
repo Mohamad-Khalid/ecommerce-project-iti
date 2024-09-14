@@ -18,13 +18,19 @@ public class JwtService {
         calendar.setTime(new Date());
         calendar.add(Calendar.DAY_OF_MONTH, 1);
         Date expire = calendar.getTime();
-        return Jwts.builder().setIssuedAt(new Date())
-                .setExpiration(expire)
-                .setSubject(role)
-                .setId(String.valueOf(id))
-                .signWith(getKey(),
-                        SignatureAlgorithm.HS256)
-                .compact();
+        try{
+            return Jwts.builder().setIssuedAt(new Date())
+                    .setExpiration(expire)
+                    .setSubject(role)
+                    .setId(String.valueOf(id))
+                    .signWith(getKey(),
+                            SignatureAlgorithm.HS256)
+                    .compact();
+        }
+        catch (Exception e) {
+            return null;
+        }
+
     }
 
     public static boolean isExpired(String token) {
@@ -39,7 +45,7 @@ public class JwtService {
         try{
             return Integer.parseInt(extractAllClaims(token).getId());
         }
-        catch (NumberFormatException ex){
+        catch (Exception ex){
             return null;
         }
     }
@@ -49,7 +55,13 @@ public class JwtService {
     }
 
     private static Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody();
+        try {
+            return Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token).getBody();
+        }
+        catch (Exception e) {
+            return null;
+        }
+
     }
 
     private static Key getKey() {

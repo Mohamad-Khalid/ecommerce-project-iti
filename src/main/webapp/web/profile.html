@@ -299,6 +299,15 @@
               <label for="phone">Phone</label>
               <input type="tel" id="phone" pattern="[0-9]{11}" name="phone" required />
 
+              <label for="date">Date Of Birth</label>
+              <input type="date" id="date" name="date" max="2013-01-01" min="1900-01-01" required />
+
+              <label for="job">Job</label>
+              <input type="text" id="job" name="job" />
+
+              <label for="interests">Interests</label>
+              <input type="text" id="interests" name="interests" />
+
               <input type="submit" class="save-btn" value="Save Changes" />
               <button type="button" class="cancel-btn" onclick="toggleEditForm()">Cancel</button>
             </form>
@@ -335,6 +344,9 @@
               <p><strong id="customer-email">Email:</strong> <span id="customer-email-value"></span></p>
               <p><strong id="customer-address">Address:</strong> <span id="customer-address-value"></span></p>
               <p><strong id="customer-phone">Phone:</strong> <span id="customer-phone-value"></span></p>
+              <p><strong id="customer-date">Date Of Birth:</strong> <span id="customer-date-value"></span></p>
+              <p><strong id="customer-job">Job:</strong> <span id="customer-job-value"></span></p>
+              <p><strong id="customer-interests">Interests:</strong> <span id="customer-interests-value"></span></p>
             </div>
           </div>
         </div>
@@ -493,6 +505,18 @@
 
             $('#customer-phone-value').text(data.phone);
             $('#phone').val(data.phone);
+
+            $('#customer-date-value').text(data.dateOfBirth);
+            let date = new Date(data.dateOfBirth);
+            date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+            let formattedDate = date.toISOString().split('T')[0]; // Get the YYYY-MM-DD format
+            $('#date').val(formattedDate);
+
+            $('#customer-job-value').text(data.job);
+            $('#job').val(data.job);
+
+            $('#customer-interests-value').text(data.interests);
+            $('#interests').val(data.interests);
           }
         }
 

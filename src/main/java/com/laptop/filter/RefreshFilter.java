@@ -24,12 +24,23 @@ public class RefreshFilter implements Filter {
         if (httpSession == null) {
             Cookie[] cookies = httpRequest.getCookies();
             String tokenString = TokenHandler.getTokenStringFromCookies(cookies);
-            Customer customer = (Customer) TokenHandler.getUser(tokenString,
-                    "CUSTOMER");
-            if (customer != null) {
-                httpSession = httpRequest.getSession(true);
-                httpRequest.getSession().setAttribute("customer-id",
-                        customer.getId());
+            if(tokenString != null){
+                Customer customer = (Customer) TokenHandler.getUser(tokenString,
+                        "CUSTOMER");
+                if (customer != null) {
+                    httpSession = httpRequest.getSession(true);
+                    httpRequest.getSession().setAttribute("customer-id",
+                            customer.getId());
+                }
+                else{
+                    Cookie cookie = new Cookie("token", "");
+                    cookie.setMaxAge(0);
+                    HttpServletResponse httpResponse = ((HttpServletResponse) response);
+                    httpResponse.addCookie(cookie);
+                    ((HttpServletResponse) response).sendRedirect(
+                            "/ecommerce/web/login.html");
+
+                }
             }
 
         }

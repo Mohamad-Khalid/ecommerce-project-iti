@@ -1,13 +1,18 @@
 package com.laptop.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Valid
 public class RegistrationRequest {
 
         @NotNull
@@ -22,6 +27,12 @@ public class RegistrationRequest {
         @NotBlank
         @Email
         private String email;
+
+        @NotNull
+        private Date dateOfBirth;
+
+        private String job;
+        private String interests;
 
         @Size(min = 8, max = 30, message = "Password length must be between 8 and 30 characters")
         @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit (0-9).")

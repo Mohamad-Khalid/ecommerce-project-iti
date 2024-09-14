@@ -46,7 +46,9 @@ public class AuthService {
         customer.setPhone(request.getPhone());
         customer.setAddress(request.getAddress());
         customer.setActive(true);
-
+        customer.setDateOfBirth(request.getDateOfBirth());
+        customer.setJob(request.getJob());
+        customer.setInterests(request.getInterests());
         Customer saved = customerDAO.save(customer);
         if(saved == null){
             return null;

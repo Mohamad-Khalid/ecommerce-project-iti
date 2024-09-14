@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,6 +36,13 @@ public class Customer {
     private String password;
     private String address;
     private String phone;
+
+    @Temporal(TemporalType.DATE)
+    @NotNull
+    private Date dateOfBirth;
+    private String job;
+    private String interests;
+
     @OneToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch =
             FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
