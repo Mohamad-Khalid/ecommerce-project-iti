@@ -196,7 +196,7 @@
                 os: document.getElementById('os').value,
                 weight: document.getElementById('weight').value,
                 category: document.getElementById('category').value,
-                images: imageUrls.length ? imageUrls : "${product.images}"
+                images: imageUrls.length ? imageUrls : []
             };
 
             fetch('/ecommerce/dashboard/update-product', {

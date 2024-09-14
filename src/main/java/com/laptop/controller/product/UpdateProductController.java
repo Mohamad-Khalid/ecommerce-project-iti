@@ -51,6 +51,9 @@ public class UpdateProductController extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductService productService = new ProductService();
+        CategoryService categoryService = new CategoryServiceImpl();
+
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = req.getReader();
         String line;
@@ -63,8 +66,10 @@ public class UpdateProductController extends HttpServlet {
         JsonObject jsonObject = gson.fromJson(sb.toString(), JsonObject.class);
 
         // Create Product and ProductSpecs objects
-        Product product = new Product();
-        ProductSpecs productSpecs = new ProductSpecs();
+        Product product =
+                productService.getProductById(jsonObject.get("id").getAsInt()).orElse(null);
+        ProductSpecs productSpecs = product.getSpecs();
+
         List<JsonElement> images = jsonObject.getAsJsonArray("images").asList();
 
         // Set ProductSpecs properties from the request
@@ -79,20 +84,17 @@ public class UpdateProductController extends HttpServlet {
         productSpecs.setWeight(Double.parseDouble(jsonObject.get("weight").getAsString()));
 
         // Set Product properties from the request
-        product.setId(jsonObject.get("id").getAsInt());
         product.setName(jsonObject.get("name").getAsString());
         product.setPrice(Integer.parseInt(jsonObject.get("price").getAsString()));
         product.setDescription(jsonObject.get("description").getAsString());
         product.setStock(Integer.parseInt(jsonObject.get("stock").getAsString()));
-        product.setImage(images.getFirst().getAsString());
+        if(!images.isEmpty())product.setImage(images.getFirst().getAsString());
         product.setBrandName(jsonObject.get("brandName").getAsString());
 
         // Associate the ProductSpecs with the Product
         product.setSpecs(productSpecs);
 
         // Now save the product using your service (ProductService assumed here)
-        ProductService productService = new ProductService();
-        CategoryService categoryService = new CategoryServiceImpl();
         product.setCategory(categoryService.getCategoryById(Integer.parseInt(jsonObject.get(
                 "category").getAsString())));
 

@@ -182,18 +182,27 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
     public Product updateWithImages(Product product, List<String> imageUrls) {
         try {
             em.getTransaction().begin();
-            for(Image image : product.getImages()){
-                em.remove(image);
+
+            if(!imageUrls.isEmpty()){
+                product.setImage(imageUrls.getFirst());
+            }
+
+            System.out.println(product.getImages());
+            System.out.println(product);
+            if(!imageUrls.isEmpty()){
+                for(Image image : product.getImages()){
+                    em.remove(image);
+                }
+                for(int i = 1; i < imageUrls.size(); i++){
+                    String imageUrl = imageUrls.get(i);
+                    Image image = new Image();
+                    image.setUrl(imageUrl);
+                    image.setProduct(product);
+                    em.persist(image);
+                }
             }
             product.setSpecs(em.merge(product.getSpecs()));
             product = em.merge(product);
-            for(int i = 1; i < imageUrls.size(); i++){
-                String imageUrl = imageUrls.get(i);
-                Image image = new Image();
-                image.setUrl(imageUrl);
-                image.setProduct(product);
-                em.persist(image);
-            }
             em.getTransaction().commit();
             return product;
         }
