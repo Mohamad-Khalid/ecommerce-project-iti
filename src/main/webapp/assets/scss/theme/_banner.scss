@@ -1,7 +1,7 @@
 /* banner area css
 ============================================================================================ */
 .banner-area {
-	background: url(../img/banner/banner-bg.jpg) center no-repeat;
+	background: url(../../img/banner/micro2.jpeg) center no-repeat;
 	background-size: cover;
 	position: relative;
 	.fullscreen {
@@ -88,15 +88,13 @@
 //------- Start Bread Crumb --------//
 
 .organic-breadcrumb {
-	background: url(../img/banner/common-banner.jpg) center no-repeat;
+	background: url(../webapp/assets/img/banner/micro2.jpeg) center no-repeat;
 	background-size: cover;
 	padding-top: 130px;
-	@media (max-width: 991px) {
-		padding-top: 80px;
-	}
-	@media (max-width: 767px) {
-		background: none;
-		@include gradient(90deg, $primary-color 0%, $primary-color2 100%);
+	.fullscreen {
+		@media (max-width: 768px) {
+			height: 650px !important;
+		}
 	}
 }
 #category {

@@ -1559,7 +1559,8 @@ h6 {
   font-size: 60px;
   line-height: 66px;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  margin-top: 40px;
 }
 @media (max-width: 767px) {
   .banner-area .banner-content h1 {
@@ -1605,7 +1606,7 @@ h6 {
 }
 
 .organic-breadcrumb {
-  background: url(../img/banner/common-banner.jpg) center no-repeat;
+  background: url(../img/banner/micro2.jpeg) center no-repeat;
   background-size: cover;
   padding-top: 130px;
 }

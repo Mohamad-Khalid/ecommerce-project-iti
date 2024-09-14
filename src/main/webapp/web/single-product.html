@@ -63,14 +63,6 @@
 						</li>
 						<li class="nav-item submenu dropdown">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-							   aria-expanded="false">Blog</a>
-							<ul class="dropdown-menu">
-								<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-								<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-							</ul>
-						</li>
-						<li class="nav-item submenu dropdown">
-							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 							   aria-expanded="false">Pages</a>
 							<ul class="dropdown-menu">
 								<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
@@ -705,7 +697,7 @@
 			if(status == "success"){
 
 					$('#product-name').text(data.name);
-					$('#product-price').text("£" + (parseFloat(data.price)/2).toFixed(2));
+					$('#product-price').text("£" + (parseFloat(data.price)).toFixed(2));
 					$('#product-description').text(data.description);
 					if(data.images.length>0){
 						$('.product-image1').attr('src', data.images[0]);
