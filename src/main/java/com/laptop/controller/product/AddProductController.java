@@ -55,7 +55,7 @@ public class AddProductController extends HttpServlet {
         product.setPrice(Integer.parseInt(jsonObject.get("price").getAsString()));
         product.setDescription(jsonObject.get("description").getAsString());
         product.setStock(Integer.parseInt(jsonObject.get("stock").getAsString()));
-        product.setImage(images.getFirst().getAsString());
+        product.setImage(images.get(0).getAsString());
         product.setBrandName(jsonObject.get("brandName").getAsString());
 
         // Associate the ProductSpecs with the Product

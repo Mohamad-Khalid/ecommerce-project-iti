@@ -1,3 +1,5 @@
+
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -28,9 +30,24 @@
     <link rel="stylesheet" href="../assets/css/nouislider.min.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <style>
+            /* Popup styles */
+            .popup {
+                display: none; /* Hidden by default */
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #f1c40f;
+                padding: 20px;
+                border: 1px solid #e67e22;
+                border-radius: 5px;
+                z-index: 1000; /* Make sure it's on top */
+            }
+        </style>
 </head>
 
-<body>
+<body onload="calculateTotalPrice();">
 
     <!-- Start Header Area -->
 	<header class="header_area sticky-header">
@@ -72,7 +89,7 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+									<li class="nav-item"><a class="nav-link" href="auth/login.html">Login</a></li>
 									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
 								</ul>
@@ -96,7 +113,7 @@
 					<button type="submit" class="btn"></button>
 					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 				</form>
-			</div>
+			</div><c:if test="@{customer-id != null}">${customer-id}</c:if>
 		</div>
 	</header>
 	<!-- End Header Area -->
@@ -131,91 +148,136 @@
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
+                        <script>
+                            function updateQuantity(itemId, action) {
+                                var result = document.getElementById('sst-' + itemId);
+                                var sst = result.value;
+
+                                var inputField = $('#sst-' + itemId);
+                                var currentQuantity = parseInt(inputField.val());
+
+                                // Update the quantity value locally
+                                if (action === 'increase') {
+                                    if( !isNaN( sst )) currentQuantity++;
+                                    else return false;
+                                } else if (action === 'decrease' && currentQuantity > 1) {
+                                    if( !isNaN( sst ) && sst > 1 ) currentQuantity--;
+                                    else return false;
+                                }
+                                // Make the asynchronous request to the server
+                                $.ajax({
+                                    url: 'updateQuantity', // Servlet URL
+                                    type: 'POST',
+                                    data: {
+                                        id: itemId,
+                                        quantity: currentQuantity
+                                    },
+                                    success: function(response) {
+                                        if(response.newTotal === "-1"){
+                                            //$('#err-' + itemId).text("quantity out of stock!");
+                                            showStockError();
+                                        }
+                                        else{
+                                            // Update the total price on success
+                                            $('#total-' + itemId).text('$' + response.newTotal);
+                                            // Update the input field with the new quantity
+                                            inputField.val(currentQuantity);
+                                            calculateTotalPrice();
+                                            //$('#err-' + itemId).text("");
+                                        }
+                                    },
+                                    error: function() {
+                                        alert("Error updating quantity!");
+                                    }
+                                });
+                            }
+
+                            function removeItem(itemId, action) {
+                                            // Make the asynchronous request to the server
+                                            $.ajax({
+                                                url: 'deleteCartItem', // Servlet URL
+                                                type: 'POST',
+                                                data: {
+                                                    id: itemId
+                                                },
+                                                success: function(response) {
+                                                    location.reload(true);
+                                                },
+                                                error: function() {
+                                                    alert("Error removing item!");
+                                                }
+                                            });
+                                        }
+
+                            function calculateTotalPrice() {
+                                    // Select all elements with the class 'item-price'
+                                    const priceElements = document.querySelectorAll('.item-price');
+
+                                    let totalPrice = 0;
+
+                                    // Loop through the NodeList and sum up the price values
+                                    priceElements.forEach(function(priceElement) {
+                                        // Get the inner text, remove the dollar sign and convert to a float
+                                        const price = parseFloat(priceElement.innerText.replace(/[$,]/g, ''));
+                                        totalPrice += price; // Add to totalPrice
+                                    });
+
+                                    // Display the total price
+                                    //document.getElementById('total-price').innerText = `Total Price: $${totalPrice.toFixed(2)}`;
+                                    document.getElementById('total-price').innerText = totalPrice;
+                                }
+                                function showStockError() {
+                                        var popup = document.getElementById("stock-error");
+                                        popup.style.display = "block"; // Show the popup
+
+                                        // Hide the popup after 3 seconds (3000 milliseconds)
+                                        setTimeout(function() {
+                                            popup.style.display = "none"; // Hide the popup
+                                        }, 3000);
+                                    }
+                        </script>
                         <tbody>
+                        <c:forEach var="item" items="${cartItems}">
                             <tr>
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="../assets/img/cart.jpg" alt="">
+                                            <img src="${item.image}" alt="${item.name}">
                                         </div>
                                         <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
+                                            <p>${item.name}</p>
                                         </div>
                                     </div>
+                                    <div class="hidden-item-id" style="display:none;">
+                                        <input type="hidden" value="${item.id}">
+                                    </div>
                                 </td>
+
                                 <td>
-                                    <h5>$360.00</h5>
+                                    <h5>$${item.price}</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                        <input type="text" name="qty" id="sst-${item.id}" maxlength="12" value="${item.quantity}" title="Quantity:" class="input-text qty" readonly>
+                                        <button onclick="updateQuantity(${item.id}, 'increase');" class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                        <button onclick="updateQuantity(${item.id}, 'decrease');" class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                     </div>
+                                    <div id="stock-error" class="popup">
+                                        quantity out of stock!
+                                    </div>
+
+                                </td>
+                                <!--    <td>
+                                    <h5 id = "err-${item.id}"></h5>
+                                </td>-->
+                                <td>
+                                    <h5 id = "total-${item.id}" class = "item-price">$${item.price * item.quantity}</h5>
                                 </td>
                                 <td>
-                                    <h5>$720.00</h5>
+                                    <a class="gray_btn" href="" onclick="event.preventDefault(); removeItem(${item.id});">Remove</a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="../assets/img/cart.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$360.00</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="../assets/img/cart.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$360.00</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
+                        </c:forEach>
                             <tr class="bottom_button">
                                 <td>
                                     <a class="gray_btn" href="#">Update Cart</a>
@@ -245,7 +307,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5 id = "total-price">$0.00</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -395,6 +457,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	 crossorigin="anonymous"></script>
 	<script src="../assets/js/vendor/bootstrap.min.js"></script>
 	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
