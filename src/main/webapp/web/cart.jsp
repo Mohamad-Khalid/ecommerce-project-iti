@@ -73,7 +73,7 @@
 									<li class="nav-item"><a class="nav-link" href="category.jsp">Shop Category</a></li>
 									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="checkout.jsp">Product Checkout</a></li>
-									<li class="nav-item active"><a class="nav-link" href="cart.html">Shopping Cart</a></li>
+									<li class="nav-item active"><a class="nav-link" href="cart">Shopping Cart</a></li>
 									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
 								</ul>
 							</li>
@@ -360,7 +360,15 @@
 <!--                                        <a class="primary-btn" href="#">Proceed to checkout</a>-->
                                         <form action="order" method="post" id="coForm">
                                             <input type="hidden" name="coupon" id="hiddenValue">
-                                            <input type="submit" class="primary-btn" value="Proceed to checkout"></input>
+                                            <!--  <input type="submit" class="primary-btn" value="Proceed to checkout"></input>-->
+                                            <c:choose>
+                                                <c:when test="${not empty cartItems}">
+                                                    <input type="submit" class="primary-btn" value="Proceed to checkout">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input type="submit" class="gray_btn" value="Proceed to checkout" disabled>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </form>
                                     </div>
                                 </td>

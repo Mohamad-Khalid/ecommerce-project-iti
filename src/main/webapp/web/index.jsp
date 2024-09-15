@@ -124,7 +124,7 @@
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="cart.html">Shopping Cart</a>
+                      <a class="nav-link" href="cart">Shopping Cart</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="confirmation.html"
@@ -402,7 +402,7 @@
                                             }
                                             function showStockError(msg) {
                                                 var popup = document.getElementById("stock-error");
-                                                //popup.innerHTML = msg;
+                                                popup.innerHTML = msg;
                                                 popup.style.display = "block"; // Show the popup
 
                                                 // Hide the popup after 3 seconds (3000 milliseconds)
