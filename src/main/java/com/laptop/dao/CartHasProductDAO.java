@@ -149,7 +149,8 @@ public class CartHasProductDAO extends GenericDAO<CartHasProduct, CartHasProduct
 //            query.setParameter("cartId", customer.getCart().getId());
 //            return query.getSingleResult();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
+            return null;
         }
     }
 }

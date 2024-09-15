@@ -86,7 +86,7 @@ function search() {
                                         <h6>&pound;${(Number.parseFloat(product.price) / 100).toFixed(2)}</h6>
                                     </div>
                                     <div class="prd-bottom">
-                                        <a href="#" class="social-info">
+                                        <a href="#" class="social-info" onclick="event.preventDefault(); addToCart(${product.id},1);">
                                             <span class="ti-bag"></span>
                                             <p class="hover-text">add to bag</p>
                                         </a>

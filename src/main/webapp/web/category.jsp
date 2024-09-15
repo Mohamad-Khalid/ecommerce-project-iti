@@ -43,6 +43,22 @@
 			align-items: center;
 		}
 	}
+
+	/* Popup styles */
+          .popup {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f1c40f;
+            padding: 20px;
+            border: 1px solid #e67e22;
+            border-radius: 5px;
+            z-index: 1000;
+            /* Make sure it's on top */
+          }
 </style>
 <body id="category">
 
@@ -64,6 +80,9 @@
 				</div>
 			</div>
 		</div>
+		<div id="stock-error" class="popup">
+               quantity out of stock!
+        </div>
 	</section>
 	<!-- End Banner Area -->
 	<div class="container">
@@ -267,6 +286,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="../assets/js/gmaps.min.js"></script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/cartHandlingFunctions.js"></script>
 	<script src="../assets/js/product-filter.js">
 
 	</script>

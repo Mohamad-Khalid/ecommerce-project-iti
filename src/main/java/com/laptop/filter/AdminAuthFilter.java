@@ -18,16 +18,22 @@ import java.util.regex.Pattern;
 @WebFilter(filterName = "adminAuthFilter")
 public class AdminAuthFilter implements Filter {
     Pattern pattern = Pattern.compile("^/ecommerce/dashboard/auth/.*$");
+    Set<String> excludedUrls = new HashSet<>(List.of("/ecommerce/dashboard" +
+            "/auth/logout"));
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain)
             throws IOException, ServletException {
+        if(excludedUrls.contains(((HttpServletRequest) request).getRequestURI())){
+            chain.doFilter(request, response);
+            return;
+        }
 
         HttpServletRequest httpRequest = ((HttpServletRequest) request);
         HttpSession httpSession = httpRequest.getSession(false);
 
-        if (httpSession == null) {
+        if (httpSession == null || httpSession.getAttribute("admin-id") == null) {
             Cookie[] cookies = httpRequest.getCookies();
             String tokenString = TokenHandler.getTokenStringFromCookies(cookies);
             Admin admin = (Admin) TokenHandler.getUser(tokenString,

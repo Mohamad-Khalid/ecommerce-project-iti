@@ -1,6 +1,7 @@
 package com.laptop.controller.admin;
 
 import com.laptop.dto.AuthRequest;
+import com.laptop.dto.ErrorResponse;
 import com.laptop.entity.Admin;
 import com.laptop.service.AdminAuthService;
 import com.laptop.service.AuthService;
@@ -31,10 +32,18 @@ public class AdminLoginController extends HttpServlet {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("admin-id", admin.getId());
                 Cookie cookie = new Cookie("token", token);
+                cookie.setPath("/ecommerce/dashboard/");
                 resp.addCookie(cookie);
                 resp.sendRedirect("/ecommerce/dashboard/customers");
                 return;
+            }else {
+                ErrorResponse errorResponse = new ErrorResponse();
+                errorResponse.setMessage("The credentials you entered don't " +
+                        "match");
+                req.setAttribute("loginErrorResponse", errorResponse);
+                req.getRequestDispatcher("login.jsp").forward(req,resp);
             }
+
 
         } else if (authService.login(authRequest)) {
             AdminService adminService = new AdminService();
@@ -48,9 +57,12 @@ public class AdminLoginController extends HttpServlet {
             return;
 
         }
-        System.out.println("#####################");
-        System.out.println("failed");
-        resp.sendRedirect("/ecommerce/dashboard/login.html");
-        //return false credentials error
+        else {
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("The credentials you entered don't " +
+                    "match");
+            req.setAttribute("loginErrorResponse", errorResponse);
+            req.getRequestDispatcher("login.jsp").forward(req,resp);
+        }
     }
 }
