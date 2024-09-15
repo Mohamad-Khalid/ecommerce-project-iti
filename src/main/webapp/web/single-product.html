@@ -29,6 +29,20 @@
 	<link rel="stylesheet" href="../assets/css/ion.rangeSlider.css" />
 	<link rel="stylesheet" href="../assets/css/ion.rangeSlider.skinFlat.css" />
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<style>
+		.popup {
+                    display: none; /* Hidden by default */
+                    position: fixed;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #f1c40f;
+                    padding: 20px;
+                    border: 1px solid #e67e22;
+                    border-radius: 5px;
+                    z-index: 1000; /* Make sure it's on top */
+                }
+	</style>
 </head>
 
 <body>
@@ -130,6 +144,18 @@
 					</div>
 				</div>
 			</div>
+			<script>
+				function handleAddItem(){
+				var qty = document.getElementById("sst").value;
+				const url = new URL(window.location.href);
+				const params = new URLSearchParams(url.search);
+				const id = params.get('id');
+				addToCart(id,qty);
+				}
+			</script>
+			<div id="stock-error" class="popup">
+				quantity out of stock!
+			</div>
 			<div class="col-lg-5 offset-lg-1">
 				<div class="s_product_text">
 					<h3 id="product-name">Faded SkyBlu Denim Jeans</h3>
@@ -144,11 +170,11 @@
 						<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
 						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
 								class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+						<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 1 ) result.value--;return false;"
 								class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
 					</div>
 					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" href="#">Add to Cart</a>
+						<a class="primary-btn" href="#" onclick="event.preventDefault(); handleAddItem();">Add to Cart</a>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
 						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
 					</div>
@@ -319,6 +345,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="../assets/js/gmaps.min.js"></script>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/cartHandlingFunctions.js"></script>
 <script>
 	$(document).ready(function(){
 		const url = new URL(window.location.href);
