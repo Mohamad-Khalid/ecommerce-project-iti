@@ -266,10 +266,15 @@
                     else {
                       showStockError("quantity out of stock!");
                     }
-                  },
-                  error: function () {
-                    alert("Error adding item!");
-                  }
+                  }, error: function(response) {
+                    if(response.status == 401){
+                      window.location.href = window.location.origin + "/ecommerce/web/auth/login.jsp"
+                    }
+                    else{
+                      alert("Error adding item!");
+                    }
+
+                         },
                 });
               }
               function showStockError(msg) {

@@ -39,9 +39,18 @@ public class AdminAuthFilter implements Filter {
             Admin admin = (Admin) TokenHandler.getUser(tokenString,
                     "ADMIN");
             if (admin != null) {
+                if(httpSession != null && httpSession.getAttribute("customer" +
+                        "-id") != null)
+                    httpSession.invalidate();
                 httpSession = httpRequest.getSession(true);
                 httpRequest.getSession().setAttribute("admin-id",
                         admin.getId());
+            }
+            else{
+                Cookie cookie = new Cookie("token", "");
+                cookie.setMaxAge(0);
+                HttpServletResponse httpResponse = ((HttpServletResponse) response);
+                httpResponse.addCookie(cookie);
             }
 
         }
@@ -51,7 +60,7 @@ public class AdminAuthFilter implements Filter {
             if(pattern.matcher(httpRequest.getRequestURI()).matches()) {
                 String redirect = request.getParameter("redirect");
                 httpResponse.sendRedirect(redirect == null ? "/ecommerce/dashboard" +
-                        "/index.jsp" : redirect);
+                        "/customers" : redirect);
                 return;
             }
             else {
@@ -66,7 +75,7 @@ public class AdminAuthFilter implements Filter {
             }
             else {
                 httpResponse.sendRedirect("/ecommerce/dashboard/auth/login" +
-                        ".html" +
+                        ".jsp" +
                         "?redirect=" + httpRequest.getRequestURI());
                 return;
             }
