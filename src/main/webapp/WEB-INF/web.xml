@@ -23,12 +23,21 @@
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>customerAuthFilter</filter-name>
+        <filter-name>refreshFilter</filter-name>
+        <url-pattern>/web/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>customerAuthFilterAsync</filter-name>
         <url-pattern>/web/addCartItem</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>customerAuthFilter</filter-name>
         <url-pattern>/web/cart.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/cart</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>customerAuthFilter</filter-name>
@@ -39,10 +48,7 @@
         <url-pattern>/web/checkout.jsp</url-pattern>
     </filter-mapping>
 
-    <filter-mapping>
-        <filter-name>refreshFilter</filter-name>
-        <url-pattern>/web/*</url-pattern>
-    </filter-mapping>
+
 
     <filter-mapping>
         <filter-name>adminAuthFilter</filter-name>
