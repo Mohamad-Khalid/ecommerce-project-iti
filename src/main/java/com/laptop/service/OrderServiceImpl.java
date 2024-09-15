@@ -103,5 +103,10 @@ public class OrderServiceImpl implements OrderService {
         orderDAO.delete(order);
     }
 
+    public Long countAllOrders(int page, int size, Map<String, Object> filter) {
+        Long count = orderDAO.countOrders(filter,page,size);
+        return count;
+    }
+
 
 }
