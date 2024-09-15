@@ -14,7 +14,7 @@ function changeSize(size){
     currentSize = size;
     filterDict = {
         page: 1,
-        size: currentSize
+        size: $("#selectPageSize").val()
     };
     search();
 }
