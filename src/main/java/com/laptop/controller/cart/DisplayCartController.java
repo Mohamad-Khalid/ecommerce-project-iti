@@ -18,7 +18,8 @@ public class DisplayCartController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ItemDTO> cartItems = cartService.getCartItems(1);
+        int customerId = (Integer) request.getSession().getAttribute("customer-id");
+        List<ItemDTO> cartItems = cartService.getCartItems(customerId);
 
         request.setAttribute("cartItems", cartItems);
 
