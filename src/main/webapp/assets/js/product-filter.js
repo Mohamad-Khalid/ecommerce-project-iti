@@ -10,11 +10,11 @@ function changePage(pageNum){
     search();
 }
 
-function changeSize(size){
-    currentSize = size;
+function changeSize(){
+    currentSize =  $("#selectPageSize").val();
     filterDict = {
         page: 1,
-        size: $("#selectPageSize").val()
+        size: currentSize
     };
     search();
 }
