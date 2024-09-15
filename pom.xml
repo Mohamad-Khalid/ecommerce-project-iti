@@ -140,6 +140,30 @@
       <artifactId>lombok</artifactId>
       <version>1.18.30</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jcache</artifactId>
+      <version>6.5.2.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>3.9.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.zaxxer</groupId>
+      <artifactId>HikariCP</artifactId>
+      <version>5.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-hikaricp</artifactId>
+      <version>6.5.2.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -152,7 +176,7 @@
         <configuration>
           <username>admin</username>
           <password>admin</password>
-          <url>http://localhost:8080/manager/text</url>
+          <url>http://localhost:8081/manager/text</url>
           <path>/ecommerce</path>
         </configuration>
       </plugin>
