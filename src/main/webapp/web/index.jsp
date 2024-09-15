@@ -205,34 +205,6 @@
                 </div>
               </div>
               <!-- single-slide -->
-              <div class="row single-slide">
-                <div class="col-lg-5">
-                  <div class="banner-content">
-                    <h1>Nike New <br />Collection!</h1>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud
-                      exercitation.
-                    </p>
-                    <div class="add-bag d-flex align-items-center">
-                      <a class="add-btn" href=""
-                        ><span class="lnr lnr-cross"></span
-                      ></a>
-                      <span class="add-text text-uppercase">Add to Bag</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-7">
-                  <div class="banner-img">
-                    <img
-                      class="img-fluid"
-                      src="../assets/img/banner/banner-laptop.png"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -293,9 +265,9 @@
     <section class="category-area">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-12">
+          <div class="col-lg-20">
             <div class="row">
-              <div class="col-lg-8 col-md-8">
+              <div class="col-lg-3">
                 <div class="single-deal">
                   <div class="overlay"></div>
                   <img
@@ -309,17 +281,17 @@
                     target="_blank"
                   >
                     <div class="deal-details">
-                      <h6 class="deal-title">Sneaker for Sports</h6>
+                      <h6 class="deal-title">GAMING</h6>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-4">
+              <div class="col-lg-3">
                 <div class="single-deal">
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/work2.jpg"
+                    src="../assets/img/category/work.jpg"
                     alt=""
                   />
                   <a
@@ -328,12 +300,12 @@
                     target="_blank"
                   >
                     <div class="deal-details">
-                      <h6 class="deal-title">Sneaker for Sports</h6>
+                      <h6 class="deal-title">WORKSTATION</h6>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-4">
+              <div class="col-lg-3">
                 <div class="single-deal">
                   <div class="overlay"></div>
                   <img
@@ -347,17 +319,17 @@
                     target="_blank"
                   >
                     <div class="deal-details">
-                      <h6 class="deal-title">Product for Couple</h6>
+                      <h6 class="deal-title">BUSINESS</h6>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="col-lg-8 col-md-8">
+              <div class="col-lg-3">
                 <div class="single-deal">
                   <div class="overlay"></div>
                   <img
                     class="img-fluid w-100"
-                    src="../assets/img/category/smart.jpg"
+                    src="../assets/img/category/smart2.jpg"
                     alt=""
                   />
                   <a
@@ -366,7 +338,7 @@
                     target="_blank"
                   >
                     <div class="deal-details">
-                      <h6 class="deal-title">Sneaker for Sports</h6>
+                      <h6 class="deal-title">SMARTBOOK</h6>
                     </div>
                   </a>
                 </div>
@@ -388,10 +360,6 @@
             <div class="col-lg-6 text-center">
               <div class="section-title">
                 <h1>Latest Products</h1>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
               </div>
             </div>
           </div>
@@ -474,10 +442,6 @@
             <div class="col-lg-6 text-center">
               <div class="section-title">
                 <h1>Latest Products</h1>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
               </div>
             </div>
           </div>
