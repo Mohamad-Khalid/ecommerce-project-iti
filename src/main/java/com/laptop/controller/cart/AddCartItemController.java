@@ -19,10 +19,17 @@ public class AddCartItemController extends HttpServlet{
         // Get the item ID and new quantity from the request
         int itemId = Integer.parseInt(request.getParameter("id"));
         int newQuantity = Integer.parseInt(request.getParameter("quantity"));
-        //int customerId = (Integer) request.getSession().getAttribute("customer-id");
-        int customerId = 1;
-
-        boolean added =  cartService.addCartItemWithQuantity(customerId,itemId, newQuantity);
+        int customerId = (Integer) request.getSession().getAttribute("customer-id");
+        //int customerId = 1;
+        //boolean exist = cartService.getIteam(customerId, itemId) != null;
+        ItemDTO item = cartService.getIteam(customerId, itemId);
+        boolean added;
+        if(item != null){
+            added = cartService.setCartItemQuantity(customerId,itemId,newQuantity + item.getQuantity());
+        }else{
+            added = cartService.addCartItemWithQuantity(customerId,itemId, newQuantity);
+        }
+        //boolean added =  cartService.addCartItemWithQuantity(customerId,itemId, newQuantity);
 
         response.setContentType("application/json");
         if(added){

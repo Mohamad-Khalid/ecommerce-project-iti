@@ -42,7 +42,7 @@ public class CartService {
         cartDAO.emptyCart(customerId);
     }
     public ItemDTO getIteam(int customerId, int itemId){
-        return new ItemDTO(cartHasProductDAO.getItem(customerId,itemId));
+        return cartHasProductDAO.getItem(customerId,itemId) == null ? null : new ItemDTO(cartHasProductDAO.getItem(customerId,itemId));
     }
 
 }

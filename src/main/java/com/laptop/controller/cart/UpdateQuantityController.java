@@ -20,8 +20,8 @@ public class UpdateQuantityController extends HttpServlet {
         // Get the item ID and new quantity from the request
         int itemId = Integer.parseInt(request.getParameter("id"));
         int newQuantity = Integer.parseInt(request.getParameter("quantity"));
-        //int customerId = (Integer) request.getSession().getAttribute("customer-id");
-        int customerId = 1;
+        int customerId = (Integer) request.getSession().getAttribute("customer-id");
+        //int customerId = 1;
 
         boolean updated =  cartService.setCartItemQuantity(customerId,itemId, newQuantity);
         ItemDTO updatedItem = cartService.getIteam(customerId, itemId);
