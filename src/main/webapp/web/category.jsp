@@ -224,7 +224,7 @@
 						</select>
 					</div>
 					<div class="sorting mr-auto">
-						<select id="selectPageSize">
+						<select id="selectPageSize" onchange="changeSize()">
 							<option value="12">Show 12</option>
 							<option value="16">Show 16</option>
 							<option value="20">Show 20</option>
