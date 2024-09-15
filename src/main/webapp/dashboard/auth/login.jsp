@@ -147,6 +147,9 @@
 									<label for="f-option2">Keep me logged in</label>
 								</div>
 							</div>
+							<c:if test = "${loginErrorResponse!=null}">
+								<div id="loginError" class="text-danger">${loginErrorResponse.message}</div>
+							</c:if>
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn">Log In</button>
 								<a href="#">Forgot Password?</a>
