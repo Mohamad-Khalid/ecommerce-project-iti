@@ -1,5 +1,5 @@
 target/
 .idea/
 .smarttomcat/
-.env
+*.env
 src/main/webapp/dashboard/firebase.js
