@@ -89,10 +89,10 @@
 .product_description_area .nav.nav-tabs li a.active,
 .blog-pagination .page-item.active .page-link,
 .single-footer-widget .click-btn {
-  background: -webkit-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: -moz-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -webkit-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: -moz-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: -o-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
 }
 
 .gradient-bg-reverse,
@@ -108,10 +108,10 @@
 .s_product_text .list li a.active,
 .product_description_area .tab-content .total_rate .box_total h4,
 .single-footer-widget .bb-btn {
-  background: -webkit-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: -moz-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: -o-linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
-  background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+  background: -webkit-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: -moz-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: -o-linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
+  background: linear-gradient(90deg, #3c5b6f 0%, #153448 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1371,7 +1371,7 @@ h6 {
   transition: all 0.3s ease 0s;
 }
 .header_area .navbar .nav .nav-item.submenu ul .nav-item.active {
-  background: #ffba00;
+  background: #3C5B6F;
 }
 .header_area .navbar .nav .nav-item.submenu ul .nav-item.active .nav-link {
   color: #fff;
@@ -1634,7 +1634,7 @@ h6 {
 }
 .breadcrumb-banner h1 {
   font-weight: 600;
-  color: #fff;
+  color: #153448;
 }
 @media (max-width: 767px) {
   .breadcrumb-banner h1 {
@@ -1647,8 +1647,8 @@ h6 {
 }
 .breadcrumb-banner nav a {
   display: inline-block;
-  color: #fff;
-  font-weight: 400;
+  color: #3C5B6F;
+  font-weight: 700;
 }
 .breadcrumb-banner nav a span {
   display: inline-block;
@@ -7406,7 +7406,7 @@ label {
 }
 .footer-text a,
 .footer-text i {
-  color: #ffba00;
+  color: #DFD0B8;
 }
 
 /*# sourceMappingURL=main.css.map */
