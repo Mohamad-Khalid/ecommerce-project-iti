@@ -290,7 +290,7 @@
                                 </td>
                                 <td>
                                     <div class="cupon_text d-flex align-items-center">
-                                        <input type="text" placeholder="Coupon Code">
+                                        <input type="text" placeholder="Coupon Code" id="coVal">
                                         <a class="primary-btn" href="#">Apply</a>
                                         <a class="gray_btn" href="#">Close Coupon</a>
                                     </div>
@@ -358,8 +358,9 @@
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="#">Continue Shopping</a>
 <!--                                        <a class="primary-btn" href="#">Proceed to checkout</a>-->
-                                        <form action="order" method="post">
-                                            <input type="button" class="primary-btn" value="Proceed to checkout"></input>
+                                        <form action="order" method="post" id="coForm">
+                                            <input type="hidden" name="coupon" id="hiddenValue">
+                                            <input type="submit" class="primary-btn" value="Proceed to checkout"></input>
                                         </form>
                                     </div>
                                 </td>
@@ -370,6 +371,18 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('coForm').addEventListener('submit', function(event) {
+            // Get the value from the specified HTML element
+            var valueFromDiv = document.getElementById('coVal').textContent;
+
+            // Set it to the hidden input
+            document.getElementById('hiddenValue').value = valueFromDiv;
+        });
+    </script>
+
+
     <!--================End Cart Area =================-->
 
     <!-- start footer Area -->
@@ -454,6 +467,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!-- End footer Area -->
+
 
     <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

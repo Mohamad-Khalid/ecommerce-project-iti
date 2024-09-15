@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/web/orders")
+@WebServlet("/dashboard/orders")
 public class AdminOrderController extends HttpServlet {
     OrderServiceImpl orderService = new OrderServiceImpl();
     @Override
@@ -34,9 +34,9 @@ public class AdminOrderController extends HttpServlet {
             if(req.getParameter("maxDate") != null){
 //                filterMap.put("max_date", req.getParameter("maxDate"));
             }
-            if(session.getAttribute("customer-id").toString() != null){
-                filterMap.put("customer_id", session.getAttribute("customer-id").toString());
-            }
+//            if(session.getAttribute("customer-id").toString() != null){
+//                filterMap.put("customer_id", session.getAttribute("customer-id").toString());
+//            }
             if (req.getParameter("minPrice") != null) {
                 filterMap.put("min_price", req.getParameter("minPrice"));
             }
@@ -48,8 +48,12 @@ public class AdminOrderController extends HttpServlet {
             }
 
         List<Order> orders = orderService.getOrdersByFilter(pageNumber, pageSize, filterMap);
+        Long count = orderService.countAllOrders(pageNumber, pageSize, filterMap);
 
         req.setAttribute("orders", orders);
-        req.getRequestDispatcher("orders.jsp").forward(req, resp);
+        req.setAttribute("totalPages", (count+pageSize-1)/pageSize);
+        req.setAttribute("page", pageNumber);
+
+        req.getRequestDispatcher("list-orders.jsp").forward(req, resp);
     }
 }

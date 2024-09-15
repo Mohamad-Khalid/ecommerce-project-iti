@@ -20,13 +20,13 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     }
     @Override
     public T findById(K id) {
-        return em.find(entityClass, id);
+        return EntityManagerProvider.getEntityManager().find(entityClass, id);
     }
 
     @Override
     public List<T> findAll(int page, int size) {
         Query query =
-                em.createQuery("select e from " + entityClass.getSimpleName() + " e", entityClass);
+                EntityManagerProvider.getEntityManager().createQuery("select e from " + entityClass.getSimpleName() + " e", entityClass);
         query.setFirstResult((page - 1)* size);
         query.setMaxResults(size);
         return query.getResultList();
@@ -35,9 +35,9 @@ public class GenericDAO <T, K> implements DAO <T, K>{
     @Override
     public T save(T t) {
         try {
-            em.getTransaction().begin();
-            em.persist(t);
-            em.getTransaction().commit();
+            EntityManagerProvider.getEntityManager().getTransaction().begin();
+            EntityManagerProvider.getEntityManager().persist(t);
+            EntityManagerProvider.getEntityManager().getTransaction().commit();
             return t;
         } catch (Exception e) {
             return null;
@@ -47,17 +47,17 @@ public class GenericDAO <T, K> implements DAO <T, K>{
 
     @Override
     public void delete(T t) {
-        em.getTransaction().begin();
-        em.remove(em.merge(t));
-        em.getTransaction().commit();
+        EntityManagerProvider.getEntityManager().getTransaction().begin();
+        EntityManagerProvider.getEntityManager().remove(EntityManagerProvider.getEntityManager().merge(t));
+        EntityManagerProvider.getEntityManager().getTransaction().commit();
     }
 
     @Override
     public T update(T t) {
         try {
-            em.getTransaction().begin();
-            T entity = em.merge(t);
-            em.getTransaction().commit();
+            EntityManagerProvider.getEntityManager().getTransaction().begin();
+            T entity = EntityManagerProvider.getEntityManager().merge(t);
+            EntityManagerProvider.getEntityManager().getTransaction().commit();
             return entity;
         } catch (Exception e) {
             return null;
