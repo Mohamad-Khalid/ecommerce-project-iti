@@ -1,6 +1,7 @@
 package com.laptop.controller.customer;
 
 import com.laptop.dto.AuthRequest;
+import com.laptop.dto.ErrorResponse;
 import com.laptop.entity.Customer;
 import com.laptop.service.AuthService;
 import com.laptop.service.CustomerService;
@@ -30,6 +31,7 @@ public class CustomerLoginController extends HttpServlet {
                 HttpSession session = req.getSession(true);
                 session.setAttribute("customer-id", customer.getId());
                 Cookie cookie = new Cookie("token", token);
+                cookie.setPath("/ecommerce/web/");
                 resp.addCookie(cookie);
                 resp.sendRedirect("/ecommerce/web/index.jsp");
                 return ;
@@ -49,7 +51,11 @@ public class CustomerLoginController extends HttpServlet {
 
         }
         else{
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            ErrorResponse errorResponse = new ErrorResponse();
+            errorResponse.setMessage("The credentials you entered don't " +
+                    "match");
+            req.setAttribute("loginErrorResponse", errorResponse);
+            req.getRequestDispatcher("login.jsp").forward(req,resp);
         }
 
         //return false credentials error

@@ -21,7 +21,7 @@ public class RefreshFilter implements Filter {
         HttpServletRequest httpRequest = ((HttpServletRequest) request);
         HttpSession httpSession = httpRequest.getSession(false);
 
-        if (httpSession == null) {
+        if (httpSession == null || httpSession.getAttribute("customer-id") == null) {
             Cookie[] cookies = httpRequest.getCookies();
             String tokenString = TokenHandler.getTokenStringFromCookies(cookies);
             if(tokenString != null){
@@ -38,7 +38,7 @@ public class RefreshFilter implements Filter {
                     HttpServletResponse httpResponse = ((HttpServletResponse) response);
                     httpResponse.addCookie(cookie);
                     ((HttpServletResponse) response).sendRedirect(
-                            "/ecommerce/web/login.html");
+                            "/ecommerce/web/login.jsp");
 
                 }
             }

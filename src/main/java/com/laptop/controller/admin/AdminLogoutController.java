@@ -1,4 +1,4 @@
-package com.laptop.controller.customer;
+package com.laptop.controller.admin;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,8 +6,8 @@ import jakarta.servlet.http.*;
 
 import java.io.IOException;
 
-@WebServlet("/web/auth/logout")
-public class CustomerLogoutController extends HttpServlet {
+@WebServlet("/dashboard/auth/logout")
+public class AdminLogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -20,6 +20,6 @@ public class CustomerLogoutController extends HttpServlet {
                 break;
             }
         }
-        resp.sendRedirect("/ecommerce/web/auth/login.jsp");
+        resp.sendRedirect("/ecommerce/dashboard/auth/login.jsp");
     }
 }
