@@ -1313,7 +1313,7 @@ h6 {
 }
 .header_area .navbar .nav .nav-item:hover .nav-link,
 .header_area .navbar .nav .nav-item.active .nav-link {
-  color: #ffba00;
+  color: #3C5B6F;
 }
 .header_area .navbar .nav .nav-item.submenu {
   position: relative;
@@ -1390,7 +1390,7 @@ h6 {
   border-bottom: none;
 }
 .header_area .navbar .nav .nav-item.submenu ul .nav-item:hover .nav-link {
-  background: #ffba00;
+  background: #3C5B6F;
   color: #fff;
 }
 @media (min-width: 992px) {

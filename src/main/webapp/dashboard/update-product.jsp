@@ -8,6 +8,40 @@
     <title>Update Product</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+
+    <style>
+        /* Loader container styles */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            visibility: hidden; /* Initially hidden */
+        }
+
+        /* Loader (spinner) styles */
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        /* Spinner animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -208,16 +242,30 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             }).then(response => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     hideLoader();
                     console.log("Product updated successfully");
                     location.reload();
+                    alert("Product updated successfully")
                 }
                 else {
+                    hideLoader();
                     alert("failed updating the order");
                 }
             });
 
+    }
+
+</script>
+<script>
+    // Show the loader
+    function showLoader() {
+        document.getElementById('loader').style.visibility = 'visible';
+    }
+
+    // Hide the loader
+    function hideLoader() {
+        document.getElementById('loader').style.visibility = 'hidden';
     }
 
 </script>
