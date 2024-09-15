@@ -20,7 +20,7 @@ public class AdminLoginController extends HttpServlet {
         authRequest.setPassword(req.getParameter("password"));
 
         AdminAuthService authService = new AdminAuthService();
-        if (req.getAttribute("rememberMe") != null && req.getAttribute(
+        if (req.getParameter("rememberMe") != null && req.getParameter(
                 "rememberMe").equals("on")) {
             String token = authService.loginWithToken(authRequest);
             if (token != null) {
