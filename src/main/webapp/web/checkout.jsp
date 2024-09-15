@@ -136,13 +136,13 @@
                                 <li><a href="#">Total <span>$${order.totalPrice + 50}</span></a></li>
                             </ul>
                             <!-- Payment options -->
-                            <form action=${paymentLink} method="get">
+                            <form method="get">
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option4" name="terms">
                                     <label for="f-option4">I’ve read and accept the </label>
                                     <a href="#">terms & conditions*</a>
                                 </div>
-                                <button type="submit" class="primary-btn">Proceed to Payment</button>
+                                <button class="primary-btn"><a href="${paymentLink}">PROCEED TO PAYMENT</a></button>
                             </form>
                         </div>
                     </div>
