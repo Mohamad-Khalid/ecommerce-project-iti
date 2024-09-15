@@ -1,6 +1,7 @@
 package com.laptop.dto.payment;
 
 import com.laptop.entity.Customer;
+import com.laptop.entity.Order;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,13 +14,11 @@ public class BillingDataDTO {
     private String last_name;
     private String email;
     private String phone_number;
-    private String address;
 
-    public BillingDataDTO(Customer customer) {
+    public BillingDataDTO(Customer customer, Order order) {
         this.first_name = customer.getFirstName();
         this.last_name = customer.getLastName();
         this.email = customer.getEmail();
-        this.phone_number = customer.getPhone();
-        this.address = customer.getAddress();
+        this.phone_number = String.valueOf(order.getId());
     }
 }
