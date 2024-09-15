@@ -128,6 +128,9 @@
                     <button type="button" class="primary-btn" id="uploadImagesBtn">Update Product</button>
                 </div>
             </form>
+            <div id="loader" class="loader-container">
+                <div class="loader"></div>
+            </div>
 
         </div>
     </div>
@@ -163,6 +166,7 @@
     let imageUrls = [];
 
     document.getElementById('uploadImagesBtn').addEventListener('click', async function () {
+        showLoader();
         const additionalImageFiles = imageFiles.files;
         let uploadPromises = [];
         for (let i = 0; i < Math.min(additionalImageFiles.length,3); i++) {
@@ -205,7 +209,12 @@
                 body: JSON.stringify(formData)
             }).then(response => {
                 if (response.status === 200) {
+                    hideLoader();
                     console.log("Product updated successfully");
+                    location.reload();
+                }
+                else {
+                    alert("failed updating the order");
                 }
             });
 
