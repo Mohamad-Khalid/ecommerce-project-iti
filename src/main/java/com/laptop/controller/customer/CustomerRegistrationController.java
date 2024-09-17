@@ -62,7 +62,7 @@ public class CustomerRegistrationController extends HttpServlet {
         CustomerDTO customerDTO = authService.register(body);
 
         if(customerDTO != null) {
-            resp.sendRedirect("/ecommerce/web/auth/login.html");
+            resp.sendRedirect("/ecommerce/web/auth/login.jsp");
         }
         else {
             ErrorResponse errorResponse = new ErrorResponse();

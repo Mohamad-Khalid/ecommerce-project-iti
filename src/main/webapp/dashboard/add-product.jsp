@@ -8,6 +8,8 @@
     <title>Add New Product</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         /* Loader container styles */
         .loader-container {
@@ -44,31 +46,13 @@
 
 <body>
 
-<header class="header_area sticky-header">
-    <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light main_box">
-            <div class="container">
-                <a class="navbar-brand logo_h" href="../index.jsp"><img src="../assets/img/logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="../index.jsp">Home</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="#">Add Product</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+<c:import url="admin-header.jsp" />
 
 <section class="container section_gap">
     <div class="row">
         <div class="col-lg-6">
+            <br>
+            <br>
             <h3>Add New Product</h3>
             <form class="row login_form" action="/ecommerce/products/add" method="post" id="addProductForm" enctype="multipart/form-data">
                 <!-- Product Basic Info Fields -->
@@ -178,6 +162,9 @@
     let imageUrls = [];
 
     document.getElementById('uploadImagesBtn').addEventListener('click', async function () {
+        if(!validateForm()){
+            return;
+        }
         showLoader();
         const additionalImageFiles = imageFiles.files;
         let uploadPromises = [];
@@ -210,7 +197,7 @@
     // Form data to be sent to backend
         const formData = {
             name: document.getElementById('name').value,
-            price: document.getElementById('price').value,
+            price: document.getElementById('price').value*100,
             description: document.getElementById('description').value,
             stock: document.getElementById('stock').value,
             brandName: document.getElementById('brandName').value,
@@ -257,6 +244,46 @@
     // Hide the loader
     function hideLoader() {
         document.getElementById('loader').style.visibility = 'hidden';
+    }
+
+    function validateForm() {
+        // Get input values
+        const price = document.getElementById('price').value;
+        const weight = document.getElementById('weight').value;
+        const memory = document.getElementById('memory').value;
+        const batteryLife = document.getElementById('batteryLife').value;
+        const stock = document.getElementById('stock').value;
+
+        // Validate Price (max 2 decimal places)
+        if (!/^\d+(\.\d{1,2})?$/.test(price)) {
+            alert("Price must be a number with up to 2 decimal places.");
+            return false;
+        }
+
+        // Validate Weight (min 1.2, max 2 decimal places)
+        if (!/^\d+(\.\d{1,2})?$/.test(weight) || parseFloat(weight) < 1.2) {
+            alert("Weight must be at least 1.2 and can have up to 2 decimal places.");
+            return false;
+        }
+
+        // Validate Memory (must be an integer)
+        if (!/^\d+$/.test(memory)) {
+            alert("Memory must be an integer.");
+            return false;
+        }
+
+        // Validate Battery Life (must be an integer)
+        if (!/^\d+$/.test(batteryLife)) {
+            alert("Battery life must be an integer.");
+            return false;
+        }
+
+        if (!/^\d+$/.test(stock)) {
+            alert("Stock must be an integer.");
+            return false;
+        }
+        // If all validations pass, return true to allow form submission
+        return true;
     }
 
 </script>

@@ -6,7 +6,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="../../assets/img/fav.png">
+	<link rel="icon" href="../../assets/img/electro-logo.png" />
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -16,7 +16,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>Electro</title>
 
 	<!--
 		CSS
@@ -29,12 +29,82 @@
 	<link rel="stylesheet" href="../../assets/css/nouislider.min.css">
 	<link rel="stylesheet" href="../../assets/css/bootstrap.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/all.css">
+	<link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 
 <body>
 
 	<!-- Start Header Area -->
-	<c:import url="../header.jsp" />
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+
+					<div class="logo-container">
+						<a class="navbar-brand logo_h" href="index.jsp"
+						><img src="../../assets/img/electro-logo.png" alt="" class="logo-image"
+						/></a>
+					</div>
+
+					<button
+							class="navbar-toggler"
+							type="button"
+							data-toggle="collapse"
+							data-target="#navbarSupportedContent"
+							aria-controls="navbarSupportedContent"
+							aria-expanded="false"
+							aria-label="Toggle navigation"
+					>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div
+							class="collapse navbar-collapse offset"
+							id="navbarSupportedContent"
+					>
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="../index.jsp">Home</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="../category.jsp">Shop</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">Login</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="../contact.jsp">Contact</a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item">
+								<button class="search">
+									<a href="#" class="cart"><span class="ti-bag"></span></a>
+								</button>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<%--                        <li class="nav-item">--%>
+							<%--                            <a href="cart" class="cart"><span class="ti-bag"></span></a>--%>
+							<%--                        </li>--%>
+							<c:if test="${not empty sessionScope['customer-id']}">
+							<li class="nav-item">
+								<button class="search">
+									<a href="#" class="cart"><span class="lnr fa-regular fa-user" id="search"></span></a>
+								</button>
+							</li>
+							</c:if>
+						</ul>
+
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
 	<!-- End Header Area -->
 
 	<!-- Start Banner Area -->
@@ -42,11 +112,7 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Login/Register</h1>
-					<nav class="d-flex align-items-center">
-						<a href="../index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="../category.jsp">Login/Register</a>
-					</nav>
+					<h1>Login / Register</h1>
 				</div>
 			</div>
 		</div>
@@ -86,10 +152,8 @@
 							<c:if test = "${loginErrorResponse!=null}">
 								<div id="loginError" class="text-danger">${loginErrorResponse.message}</div>
 							</c:if>
-
 							<div class="col-md-12 form-group">
 								<button type="submit" value="submit" class="primary-btn">Log In</button>
-								<a href="#">Forgot Password?</a>
 							</div>
 						</form>
 					</div>

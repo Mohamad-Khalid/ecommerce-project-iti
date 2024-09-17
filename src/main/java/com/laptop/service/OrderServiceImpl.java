@@ -40,8 +40,6 @@ public class OrderServiceImpl implements OrderService {
                 orderItems.add(orderItem);
                 order.setTotalPrice((cartHasProduct.getProduct().getPrice()*cartHasProduct.getQuantity()) + order.getTotalPrice());
             }
-            CartService cartService = new CartService();
-            cartService.emptyCart(customer.getId());
             if (!coupon.isEmpty()) {
                 Coupon c = couponDAO.findByName(coupon);
                 if (c != null) {
@@ -58,6 +56,8 @@ public class OrderServiceImpl implements OrderService {
                 }
             }
             order.setState(OrderState.PENDING);
+            CartService cartService = new CartService();
+            cartService.emptyCart(customer.getId());
             return orderDAO.saveOrder(order, orderItems);
         } else {
             System.out.println("No Enough Stock for " + product.getName());

@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../assets/img/fav.png" />
+    <link rel="icon" href="../assets/img/electro-logo.png" />
     <!-- Author Meta -->
     <meta name="author" content="CodePixar" />
     <!-- Meta Description -->
@@ -18,7 +18,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8" />
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Electro</title>
     <!--
 		CSS
 		============================================= -->
@@ -56,11 +56,12 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        background-color: #f1c40f;
+        background-color: #3C5B6F;
         padding: 20px;
-        border: 1px solid #e67e22;
+        border: 1px solid #153448;
         border-radius: 5px;
         z-index: 1000;
+        color: white;
         /* Make sure it's on top */
       }
     </style>
@@ -298,17 +299,13 @@
                     <div class="product-details">
                       <h6>${current.getName()}</h6>
                       <div class="price">
-                        <h6>&pound;${current.getPrice()/100}</h6>
+                        <h6>${current.getPrice()/100} EGP</h6>
                       </div>
                       <div class="prd-bottom">
                         <a href="" onclick="event.preventDefault(); addToCart(${current.getId()},1);"
                           class="social-info">
                           <span class="ti-bag"></span>
                           <p class="hover-text">add to Bag</p>
-                        </a>
-                        <a href="" class="social-info">
-                          <span class="lnr lnr-heart"></span>
-                          <p class="hover-text">Wishlist</p>
                         </a>
                         <a href="/ecommerce/web/single-product.jsp?id=${current.getId()}" class="social-info">
                           <span class="lnr lnr-move"></span>
@@ -346,16 +343,13 @@
                     <div class="product-details">
                       <h6>${current.getName()}</h6>
                       <div class="price">
-                        <h6>&pound;${current.getPrice()/100}</h6>
+                        <h6>${current.getPrice()/100} EGP</h6>
                       </div>
                       <div class="prd-bottom">
-                        <a href="" class="social-info">
+                        <a href="" onclick="event.preventDefault(); addToCart(${current.getId()},1);"
+                           class="social-info">
                           <span class="ti-bag"></span>
                           <p class="hover-text">add to Bag</p>
-                        </a>
-                        <a href="" class="social-info">
-                          <span class="lnr lnr-heart"></span>
-                          <p class="hover-text">Wishlist</p>
                         </a>
                         <a href="/ecommerce/web/single-product.html?id=${current.getId()}" class="social-info">
                           <span class="lnr lnr-move"></span>

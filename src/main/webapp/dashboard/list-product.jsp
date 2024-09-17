@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,35 +9,20 @@
     <title>Product List</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
 
-<header class="header_area sticky-header">
-    <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light main_box">
-            <div class="container">
-                <a class="navbar-brand logo_h" href="../index.jsp"><img src="../assets/img/logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="../index.jsp">Home</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="#">View Products</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+<c:import url="admin-header.jsp" />
 
 <section class="container section_gap">
-    <h3>Product List</h3>
-
+    <br>
+    <br>
+    <span><h3 style="display: inline-block">Product List</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button class="btn btn-success" onclick="window.location.href='/ecommerce/dashboard/add-product.jsp'">Add Product</button>
+    </span>
     <!-- Product Table -->
     <table class="table table-striped">
         <thead>
@@ -51,14 +37,15 @@
         </thead>
         <tbody id="productTableBody">
         <c:forEach items="${products}" var="product">
-            <tr onclick="window.location.href='/ecommerce/dashboard/update-product?id=${product.id}'" style="cursor:pointer;">
+            <tr>
                 <td>${product.id}</td>
                 <td>${product.name}</td>
-                <td>${product.price}</td>
+                <td><fmt:formatNumber value="${product.price/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></td>
                 <td>${product.stock}</td>
                 <td>${product.brandName}</td>
                 <td>
                     <button class="btn btn-danger" onclick="event.stopPropagation(); confirmDelete(${product.id})">Delete</button>
+                    <button class="btn btn-primary" onclick="window.location.href='/ecommerce/dashboard/update-product?id=${product.id}'">Update</button>
                 </td>
             </tr>
         </c:forEach>

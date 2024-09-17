@@ -109,31 +109,42 @@
 </section>
 
 <!-- Profile Page Content -->
-<section class="profile-container">
+<section class="order-container">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
-                <div class="profile-header">
-                    <h2 class="profile-name" id="profile-name">${customer.firstName} ${customer.lastName}</h2>
+                <div class="order-header">
+                    <br>
+                    <h2 class="order-id">Order ID: ${order.id}</h2>
                 </div>
-                <!-- Profile Details (Visible before editing) -->
-                <div id="profileDetails" class="profile-details">
+                <!-- Order Details (Visible before editing) -->
+                <div id="orderDetails" class="order-details">
                     <br>
-                    <h4>About:</h4>
+                    <h4>Order Summary:</h4>
                     <br>
-                    <p><strong id="customer-firstname">First Name:</strong> <span id="customer-firstname-value">${customer.firstName}</span></p>
-                    <p><strong id="customer-lastname">Last Name:</strong> <span id="customer-lastname-value">${customer.lastName}</span></p>
-                    <p><strong id="customer-email">Email:</strong> <span id="customer-email-value">${customer.email}</span></p>
-                    <p><strong id="customer-address">Address:</strong> <span id="customer-address-value">${customer.address}</span></p>
-                    <p><strong id="customer-phone">Phone:</strong> <span id="customer-phone-value">${customer.phone}</span></p>
-                    <p><strong id="customer-date">Date Of Birth:</strong> <span id="customer-date-value">${customer.dateOfBirth}</span></p>
-                    <p><strong id="customer-job">Job:</strong> <span id="customer-job-value">${customer.job}</span></p>
-                    <p><strong id="customer-interests">Interests:</strong> <span id="customer-interests-value">${customer.interests}</span></p>
+                    <p><strong id="order-date">Order Date:</strong> <span id="order-date-value">${order.date}</span></p>
+                    <p><strong id="order-customer">Customer:</strong> <span id="order-customer-value">${order.customer.firstName} ${order.customer.lastName}</span></p>
+                    <p><strong id="order-total-price">Total Price:</strong> <span id="order-total-price-value">${order.totalPrice}</span></p>
+                    <p><strong id="order-status">Order Status:</strong> <span id="order-status-value">${order.state}</span></p>
+                    <br>
+                    <h4>Order Items:</h4>
+                    <br>
+                    <ul id="order-items-list">
+                        <!-- Iterate over orderItems and display them -->
+                        <c:forEach items="${order.orderItems}" var="item">
+                            <li>
+                                <p><strong>Product:</strong> ${item.product.name}</p>
+                                <p><strong>Quantity:</strong> ${item.quantity}</p>
+                                <p><strong>Price:</strong> ${item.currentPrice}</p>
+                            </li>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- start footer Area -->
 

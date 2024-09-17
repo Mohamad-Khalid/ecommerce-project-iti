@@ -6,7 +6,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="../assets/img/fav.png">
+	<link rel="icon" href="../assets/img/electro-logo.png" />
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -16,7 +16,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>Electro</title>
 
 	<!--
             CSS
@@ -44,10 +44,6 @@
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
 					<h1>Contact Us</h1>
-					<nav class="d-flex align-items-center">
-						<a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.jsp">Contact</a>
-					</nav>
 				</div>
 			</div>
 		</div>
@@ -65,17 +61,17 @@
 					<div class="contact_info">
 						<div class="info_item">
 							<i class="lnr lnr-home"></i>
-							<h6>California, United States</h6>
-							<p>Santa monica bullevard</p>
+							<h6>Giza, Egypt</h6>
+							<p>Smart Village</p>
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-phone-handset"></i>
-							<h6><a href="#">00 (440) 9865 562</a></h6>
-							<p>Mon to Fri 9am to 6 pm</p>
+							<h6><a href="#">(+2)029865562</a></h6>
+							<p>Sun to Thu 7 am to 3 pm</p>
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-envelope"></i>
-							<h6><a href="#">support@colorlib.com</a></h6>
+							<h6><a href="#">support@iti.gov.com</a></h6>
 							<p>Send us your query anytime!</p>
 						</div>
 					</div>
@@ -99,7 +95,7 @@
 							</div>
 						</div>
 						<div class="col-md-12 text-right">
-							<button type="submit" value="submit" class="primary-btn">Send Message</button>
+							<button type="button" value="submit" class="primary-btn" disabled>Send Message</button>
 						</div>
 					</form>
 				</div>

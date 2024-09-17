@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Fatma Amr
-  Date: 9/15/2024
-  Time: 2:36 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Header</title>
@@ -47,69 +41,42 @@
                         <li class="nav-item active">
                             <a class="nav-link" href="index.jsp">Home</a>
                         </li>
-                        <li class="nav-item submenu dropdown">
-                            <a
-                                    href="#"
-                                    class="nav-link dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                            >Shop</a
-                            >
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="category.jsp">Shop Category</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="single-product.jsp"
-                                    >Product Details</a
-                                    >
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="checkout.jsp"
-                                    >Product Checkout</a
-                                    >
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="confirmation.jsp"
-                                    >Confirmation</a
-                                    >
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.jsp">Shop</a>
                         </li>
-                        <li class="nav-item submenu dropdown">
-                            <a
-                                    href="#"
-                                    class="nav-link dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                            >Pages</a
-                            >
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="auth/login.jsp">Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="tracking.jsp">Tracking</a>
-                                </li>
-                            </ul>
+                        <c:choose>
+                        <c:when test="${not empty sessionScope['customer-id']}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ecommerce/web/auth/logout">Logout</a>
                         </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/ecommerce/web/auth/login.jsp">Login</a>
+                            </li>
+                        </c:otherwise>
+                        </c:choose>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.jsp">Contact</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <br>
                         <li class="nav-item">
-                            <a href="cart.jsp" class="cart"><span class="ti-bag"></span></a>
+                            <button class="search">
+                                <a href="cart" class="cart"><span class="ti-bag"></span></a>
+                            </button>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <br>
+                        <c:if test="${not empty sessionScope['customer-id']}">
                         <li class="nav-item">
                             <button class="search">
                                 <a href="profile.jsp" class="cart"><span class="lnr fa-regular fa-user" id="search"></span></a>
                             </button>
                         </li>
+                        </c:if>
                     </ul>
                 </div>
             </div>

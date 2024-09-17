@@ -6,7 +6,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="../assets/img/fav.png">
+	<link rel="icon" href="../assets/img/electro-logo.png" />
 	<!-- Author Meta -->
 	<meta name="author" content="CodePixar">
 	<!-- Meta Description -->
@@ -16,7 +16,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Karma Shop</title>
+	<title>Electro</title>
 	<!--
 			CSS
 			============================================= -->
@@ -38,11 +38,12 @@
                     left: 50%;
                     top: 50%;
                     transform: translate(-50%, -50%);
-                    background-color: #f1c40f;
+                    background-color: #3C5B6F;
                     padding: 20px;
-                    border: 1px solid #e67e22;
+                    border: 1px solid #153448;
                     border-radius: 5px;
                     z-index: 1000; /* Make sure it's on top */
+					color: white;
                 }
 	</style>
 </head>
@@ -58,12 +59,7 @@
 	<div class="container">
 		<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 			<div class="col-first">
-				<h1>Product Details Page</h1>
-				<nav class="d-flex align-items-center">
-					<a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-					<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-					<a href="single-product.html">product-details</a>
-				</nav>
+				<h1>Product Details</h1>
 			</div>
 		</div>
 	</div>
@@ -77,13 +73,13 @@
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
 						<div class="single-prd-item">
-							<img class="img-fluid product-image1" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image1" src="" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid product-image2" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image2" src="" alt="">
 						</div>
 						<div class="single-prd-item">
-							<img class="img-fluid product-image3" src="../assets/img/category/s-p1.jpg" alt="">
+							<img class="img-fluid product-image3" src="" alt="">
 						</div>
 
 					</div>
@@ -93,11 +89,11 @@
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3 id="product-name">Faded SkyBlu Denim Jeans</h3>
-						<h2 id="product-price">$149.99</h2>
+						<h3 id="product-name"></h3>
+						<h2 id="product-price"></h2>
 						<ul class="list">
-							<li><a class="active" href="#"><span>Category</span> : <span id="product-category"></span></a></li>
-							<li><a href="#"><span>Availibility</span> : <span id="product-stock"></span></a></li>
+							<li><a class="active" href="#" disabled="true"><span>Category</span> : <span id="product-category"></span></a></li>
+							<li><a href="#" disabled="true"><span>Availibility</span> : <span id="product-stock"></span></a></li>
 						</ul>
 						<p id="product-description"></p>
 						<div class="product_count">
@@ -110,7 +106,6 @@
 						</div>
 						<div class="card_area d-flex align-items-center">
 							<a class="primary-btn" href="#" onclick="event.preventDefault(); handleAddItem();">Add to Cart</a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 					</div>
 				</div>
@@ -226,7 +221,7 @@
 			if(status == "success"){
 
 					$('#product-name').text(data.name);
-					$('#product-price').text("£" + (parseFloat(data.price)).toFixed(2));
+					$('#product-price').text((parseFloat(data.price)/100).toFixed(2) + " EGP");
 					$('#product-description').text(data.description);
 					if(data.images.length>0){
 						$('.product-image1').attr('src', data.images[0]);
@@ -259,10 +254,10 @@
 				$('#product-category').text(data.category.categoryName);
 				var num = data.stock;
 				if(data.stock>0){
-					$('product-stock').text("In Stock");
+					$('#product-stock').text("In Stock");
 				}
 				else{
-					$('product-stock').text("Out Of Stock");
+					$('#product-stock').text("Out Of Stock");
 				}
 			}
 		}

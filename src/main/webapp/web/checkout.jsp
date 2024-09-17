@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -7,7 +8,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../assets/img/fav.png">
+    <link rel="icon" href="../assets/img/electro-logo.png" />
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -17,7 +18,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Electro</title>
 
     <!--
             CSS
@@ -33,7 +34,7 @@
     <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 
-<body>
+<body onload="setCoupon()">
 
     <!-- Start Header Area -->
     <c:import url="header.jsp" />
@@ -45,10 +46,6 @@
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
                     <h1>Checkout</h1>
-                    <nav class="d-flex align-items-center">
-                        <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="single-product.jsp">Checkout</a>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -60,34 +57,30 @@
         <div class="container">
             <div class="billing_details">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-7">
                         <div class="order_box">
                             <h2>Your Order</h2>
                             <ul class="list">
                                 <li><a href="#">Product <span>Total</span></a></li>
-                                <c:forEach var="item" items="${order.orderItems}">
+                                <c:forEach var="item" items="${cartItems}">
                                     <li>
-                                        <a href="#">${item.product.name}
+                                        <a href="#">${item.name}
                                             <span class="middle">x ${item.quantity}</span>
-                                            <span class="last">$${item.currentPrice * item.quantity}</span>
+                                            <span class="last">EGP <fmt:formatNumber value="${(item.price/100) * item.quantity}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span>
                                         </a>
                                     </li>
                                 </c:forEach>
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Subtotal <span>$${order.totalPrice}</span></a></li>
+                                <li><a href="#">Total <span>EGP <fmt:formatNumber value="${totalPrice/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
 <%--                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>--%>
-                                <li><a href="#">Total <span>$${order.totalPrice + 50}</span></a></li>
                             </ul>
                             <!-- Payment options -->
-                            <form method="get">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option4" name="terms">
-                                    <label for="f-option4">I’ve read and accept the </label>
-                                    <a href="#">terms & conditions*</a>
-                                </div>
-                                <button class="primary-btn"><a href="${paymentLink}">PROCEED TO PAYMENT</a></button>
+                            <form action="order" method="post">
+                                <input name="coupon" value="${coupon}" type="hidden" id="coVal" >
+                                <button type="submit" class="primary-btn">PROCEED TO PAYMENT</button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -100,6 +93,18 @@
     <!-- start footer Area -->
     <c:import url="footer.jsp" />
     <!-- End footer Area -->
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+        function setCoupon() {
+            var coup = getQueryParam("coupon");
+            document.getElementById("coVal").value = coup;
+        }
+
+    </script>
 
 
     <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>

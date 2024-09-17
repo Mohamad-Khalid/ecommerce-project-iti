@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebServlet("/web/auth/logout")
 public class CustomerLogoutController extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.invalidate();
         Cookie[] cookies = req.getCookies();

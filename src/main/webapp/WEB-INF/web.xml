@@ -18,6 +18,10 @@
 
 <!--    filters     -->
     <filter-mapping>
+        <filter-name>redirection</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>uriFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
@@ -47,8 +51,6 @@
         <filter-name>customerAuthFilter</filter-name>
         <url-pattern>/web/checkout.jsp</url-pattern>
     </filter-mapping>
-
-
 
     <filter-mapping>
         <filter-name>adminAuthFilter</filter-name>

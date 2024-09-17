@@ -6,7 +6,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../assets/img/fav.png">
+    <link rel="icon" href="../assets/img/electro-logo.png" />
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -16,7 +16,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Electro</title>
 
     <!--
             CSS
@@ -44,10 +44,6 @@
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
                     <h1>Order Tracking</h1>
-                    <nav class="d-flex align-items-center">
-                        <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.jsp">Fashon Category</a>
-                    </nav>
                 </div>
             </div>
         </div>
