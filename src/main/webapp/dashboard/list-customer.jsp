@@ -8,33 +8,17 @@
     <title>Customer List</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/all.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
 
-<header class="header_area sticky-header">
-    <div class="main_menu">
-        <nav class="navbar navbar-expand-lg navbar-light main_box">
-            <div class="container">
-                <a class="navbar-brand logo_h" href="../index.jsp"><img src="../assets/img/logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="../index.jsp">Home</a></li>
-                        <li class="nav-item active"><a class="nav-link" href="#">View Customers</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
+<c:import url="admin-header.jsp" />
 
 <section class="container section_gap">
+    <br>
+    <br>
     <h3>Customer List</h3>
 
     <!-- Customer Table -->
@@ -50,12 +34,15 @@
         </thead>
         <tbody id="customerTableBody">
         <c:forEach items="${customers}" var="customer">
-            <tr onclick="window.location.href='/ecommerce/dashboard/customer?id=${customer.id}'" style="cursor:pointer;">
+            <tr>
                 <td>${customer.id}</td>
                 <td>${customer.firstName}</td>
                 <td>${customer.lastName}</td>
                 <td>${customer.email}</td>
                 <td>${customer.phone}</td>
+                <td>
+                    <button class="btn btn-success" onclick="window.location.href='/ecommerce/dashboard/customer?id=${customer.id}'">View</button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

@@ -639,6 +639,17 @@ pre code {
     align-items: flex-start;
 }
 
+.rowR {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    align-items: center;
+    justify-content: center;
+}
+
 .no-gutters {
     margin-right: 0;
     margin-left: 0

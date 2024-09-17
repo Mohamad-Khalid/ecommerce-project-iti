@@ -1,5 +1,6 @@
 
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 
@@ -7,7 +8,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="../assets/img/fav.png">
+    <link rel="icon" href="../assets/img/electro-logo.png" />
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -17,7 +18,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Electro</title>
 
     <!--
             CSS
@@ -30,6 +31,7 @@
     <link rel="stylesheet" href="../assets/css/nouislider.min.css">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/style.css" />
     <style>
             /* Popup styles */
             .popup {
@@ -38,84 +40,33 @@
                 left: 50%;
                 top: 50%;
                 transform: translate(-50%, -50%);
-                background-color: #f1c40f;
+                background-color: #3C5B6F;
                 padding: 20px;
-                border: 1px solid #e67e22;
+                border: 1px solid #153448;
                 border-radius: 5px;
                 z-index: 1000; /* Make sure it's on top */
+                color: white;
             }
+
+            .cart-item {
+                display: flex;
+                align-items: center; /* Center the icon vertically */
+            }
+
+            .cart-item-icon {
+                width: 100px;  /* Set the appropriate width */
+                height: 100px; /* Keep the height proportional */
+                object-fit: cover; /* Optional: maintains the aspect ratio */
+                border-radius: 5px; /* Optional: gives a rounded effect */
+            }
+
         </style>
 </head>
 
 <body onload="calculateTotalPrice();">
 
     <!-- Start Header Area -->
-	<header class="header_area sticky-header">
-		<div class="main_menu">
-			<nav class="navbar navbar-expand-lg navbar-light main_box">
-				<div class="container">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.jsp"><img src="../assets/img/logo.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item"><a class="nav-link" href="index.jsp">Home</a></li>
-							<li class="nav-item submenu dropdown active">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Shop</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="category.jsp">Shop Category</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-product.html">Product Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="checkout.jsp">Product Checkout</a></li>
-									<li class="nav-item active"><a class="nav-link" href="cart">Shopping Cart</a></li>
-									<li class="nav-item"><a class="nav-link" href="confirmation.html">Confirmation</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="auth/login.html">Login</a></li>
-									<li class="nav-item"><a class="nav-link" href="tracking.html">Tracking</a></li>
-									<li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-								</ul>
-							</li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
-							<li class="nav-item">
-								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-		</div>
-		<div class="search_input" id="search_input_box">
-			<div class="container">
-				<form class="d-flex justify-content-between">
-					<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-					<button type="submit" class="btn"></button>
-					<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-				</form>
-			</div><c:if test="@{customer-id != null}">${customer-id}</c:if>
-		</div>
-	</header>
+    <c:import url="header.jsp" />
 	<!-- End Header Area -->
 
     <!-- Start Banner Area -->
@@ -124,10 +75,6 @@
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
                     <h1>Shopping Cart</h1>
-                    <nav class="d-flex align-items-center">
-                        <a href="index.jsp">Home<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.jsp">Cart</a>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -179,7 +126,7 @@
                                         }
                                         else{
                                             // Update the total price on success
-                                            $('#total-' + itemId).text('$' + response.newTotal);
+                                            $('#total-' + itemId).text(response.newTotal + ' EGP');
                                             // Update the input field with the new quantity
                                             inputField.val(currentQuantity);
                                             calculateTotalPrice();
@@ -223,8 +170,8 @@
                                     });
 
                                     // Display the total price
-                                    //document.getElementById('total-price').innerText = `Total Price: $${totalPrice.toFixed(2)}`;
-                                    document.getElementById('total-price').innerText = totalPrice;
+                                    //document.getElementById('total-price').innerText = `Total Price: $`;
+                                    document.getElementById('total-price').innerText = totalPrice.toFixed(2)+" EGP";
                                 }
                                 function showStockError() {
                                         var popup = document.getElementById("stock-error");
@@ -241,8 +188,8 @@
                             <tr>
                                 <td>
                                     <div class="media">
-                                        <div class="d-flex">
-                                            <img src="${item.image}" alt="${item.name}">
+                                        <div class="d-flex cart-item">
+                                            <img src="${item.image}" alt="${item.name}" class="cart-item-icon">
                                         </div>
                                         <div class="media-body">
                                             <p>${item.name}</p>
@@ -254,7 +201,7 @@
                                 </td>
 
                                 <td>
-                                    <h5>$${item.price}</h5>
+                                    <h5><fmt:formatNumber value="${item.price/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/> EGP</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
@@ -271,7 +218,7 @@
                                     <h5 id = "err-${item.id}"></h5>
                                 </td>-->
                                 <td>
-                                    <h5 id = "total-${item.id}" class = "item-price">$${item.price * item.quantity}</h5>
+                                    <h5 id = "total-${item.id}" class = "item-price"><fmt:formatNumber value="${item.price/100 * item.quantity}" type="number" minFractionDigits="2" maxFractionDigits="2"/> EGP</h5>
                                 </td>
                                 <td>
                                     <a class="gray_btn" href="" onclick="event.preventDefault(); removeItem(${item.id});">Remove</a>
@@ -280,7 +227,10 @@
                         </c:forEach>
                             <tr class="bottom_button">
                                 <td>
-                                    <a class="gray_btn" href="#">Update Cart</a>
+
+                                </td>
+                                <td>
+
                                 </td>
                                 <td>
 
@@ -291,8 +241,6 @@
                                 <td>
                                     <div class="cupon_text d-flex align-items-center">
                                         <input type="text" placeholder="Coupon Code" id="coVal">
-                                        <a class="primary-btn" href="#">Apply</a>
-                                        <a class="gray_btn" href="#">Close Coupon</a>
                                     </div>
                                 </td>
                             </tr>
@@ -307,41 +255,10 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5 id = "total-price">$0.00</h5>
-                                </td>
-                            </tr>
-                            <tr class="shipping_area">
-                                <td>
-
+                                    <h5 id = "total-price"></h5>
                                 </td>
                                 <td>
 
-                                </td>
-                                <td>
-                                    <h5>Shipping</h5>
-                                </td>
-                                <td>
-                                    <div class="shipping_box">
-                                        <ul class="list">
-                                            <li><a href="#">Flat Rate: $5.00</a></li>
-                                            <li><a href="#">Free Shipping</a></li>
-                                            <li><a href="#">Flat Rate: $10.00</a></li>
-                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li>
-                                        </ul>
-                                        <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                        <select class="shipping_select">
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
-                                            <option value="4">Pakistan</option>
-                                        </select>
-                                        <select class="shipping_select">
-                                            <option value="1">Select a State</option>
-                                            <option value="2">Select a State</option>
-                                            <option value="4">Select a State</option>
-                                        </select>
-                                        <input type="text" placeholder="Postcode/Zipcode">
-                                        <a class="gray_btn" href="#">Update Details</a>
-                                    </div>
                                 </td>
                             </tr>
                             <tr class="out_button_area">
@@ -351,19 +268,35 @@
                                 <td>
 
                                 </td>
-                                <td>
+                                <c:choose>
+                                    <c:when test="${not empty cartItems}">
+                                        <td>
 
-                                </td>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>
+
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="#">Continue Shopping</a>
+                                        <a class="gray_btn" href="index.jsp">Continue Shopping</a>
 <!--                                        <a class="primary-btn" href="#">Proceed to checkout</a>-->
-                                        <form action="order" method="post" id="coForm">
+                                        <form action="orderDetails" method="get" id="coForm">
                                             <input type="hidden" name="coupon" id="hiddenValue">
-                                            <!--  <input type="submit" class="primary-btn" value="Proceed to checkout"></input>-->
+                                            <c:if test = "${errorResponse!=null}">
+                                                <div id="loginError" class="text-danger">${errorResponse.message}</div>
+                                                <c:remove var="errorResponse" scope="session"/>
+                                            </c:if>
+<%--                                            <!--  <input type="submit" class="primary-btn" value="Proceed to checkout"></input>-->--%>
                                             <c:choose>
                                                 <c:when test="${not empty cartItems}">
-                                                    <input type="submit" class="primary-btn" value="Proceed to checkout">
+                                                    <button type="button" onclick="viewOrderDetails()" class="primary-btn">Proceed To Checkout</button>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <input type="submit" class="gray_btn" value="Proceed to checkout" disabled>
@@ -381,106 +314,34 @@
     </section>
 
     <script>
-        document.getElementById('coForm').addEventListener('submit', function(event) {
-            // Get the value from the specified HTML element
-            var valueFromDiv = document.getElementById('coVal').textContent;
+        // document.getElementById('coVal').addEventListener("blur", function(event) {
+        //     // Get the value from the specified HTML element
+        //     var valueFromDiv = document.getElementById('coVal').value;
+        //     // Set it to the hidden input
+        //     document.getElementById('hiddenValue').value = valueFromDiv;
+        //     // alert(document.getElementById('hiddenValue').value);
+        // });
 
-            // Set it to the hidden input
-            document.getElementById('hiddenValue').value = valueFromDiv;
-        });
+        function viewOrderDetails(){
+            var valueFromDiv = document.getElementById('coVal').value;
+            console.log(valueFromDiv)
+            window.location.href = window.location.origin + "/ecommerce/web/orderDetails?coupon=" + valueFromDiv;
+        }
+
     </script>
 
 
     <!--================End Cart Area =================-->
 
     <!-- start footer Area -->
-    <footer class="footer-area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>About Us</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                            ut labore dolore
-                            magna aliqua.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Newsletter</h6>
-                        <p>Stay update with our latest</p>
-                        <div class="" id="mc_embed_signup">
-
-                            <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                method="get" class="form-inline">
-
-                                <div class="d-flex flex-row">
-
-                                    <input class="form-control" name="EMAIL" placeholder="Enter Email" onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter Email '" required="" type="email">
-
-
-                                    <button class="click-btn btn btn-default"><i class="fa fa-long-arrow-right"
-                                            aria-hidden="true"></i></button>
-                                    <div style="position: absolute; left: -5000px;">
-                                        <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value=""
-                                            type="text">
-                                    </div>
-
-                                    <!-- <div class="col-lg-4 col-md-4">
-													<button class="bb-btn btn"><span class="lnr lnr-arrow-right"></span></button>
-												</div>  -->
-                                </div>
-                                <div class="info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget mail-chimp">
-                        <h6 class="mb-20">Instragram Feed</h6>
-                        <ul class="instafeed d-flex flex-wrap">
-                            <li><img src="../assets/img/i1.jpg" alt=""></li>
-                            <li><img src="../assets/img/i2.jpg" alt=""></li>
-                            <li><img src="../assets/img/i3.jpg" alt=""></li>
-                            <li><img src="../assets/img/i4.jpg" alt=""></li>
-                            <li><img src="../assets/img/i5.jpg" alt=""></li>
-                            <li><img src="../assets/img/i6.jpg" alt=""></li>
-                            <li><img src="../assets/img/i7.jpg" alt=""></li>
-                            <li><img src="../assets/img/i8.jpg" alt=""></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6>Follow Us</h6>
-                        <p>Let us be social</p>
-                        <div class="footer-social d-flex align-items-center">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                <p class="footer-text m-0"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</p>
-            </div>
-        </div>
-    </footer>
+    <c:import url="footer.jsp" />
     <!-- End footer Area -->
 
 
     <script src="../assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	 crossorigin="anonymous"></script>
+<%--	 crossorigin="anonymous"></script>--%>
 	<script src="../assets/js/vendor/bootstrap.min.js"></script>
 	<script src="../assets/js/jquery.ajaxchimp.min.js"></script>
 	<script src="../assets/js/jquery.nice-select.min.js"></script>

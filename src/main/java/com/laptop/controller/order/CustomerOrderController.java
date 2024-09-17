@@ -1,6 +1,7 @@
 package com.laptop.controller.order;
 
 
+import com.laptop.dto.ErrorResponse;
 import com.laptop.dto.payment.PaymentDTO;
 import com.laptop.entity.Customer;
 import com.laptop.entity.Order;
@@ -19,30 +20,36 @@ import java.util.List;
 
 @WebServlet("/web/order")
 public class CustomerOrderController extends HttpServlet {
-    CustomerService customerService = new CustomerService();
-    OrderServiceImpl orderService = new OrderServiceImpl();
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerId = req.getParameter("customerId");
-        if (customerId != null && !customerId.isEmpty()) {
-            Customer customer = customerService.findById(Integer.parseInt(customerId));
-            if (customer != null) {
-                List<Order> orders = orderService.getOrdersbyCustomerId(customer.getId());
-                req.setAttribute("ordersHistory", orders);
-                req.getRequestDispatcher("orderHistory.jsp").forward(req, resp);
-            } else {
-                resp.getWriter().println("Customer not found");
-            }
-        } else {
-            resp.getWriter().println("Customer ID is required");
-        }
-    }
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        CustomerService customerService = new CustomerService();
+//        OrderServiceImpl orderService = new OrderServiceImpl();
+//        String customerId = req.getParameter("customerId");
+//        if (customerId != null && !customerId.isEmpty()) {
+//            Customer customer = customerService.findById(Integer.parseInt(customerId));
+//            if (customer != null) {
+//                List<Order> orders = orderService.getOrdersbyCustomerId(customer.getId());
+//                req.setAttribute("ordersHistory", orders);
+//                req.getRequestDispatcher("orderHistory.jsp").forward(req, resp);
+//            } else {
+//                resp.getWriter().println("Customer not found");
+//            }
+//        } else {
+//            resp.getWriter().println("Customer ID is required");
+//        }
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CustomerService customerService = new CustomerService();
+        OrderServiceImpl orderService = new OrderServiceImpl();
         HttpSession session = req.getSession();
         String customerId = session.getAttribute("customer-id").toString();
         String coupon = req.getParameter("coupon");
+        if (coupon == null) {
+            coupon = "";
+        }
+        System.out.println(coupon);
         if (customerId != null && !customerId.isEmpty()) {
             try {
                 Customer customer = customerService.findById(Integer.parseInt(customerId));
@@ -52,10 +59,13 @@ public class CustomerOrderController extends HttpServlet {
                         req.setAttribute("order", order);
                         PaymentDTO paymentDTO = new PaymentDTO(customer, order);
                         String paymentLink = PaymentService.generatePaymentLink(paymentDTO);
-                        req.setAttribute("paymentLink", paymentLink);
-                        req.getRequestDispatcher("checkout.jsp").forward(req, resp);
+                        resp.sendRedirect(paymentLink);
                     } else {
-                        resp.getWriter().write("Failed To Place Order");
+                        ErrorResponse errorResponse = new ErrorResponse();
+                        errorResponse.setMessage("Failed To Place Order");
+//                        req.setAttribute("errorResponse", errorResponse);
+                        session.setAttribute("errorResponse", errorResponse);
+                        doGet(req, resp);
                     }
                 } else {
                     resp.getWriter().write("Customer Not Found");
@@ -66,5 +76,11 @@ public class CustomerOrderController extends HttpServlet {
         } else {
             resp.getWriter().write("Customer ID is required");
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.getRequestDispatcher("cart").forward(req, resp);
+        resp.sendRedirect("cart");
     }
 }

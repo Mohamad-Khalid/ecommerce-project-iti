@@ -73,7 +73,7 @@ public class CustomerProfileController extends HttpServlet {
             }
             try {
                 customerService.update(customer);
-                resp.sendRedirect("profile.html");
+                resp.sendRedirect("profile.jsp");
             }
             catch (Exception e) {
                 resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
