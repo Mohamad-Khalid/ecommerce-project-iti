@@ -126,7 +126,7 @@
                                         }
                                         else{
                                             // Update the total price on success
-                                            $('#total-' + itemId).text(response.newTotal + ' EGP');
+                                            $('#total-' + itemId).text((Number.parseFloat(response.newTotal)/100).toFixed(2) + ' EGP');
                                             // Update the input field with the new quantity
                                             inputField.val(currentQuantity);
                                             calculateTotalPrice();
