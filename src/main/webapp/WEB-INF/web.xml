@@ -1,0 +1,59 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0"
+         metadata-complete="false">
+    <welcome-file-list>
+        <welcome-file>web/login.html</welcome-file>
+    </welcome-file-list>
+
+
+<!--    listeners   -->
+    <listener>
+        <listener-class>com.laptop.listener.ContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.laptop.listener.RequestListener</listener-class>
+    </listener>
+
+<!--    filters     -->
+    <filter-mapping>
+        <filter-name>redirection</filter-name>
+        <url-pattern>/</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>uriFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>refreshFilter</filter-name>
+        <url-pattern>/web/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>customerAuthFilterAsync</filter-name>
+        <url-pattern>/web/addCartItem</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/cart.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/cart</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/checkout</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>customerAuthFilter</filter-name>
+        <url-pattern>/web/checkout.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>adminAuthFilter</filter-name>
+        <url-pattern>/dashboard/*</url-pattern>
+    </filter-mapping>
+</web-app>

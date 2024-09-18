@@ -1,0 +1,10 @@
+.logo-container {
+  width: 200px;
+  height: 100px; /* Adjust as needed */
+}
+
+.logo-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Or cover, scale-down */
+}
