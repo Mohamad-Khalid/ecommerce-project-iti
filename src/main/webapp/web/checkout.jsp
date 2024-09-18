@@ -71,10 +71,24 @@
                                     </li>
                                 </c:forEach>
                             </ul>
-                            <ul class="list list_2">
-                                <li><a href="#">Total <span>EGP <fmt:formatNumber value="${totalPrice/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
-<%--                                <li><a href="#">Shipping <span>Flat rate: $50.00</span></a></li>--%>
-                            </ul>
+                            <c:choose>
+                            <c:when test="${not empty coupon}">
+                                <ul class="list list_2">
+                                    <li><a href="#">Subtotal <span>EGP <fmt:formatNumber value="${totalPrice/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
+                                </ul>
+                                <ul class="list list_2">
+                                    <li><a href="#">Discount(${coupon}) <span>EGP -<fmt:formatNumber value="${discount/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
+                                </ul>
+                                <ul class="list list_2">
+                                    <li><a href="#">Total <span>EGP <fmt:formatNumber value="${newTotalPrice/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
+                                </ul>
+                            </c:when>
+                            <c:otherwise>
+                                <ul class="list list_2">
+                                    <li><a href="#">Total <span>EGP <fmt:formatNumber value="${totalPrice/100}" type="number" minFractionDigits="2" maxFractionDigits="2"/></span></a></li>
+                                </ul>
+                            </c:otherwise>
+                            </c:choose>
                             <!-- Payment options -->
                             <form action="order" method="post">
                                 <input name="coupon" value="${coupon}" type="hidden" id="coVal" >

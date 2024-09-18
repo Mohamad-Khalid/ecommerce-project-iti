@@ -78,6 +78,11 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
             predicates.add(cb.lessThanOrEqualTo(product.<Integer>get("price"),
                     (Integer)filter.get("max-price")));
         }
+        if(filter.containsKey("name")){
+            predicates.add(cb.like(product.<String>get("name"),
+                    "%"+(String)filter.get(
+                            "name")+"%"));
+        }
         cq.where(predicates.toArray(new Predicate[0]));
         Query query =  em.createQuery(cq);
         query.setFirstResult((page - 1) * size);
@@ -136,6 +141,11 @@ public class ProductDAO extends GenericDAO<Product,Integer>{
         if(filter.containsKey("max-price")){
             predicates.add(cb.lessThanOrEqualTo(product.<Integer>get("price"),
                     (Integer)filter.get("max-price")));
+        }
+        if(filter.containsKey("name")){
+            predicates.add(cb.like(product.<String>get("name"),
+                    "%"+(String)filter.get(
+                            "name")+"%"));
         }
 
         Query query =

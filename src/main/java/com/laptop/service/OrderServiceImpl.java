@@ -3,6 +3,7 @@ package com.laptop.service;
 import com.laptop.dao.CouponDAO;
 import com.laptop.dao.OrderDAO;
 import com.laptop.dao.OrderItemDAO;
+import com.laptop.dto.ErrorResponse;
 import com.laptop.entity.*;
 import com.laptop.enums.OrderState;
 
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
             return orderDAO.saveOrder(order, orderItems);
         } else {
             System.out.println("No Enough Stock for " + product.getName());
-            return null;
+            throw new RuntimeException("No Enough Stock for " + product.getName());
         }
     }
 

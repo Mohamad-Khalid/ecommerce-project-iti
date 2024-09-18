@@ -16,10 +16,32 @@
 <body>
 
 <c:import url="admin-header.jsp" />
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="search_input" id="search_input_box">
+    <div class="container">
+        <form class="d-flex justify-content-between" action="products" method="get">
+            <input
+                    type="text"
+                    class="form-control"
+                    id="search_input"
+                    placeholder="Search Here"
+                    name="name"
+            />
+            <button type="submit" class="btn"></button>
+            <span
+                    class="lnr lnr-cross"
+                    id="close_search"
+                    title="Close Search"
+            ></span>
+        </form>
+    </div>
+</div>
 
 <section class="container section_gap">
-    <br>
-    <br>
     <span><h3 style="display: inline-block">Product List</h3> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <button class="btn btn-success" onclick="window.location.href='/ecommerce/dashboard/add-product.jsp'">Add Product</button>
     </span>
@@ -56,19 +78,19 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li class="page-item ${page == 1 ? 'disabled' : ''}">
-                <a class="page-link" href="?page=${page - 1}" aria-label="Previous">
+                <button class="page-link" onclick="redirect(${page - 1})"  aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
-                </a>
+                </button>
             </li>
             <c:forEach begin="1" end="${totalPages}" var="i">
                 <li class="page-item ${page == i ? 'active' : ''}">
-                    <a class="page-link" href="?page=${i}">${i}</a>
+                    <button class="page-link" onclick="redirect(${i})">${i}</button>
                 </li>
             </c:forEach>
             <li class="page-item ${page == totalPages ? 'disabled' : ''}">
-                <a class="page-link" href="?page=${page + 1}" aria-label="Next">
+                <button class="page-link" onclick="redirect(${page + 1})" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                </a>
+                </button>
             </li>
         </ul>
     </nav>
@@ -96,6 +118,12 @@
                 alert('Failed to delete the product');
             }
         });
+    }
+    function redirect(pageNum){
+        const urlParams = new URLSearchParams(window.location.search);
+        let name =  urlParams.get("name");
+        if(name == null)window.location.href = window.location.origin + window.location.pathname + "?page="+pageNum;
+        else window.location.href = window.location.origin + window.location.pathname + "?page="+pageNum+"&name="+name;
     }
 </script>
 

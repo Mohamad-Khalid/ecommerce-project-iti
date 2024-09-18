@@ -97,10 +97,10 @@
 
 .gradient-bg-reverse,
 #search_input_box {
-  background: -webkit-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
-  background: -moz-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
-  background: -o-linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
-  background: linear-gradient(270deg, #ffba00 0%, #ff6c00 100%);
+  background: -webkit-linear-gradient(270deg, #231d57 0%, #345681 100%);
+  background: -moz-linear-gradient(270deg, #231d57 0%, #345681 100%);
+  background: -o-linear-gradient(270deg, #231d57 0%, #345681 100%);
+  background: linear-gradient(270deg, #231d57 0%, #345681 100%);
 }
 
 .gradient-color,
@@ -1440,7 +1440,7 @@ h6 {
 }
 
 #search_input_box {
-  position: fixed;
+  position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
