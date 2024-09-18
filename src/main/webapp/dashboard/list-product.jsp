@@ -21,7 +21,7 @@
 <br>
 <br>
 <br>
-<div class="search_input" id="search_input_box">
+<div class="search_input" id="search_input_box" style="z-index: -1">
     <div class="container">
         <form class="d-flex justify-content-between" action="products" method="get">
             <input

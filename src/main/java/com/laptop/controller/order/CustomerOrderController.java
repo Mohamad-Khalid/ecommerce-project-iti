@@ -54,7 +54,6 @@ public class CustomerOrderController extends HttpServlet {
             try {
                 Customer customer = customerService.findById(Integer.parseInt(customerId));
                 if (customer != null) {
-
                     try {
                         Order order = orderService.addOrder(customer, coupon);
                         if (order != null) {

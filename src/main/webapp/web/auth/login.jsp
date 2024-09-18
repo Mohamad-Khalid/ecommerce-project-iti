@@ -43,7 +43,7 @@
 					<!-- Brand and toggle get grouped for better mobile display -->
 
 					<div class="logo-container">
-						<a class="navbar-brand logo_h" href="index.jsp"
+						<a class="navbar-brand logo_h" href="../index.jsp"
 						><img src="../../assets/img/electro-logo.png" alt="" class="logo-image"
 						/></a>
 					</div>
@@ -129,7 +129,7 @@
 						<div class="hover">
 							<h4>New to our website?</h4>
 							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" href="registration.html">Create an Account</a>
+							<a class="primary-btn" href="registration.jsp">Create an Account</a>
 						</div>
 					</div>
 				</div>
