@@ -4,6 +4,8 @@ import com.laptop.dao.CouponDAO;
 import com.laptop.entity.Coupon;
 import com.laptop.entity.Order;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CouponServiceImpl implements CouponService {
@@ -46,5 +48,24 @@ public class CouponServiceImpl implements CouponService {
         Coupon c = couponDAO.findByName(couponName);
         List<Order> orders = c.getOrders().stream().toList();
         return orders;
+    }
+
+    public List<Integer> getCouponInfo(String couponName){
+        Coupon coupon = couponDAO.findByName(couponName);
+        List<Integer> info = new ArrayList<>();
+        info.add(coupon.getPercentage());
+        info.add(coupon.getLimitPayment());
+        return info;
+    }
+
+    public boolean validateCoupon(String couponName){
+        Coupon coupon = couponDAO.findByName(couponName);
+        if (coupon != null){
+            if(coupon.getEndDate().before(new Date())) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }

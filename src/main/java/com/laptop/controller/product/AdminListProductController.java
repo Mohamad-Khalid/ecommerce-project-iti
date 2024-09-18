@@ -41,6 +41,10 @@ public class AdminListProductController extends HttpServlet {
         }
 
         // Processor (String)
+        String name = req.getParameter("name");
+        if (name != null) {
+            filter.put("name", name);
+        }
         String processor = req.getParameter("processor");
         if (processor != null) {
             filter.put("processor", processor);

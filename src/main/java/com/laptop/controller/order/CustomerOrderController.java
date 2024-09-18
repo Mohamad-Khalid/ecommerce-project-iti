@@ -54,16 +54,23 @@ public class CustomerOrderController extends HttpServlet {
             try {
                 Customer customer = customerService.findById(Integer.parseInt(customerId));
                 if (customer != null) {
-                    Order order = orderService.addOrder(customer, coupon);
-                    if (order != null) {
-                        req.setAttribute("order", order);
-                        PaymentDTO paymentDTO = new PaymentDTO(customer, order);
-                        String paymentLink = PaymentService.generatePaymentLink(paymentDTO);
-                        resp.sendRedirect(paymentLink);
-                    } else {
+
+                    try {
+                        Order order = orderService.addOrder(customer, coupon);
+                        if (order != null) {
+                            req.setAttribute("order", order);
+                            PaymentDTO paymentDTO = new PaymentDTO(customer, order);
+                            String paymentLink = PaymentService.generatePaymentLink(paymentDTO);
+                            resp.sendRedirect(paymentLink);
+                        } else {
+                            ErrorResponse errorResponse = new ErrorResponse();
+                            errorResponse.setMessage("No enough stock");
+                            session.setAttribute("errorResponse", errorResponse);
+                            doGet(req, resp);
+                        }
+                    } catch (RuntimeException e) {
                         ErrorResponse errorResponse = new ErrorResponse();
-                        errorResponse.setMessage("Failed To Place Order");
-//                        req.setAttribute("errorResponse", errorResponse);
+                        errorResponse.setMessage(e.getMessage());
                         session.setAttribute("errorResponse", errorResponse);
                         doGet(req, resp);
                     }

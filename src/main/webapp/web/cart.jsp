@@ -263,6 +263,10 @@
                             </tr>
                             <tr class="out_button_area">
                                 <td>
+                                    <c:if test = "${errorResponse!=null}">
+                                        <div id="loginError" class="text-danger"><h5 class="text-danger">${errorResponse.message}</h5></div>
+                                        <c:remove var="errorResponse" scope="session"/>
+                                    </c:if>
 
                                 </td>
                                 <td>
@@ -289,10 +293,10 @@
 <!--                                        <a class="primary-btn" href="#">Proceed to checkout</a>-->
                                         <form action="orderDetails" method="get" id="coForm">
                                             <input type="hidden" name="coupon" id="hiddenValue">
-                                            <c:if test = "${errorResponse!=null}">
-                                                <div id="loginError" class="text-danger">${errorResponse.message}</div>
-                                                <c:remove var="errorResponse" scope="session"/>
-                                            </c:if>
+<%--                                            <c:if test = "${errorResponse!=null}">--%>
+<%--                                                <div id="loginError" class="text-danger">${errorResponse.message}</div>--%>
+<%--                                                <c:remove var="errorResponse" scope="session"/>--%>
+<%--                                            </c:if>--%>
 <%--                                            <!--  <input type="submit" class="primary-btn" value="Proceed to checkout"></input>-->--%>
                                             <c:choose>
                                                 <c:when test="${not empty cartItems}">
